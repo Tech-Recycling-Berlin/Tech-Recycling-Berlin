@@ -23,6 +23,11 @@
     });
   }
 
+  // ---------- Auto-apply stagger to service/process grids (must run before observer) ----------
+  document.querySelectorAll('.services-grid, .process-grid, .testimonials-grid, .stats-band, .trust-bar__items, .hero__trust').forEach(function (g) {
+    if (!g.classList.contains('stagger')) g.classList.add('stagger');
+  });
+
   // ---------- Reveal on scroll (with stagger) ----------
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver(function (entries) {
@@ -38,13 +43,24 @@
     document.querySelectorAll('.reveal, .stagger').forEach(function (el) { el.classList.add('is-visible'); });
   }
 
-  // ---------- Auto-apply stagger to service/process grids ----------
-  document.querySelectorAll('.services-grid, .process-grid, .testimonials-grid, .stats-band, .trust-bar__items, .hero__trust').forEach(function (g) {
-    if (!g.classList.contains('stagger')) g.classList.add('stagger');
+  // ---------- Safety fallback: if a .stagger is already in view on load, reveal it ----------
+  requestAnimationFrame(function () {
+    document.querySelectorAll('.stagger:not(.is-visible)').forEach(function (el) {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('is-visible');
+    });
   });
 
   // ---------- Header scroll effect + scroll progress ----------
   const header = document.querySelector('.site-header');
+  function syncHeaderHeight() {
+    if (!header) return;
+    const h = header.offsetHeight;
+    if (h) document.documentElement.style.setProperty('--header-h', h + 'px');
+  }
+  syncHeaderHeight();
+  window.addEventListener('resize', syncHeaderHeight);
+  window.addEventListener('load', syncHeaderHeight);
   const progressBar = document.createElement('div');
   progressBar.className = 'scroll-progress';
   document.body.appendChild(progressBar);

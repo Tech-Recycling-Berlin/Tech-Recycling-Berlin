@@ -242,8 +242,9 @@ body::before {
   transition: transform .25s var(--ease-spring);
 }
 .brand:hover { color: var(--ink); transform: scale(1.03); }
-.brand img { width: 40px; height: 40px; object-fit: contain; transition: transform .5s var(--ease-out); }
+.brand img { width: 56px; height: 56px; object-fit: contain; transition: transform .5s var(--ease-out); }
 .brand:hover img { transform: rotate(-8deg); }
+.site-header.is-scrolled .brand img { width: 48px; height: 48px; }
 
 .nav { display: flex; align-items: center; gap: 2rem; }
 .nav > a, .nav-has-sub > a {
@@ -384,14 +385,25 @@ body::before {
   .mobile-nav.is-open { display: block; }
 }
 
+@media (max-width: 640px) {
+  .site-header__inner { padding: .55rem 0; gap: .75rem; }
+  .site-header.is-scrolled .site-header__inner { padding: .45rem 0; }
+  .brand img { width: 48px; height: 48px; }
+  .site-header.is-scrolled .brand img { width: 42px; height: 42px; }
+  .header-actions { gap: .5rem; }
+  .lang-switch { font-size: .72rem; padding: .2rem; }
+  .lang-switch a { padding: .3rem .55rem; }
+  .menu-toggle { width: 42px; height: 42px; }
+}
+
 .mobile-nav {
   display: none;
   position: fixed;
-  inset: 64px 0 0 0;
+  inset: var(--header-h, 72px) 0 0 0;
   background: #fff;
   z-index: 49;
   overflow-y: auto;
-  padding: 2rem var(--gutter) 4rem;
+  padding: 1.75rem var(--gutter) 4rem;
   border-top: 1px solid var(--line);
   animation: mobileNavIn .35s var(--ease-out);
 }
@@ -402,11 +414,16 @@ body::before {
 .mobile-nav a {
   display: block;
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 600;
-  padding: 1rem 0;
+  padding: .9rem 0;
   border-bottom: 1px solid var(--line);
   animation: mobileNavItem .5s var(--ease-out) backwards;
+}
+@media (max-width: 640px) {
+  .mobile-nav a { font-size: 1.05rem; padding: .8rem 0; }
+  .mobile-nav .sub-group > span { padding: 1.1rem 0 .35rem; }
+  .mobile-nav .mobile-cta { margin-top: 1.5rem; }
 }
 .mobile-nav a:nth-child(1) { animation-delay: .05s; }
 .mobile-nav a:nth-child(2) { animation-delay: .08s; }
