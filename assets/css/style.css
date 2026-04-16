@@ -242,9 +242,9 @@ body::before {
   transition: transform .25s var(--ease-spring);
 }
 .brand:hover { color: var(--ink); transform: scale(1.03); }
-.brand img { width: 56px; height: 56px; object-fit: contain; transition: transform .5s var(--ease-out); }
+.brand img { width: 84px; height: 84px; object-fit: contain; transition: width .3s var(--ease-out), height .3s var(--ease-out), transform .5s var(--ease-out); }
 .brand:hover img { transform: rotate(-8deg); }
-.site-header.is-scrolled .brand img { width: 48px; height: 48px; }
+.site-header.is-scrolled .brand img { width: 64px; height: 64px; }
 
 .nav { display: flex; align-items: center; gap: 2rem; }
 .nav > a, .nav-has-sub > a {
@@ -386,11 +386,11 @@ body::before {
 }
 
 @media (max-width: 640px) {
-  .site-header__inner { padding: .55rem 0; gap: .75rem; }
-  .site-header.is-scrolled .site-header__inner { padding: .45rem 0; }
-  .brand img { width: 48px; height: 48px; }
-  .site-header.is-scrolled .brand img { width: 42px; height: 42px; }
-  .header-actions { gap: .5rem; }
+  .site-header__inner { padding: .5rem 0; gap: .5rem; }
+  .site-header.is-scrolled .site-header__inner { padding: .4rem 0; }
+  .brand img { width: 64px; height: 64px; }
+  .site-header.is-scrolled .brand img { width: 54px; height: 54px; }
+  .header-actions { gap: .4rem; }
   .lang-switch { font-size: .72rem; padding: .2rem; }
   .lang-switch a { padding: .3rem .55rem; }
   .menu-toggle { width: 42px; height: 42px; }
