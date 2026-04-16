@@ -1491,25 +1491,7 @@ body::before {
 
 /* ---------- Extra animations v3 ---------- */
 
-/* Ambient shimmer on primary CTA — runs periodically, not only on hover */
-.btn--primary::after {
-  content: "";
-  position: absolute;
-  top: 0; bottom: 0;
-  left: -60%;
-  width: 45%;
-  background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,.55) 50%, transparent 100%);
-  transform: skewX(-18deg);
-  animation: btn-shine 4.2s var(--ease-out) 2s infinite;
-  pointer-events: none;
-  z-index: -1;
-}
-@keyframes btn-shine {
-  0%   { left: -60%; opacity: 0; }
-  8%   { opacity: .85; }
-  45%  { left: 120%; opacity: 0; }
-  100% { left: 120%; opacity: 0; }
-}
+/* (Ambient CTA shimmer removed — hover-only shine on .btn::before kept.) */
 
 /* Hero headline: cascade fade/rise per word (wrapped by JS) */
 .hero h1 .w, .hero__eyebrow .w {
@@ -1600,25 +1582,7 @@ body::before {
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* Process-step connector line (desktop) */
-@media (min-width: 960px) {
-  .process-grid { position: relative; }
-  .process-grid::before {
-    content: "";
-    position: absolute;
-    top: 90px;
-    left: 8%;
-    right: 8%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent 0%, var(--green-light) 15%, var(--green) 50%, var(--green-light) 85%, transparent 100%);
-    z-index: 0;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 1.6s var(--ease-out);
-  }
-  .process-grid.is-visible::before { transform: scaleX(1); }
-  .process-step { position: relative; z-index: 1; }
-}
+/* (Process-grid connector line removed — steps stand on their own.) */
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
