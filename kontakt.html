@@ -118,7 +118,9 @@
         </div>
       </div>
 
-      <form class="form reveal" action="sendemail.php" method="POST" data-contact>
+      <form class="form reveal" action="/api/sendemail" method="POST" data-contact>
+        <input type="hidden" name="lang" value="de">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true">
         <h3 style="margin-top:0">Angebot anfragen</h3>
         <p style="color:var(--muted);font-size:.92rem;margin-bottom:1.5rem">Beschreiben Sie kurz Ihr Anliegen — wir melden uns innerhalb von 24 Stunden mit einem individuellen Angebot.</p>
 

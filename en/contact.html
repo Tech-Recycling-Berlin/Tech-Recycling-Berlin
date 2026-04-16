@@ -118,7 +118,9 @@
         </div>
       </div>
 
-      <form class="form reveal" action="../en/sendemail.php" method="POST" data-contact>
+      <form class="form reveal" action="/api/sendemail" method="POST" data-contact>
+        <input type="hidden" name="lang" value="en">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true">
         <h3 style="margin-top:0">Request a quote</h3>
         <p style="color:var(--muted);font-size:.92rem;margin-bottom:1.5rem">Briefly describe your project — we'll reply within 24 hours with a tailored offer.</p>
 

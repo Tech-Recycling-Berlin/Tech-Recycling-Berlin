@@ -1,0 +1,9 @@
+{
+  "name": "techrecycling-berlin",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static site + contact-form serverless function (Vercel)",
+  "engines": {
+    "node": ">=18"
+  }
+}
