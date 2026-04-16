@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+Disallow: /vendor/
+Disallow: /logs/
+Disallow: /sendemail.php
+
+# AI crawlers are welcome; see /llms.txt for a machine-readable summary
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://techrecycling-berlin.com/sitemap.xml

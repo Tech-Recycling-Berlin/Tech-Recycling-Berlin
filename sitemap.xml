@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- German pages -->
+  <url>
+    <loc>https://techrecycling-berlin.com/</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://techrecycling-berlin.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://techrecycling-berlin.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://techrecycling-berlin.com/"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://techrecycling-berlin.com/sichere-datenloeschung.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://techrecycling-berlin.com/sichere-datenloeschung.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://techrecycling-berlin.com/en/secure-data-erasure.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://techrecycling-berlin.com/it-ankauf.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://techrecycling-berlin.com/it-ankauf.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://techrecycling-berlin.com/en/it-buyback.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://techrecycling-berlin.com/it-recycling.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://techrecycling-berlin.com/it-recycling.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://techrecycling-berlin.com/en/it-recycling.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://techrecycling-berlin.com/festplattenvernichtung.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://techrecycling-berlin.com/festplattenvernichtung.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://techrecycling-berlin.com/en/hard-drive-destruction.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://techrecycling-berlin.com/server-entsorgung.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://techrecycling-berlin.com/server-entsorgung.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://techrecycling-berlin.com/en/server-disposal.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://techrecycling-berlin.com/datenrettung.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://techrecycling-berlin.com/datenrettung.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://techrecycling-berlin.com/en/data-recovery.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://techrecycling-berlin.com/ueber-uns.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://techrecycling-berlin.com/ueber-uns.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://techrecycling-berlin.com/en/about.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://techrecycling-berlin.com/faq.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://techrecycling-berlin.com/faq.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://techrecycling-berlin.com/en/faq.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://techrecycling-berlin.com/kontakt.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://techrecycling-berlin.com/kontakt.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://techrecycling-berlin.com/en/contact.html"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://techrecycling-berlin.com/impressum.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://techrecycling-berlin.com/datenschutz.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://techrecycling-berlin.com/agb.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- English pages -->
+  <url>
+    <loc>https://techrecycling-berlin.com/en/</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://techrecycling-berlin.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://techrecycling-berlin.com/en/"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://techrecycling-berlin.com/en/secure-data-erasure.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://techrecycling-berlin.com/sichere-datenloeschung.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://techrecycling-berlin.com/en/secure-data-erasure.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://techrecycling-berlin.com/en/it-buyback.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://techrecycling-berlin.com/it-ankauf.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://techrecycling-berlin.com/en/it-buyback.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://techrecycling-berlin.com/en/it-recycling.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://techrecycling-berlin.com/it-recycling.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://techrecycling-berlin.com/en/it-recycling.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://techrecycling-berlin.com/en/hard-drive-destruction.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://techrecycling-berlin.com/festplattenvernichtung.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://techrecycling-berlin.com/en/hard-drive-destruction.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://techrecycling-berlin.com/en/server-disposal.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://techrecycling-berlin.com/server-entsorgung.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://techrecycling-berlin.com/en/server-disposal.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://techrecycling-berlin.com/en/data-recovery.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://techrecycling-berlin.com/datenrettung.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://techrecycling-berlin.com/en/data-recovery.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://techrecycling-berlin.com/en/about.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://techrecycling-berlin.com/en/faq.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://techrecycling-berlin.com/en/contact.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://techrecycling-berlin.com/en/imprint.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://techrecycling-berlin.com/en/privacy.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://techrecycling-berlin.com/en/terms.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+</urlset>

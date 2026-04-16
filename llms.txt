@@ -1,0 +1,55 @@
+# Tech Recycling Berlin
+
+> Certified IT disposal, GDPR-compliant data erasure, and sustainable IT recycling for companies, authorities, and institutions in Berlin and across Germany. Pickup, destruction, remarketing and recycling — all from a single, accredited provider, with legally valid certificates and full chain-of-custody.
+
+Tech Recycling Berlin (Keithstraße 15, 10787 Berlin, Germany) is an accredited waste-disposal specialist (Entsorgungsfachbetrieb per EfbV / ElektroG) offering end-to-end IT Asset Disposition (ITAD) services. All data erasure follows BSI and DIN 66399 standards; every job is documented with an audit-ready certificate. The company serves roughly 500 business clients and recycles over 50 tonnes of hardware annually with a > 98 % material-recovery rate.
+
+## Contact
+- Phone: +49 155 66044719
+- Email: info@techrecycling-berlin.com
+- Address: Keithstraße 15, 10787 Berlin, Germany
+- Hours: Mon–Thu 09:00–18:00, Fri 10:00–16:00
+- LinkedIn: https://www.linkedin.com/company/91155082/
+- Instagram: https://www.instagram.com/techrecyclingberlin/
+
+## Core services (Deutsch)
+- [Sichere Datenlöschung](https://techrecycling-berlin.com/sichere-datenloeschung.html): DSGVO-konforme Datenvernichtung nach BSI- und DIN 66399-Standards mit Löschzertifikat.
+- [IT-Ankauf & Remarketing](https://techrecycling-berlin.com/it-ankauf.html): Marktgerechter Ankauf werthaltiger Hardware nach zertifizierter Datenlöschung.
+- [IT Recycling](https://techrecycling-berlin.com/it-recycling.html): Fachgerechtes Recycling nach ElektroG; >98 % Rohstoffrückführung.
+- [Festplattenvernichtung](https://techrecycling-berlin.com/festplattenvernichtung.html): Physische HDD-/SSD-Zerstörung vor Ort oder im Hochsicherheitsverfahren.
+- [Server-Entsorgung](https://techrecycling-berlin.com/server-entsorgung.html): Abbau, Transport und Entsorgung ganzer Serverräume und Rechenzentren.
+- [Datenrettung](https://techrecycling-berlin.com/datenrettung.html): Wiederherstellung verlorener Daten im zertifizierten Reinraumlabor.
+
+## Core services (English)
+- [Secure Data Erasure](https://techrecycling-berlin.com/en/secure-data-erasure.html): GDPR-compliant data destruction per BSI and DIN 66399 with a legally valid erasure certificate.
+- [IT Buyback & Remarketing](https://techrecycling-berlin.com/en/it-buyback.html): Market-fair buyback of high-value hardware after certified erasure.
+- [IT Recycling](https://techrecycling-berlin.com/en/it-recycling.html): Professional e-waste recycling per ElektroG / WEEE; > 98 % material recovery.
+- [Hard Drive Destruction](https://techrecycling-berlin.com/en/hard-drive-destruction.html): Physical HDD/SSD destruction on-site or in our high-security facility.
+- [Server Disposal](https://techrecycling-berlin.com/en/server-disposal.html): Dismantling, transport and disposal of server rooms and data centres.
+- [Data Recovery](https://techrecycling-berlin.com/en/data-recovery.html): Recovery of lost data in our certified cleanroom lab.
+
+## Key pages
+- [Home (DE)](https://techrecycling-berlin.com/)
+- [Home (EN)](https://techrecycling-berlin.com/en/)
+- [About / Über uns](https://techrecycling-berlin.com/ueber-uns.html)
+- [FAQ (DE)](https://techrecycling-berlin.com/faq.html)
+- [FAQ (EN)](https://techrecycling-berlin.com/en/faq.html)
+- [Contact / Kontakt](https://techrecycling-berlin.com/kontakt.html)
+
+## Certifications & standards
+- Certified waste-disposal operator (Entsorgungsfachbetrieb per EfbV)
+- Compliant with German ElektroG / EU WEEE Directive 2012/19/EU
+- Data erasure per BSI (Bundesamt für Sicherheit in der Informationstechnik) and DIN 66399
+- GDPR / EU-DSGVO compliant processes
+- Chain-of-custody documentation for every pickup
+
+## Typical customers
+Mid-size and enterprise companies, data centres, public authorities, banks, law firms, hospitals, universities, and start-ups in Berlin and Brandenburg, plus nationwide pickups across Germany.
+
+## Quote & response times
+Non-binding quote within 24 hours by phone, email, or the website form. Same-day response for urgent decommissioning projects. Free pickup within Berlin and the greater Berlin-Brandenburg area.
+
+## Legal
+- [Impressum](https://techrecycling-berlin.com/impressum.html)
+- [Datenschutz](https://techrecycling-berlin.com/datenschutz.html)
+- [AGB](https://techrecycling-berlin.com/agb.html)

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Tech Recycling Berlin — sichere IT-Entsorgung &amp; Datenvernichtung">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f1a0d"/>
+      <stop offset="60%" stop-color="#132617"/>
+      <stop offset="100%" stop-color="#1a3a1f"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3A9E1E"/>
+      <stop offset="100%" stop-color="#86d63d"/>
+    </linearGradient>
+    <linearGradient id="lime" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e8f23a"/>
+      <stop offset="100%" stop-color="#bfd620"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.85" cy="0.2" r="0.7">
+      <stop offset="0%" stop-color="#3A9E1E" stop-opacity=".45"/>
+      <stop offset="100%" stop-color="#3A9E1E" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Logo mark: recycle arrows + shield -->
+  <g transform="translate(80,80)">
+    <g transform="translate(0,0) scale(1.2)">
+      <circle cx="28" cy="28" r="26" fill="url(#accent)"/>
+      <path d="M18 22l10-10 10 10M28 12v22M20 38h16" stroke="#0f1a0d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </g>
+    <text x="80" y="38" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="28" fill="#ffffff" letter-spacing="-0.5">Tech Recycling Berlin</text>
+    <text x="80" y="62" font-family="Inter, Arial, sans-serif" font-weight="500" font-size="16" fill="#86d63d" letter-spacing="2">ZERTIFIZIERTE IT-ENTSORGUNG</text>
+  </g>
+
+  <!-- Main headline -->
+  <g transform="translate(80,210)">
+    <text font-family="Inter, Arial, sans-serif" font-weight="800" font-size="82" fill="#ffffff" letter-spacing="-2">
+      <tspan x="0" dy="0">Sichere IT-Entsorgung</tspan>
+      <tspan x="0" dy="92">&amp; </tspan><tspan fill="url(#accent)">Datenvernichtung</tspan>
+    </text>
+    <text x="0" y="230" font-family="Inter, Arial, sans-serif" font-weight="500" font-size="26" fill="#b6c1b1">
+      DSGVO · BSI · DIN 66399 · Berlin &amp; deutschlandweit
+    </text>
+  </g>
+
+  <!-- Right side: isometric illustration -->
+  <g transform="translate(800,140)">
+    <!-- Server rack -->
+    <g>
+      <rect x="0" y="0" width="260" height="320" rx="12" fill="#1e2f1b" stroke="url(#accent)" stroke-width="2"/>
+      <rect x="20" y="20" width="220" height="44" rx="4" fill="#0f1a0d"/>
+      <circle cx="40" cy="42" r="4" fill="#86d63d"/>
+      <circle cx="60" cy="42" r="4" fill="#86d63d"/>
+      <rect x="90" y="36" width="130" height="12" rx="2" fill="#2a3d27"/>
+
+      <rect x="20" y="76" width="220" height="44" rx="4" fill="#0f1a0d"/>
+      <circle cx="40" cy="98" r="4" fill="#e8f23a"/>
+      <circle cx="60" cy="98" r="4" fill="#86d63d"/>
+      <rect x="90" y="92" width="130" height="12" rx="2" fill="#2a3d27"/>
+
+      <rect x="20" y="132" width="220" height="44" rx="4" fill="#0f1a0d"/>
+      <circle cx="40" cy="154" r="4" fill="#86d63d"/>
+      <circle cx="60" cy="154" r="4" fill="#86d63d"/>
+      <rect x="90" y="148" width="130" height="12" rx="2" fill="#2a3d27"/>
+
+      <rect x="20" y="188" width="220" height="44" rx="4" fill="#0f1a0d"/>
+      <circle cx="40" cy="210" r="4" fill="#86d63d"/>
+      <circle cx="60" cy="210" r="4" fill="#86d63d"/>
+      <rect x="90" y="204" width="130" height="12" rx="2" fill="#2a3d27"/>
+
+      <rect x="20" y="244" width="220" height="60" rx="4" fill="#0f1a0d"/>
+      <rect x="40" y="264" width="180" height="20" rx="2" fill="#1a3a1f"/>
+    </g>
+    <!-- Shield badge -->
+    <g transform="translate(180,-10)">
+      <path d="M50 0 L100 18 V55 C100 78 78 96 50 106 C22 96 0 78 0 55 V18 Z" fill="url(#lime)" stroke="#0f1a0d" stroke-width="3"/>
+      <path d="M28 52 L45 68 L75 36" stroke="#0f1a0d" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </g>
+  </g>
+
+  <!-- Bottom bar with URL + chips -->
+  <g transform="translate(80,540)">
+    <g font-family="Inter, Arial, sans-serif" font-weight="600" font-size="18" fill="#0f1a0d">
+      <rect x="0" y="0" width="168" height="42" rx="21" fill="url(#accent)"/>
+      <text x="84" y="28" text-anchor="middle">DSGVO-konform</text>
+
+      <rect x="184" y="0" width="170" height="42" rx="21" fill="url(#lime)"/>
+      <text x="269" y="28" text-anchor="middle">BSI-Standard</text>
+
+      <rect x="370" y="0" width="180" height="42" rx="21" fill="#ffffff"/>
+      <text x="460" y="28" text-anchor="middle">98% Recyclingquote</text>
+    </g>
+    <text x="1040" y="28" text-anchor="end" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="22" fill="#ffffff">techrecycling-berlin.com</text>
+  </g>
+</svg>
