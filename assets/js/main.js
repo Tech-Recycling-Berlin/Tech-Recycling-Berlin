@@ -225,4 +225,57 @@
   // ---------- Year injection (fallback) ----------
   const yearEls = document.querySelectorAll('#year, [data-year]');
   yearEls.forEach(function (el) { el.textContent = new Date().getFullYear(); });
+
+  // ---------- Hero headline word-reveal ----------
+  if (!prefersReducedMotion) {
+    document.querySelectorAll('.hero h1, .hero .eyebrow').forEach(function (el) {
+      if (el.dataset.split === '1') return;
+      el.dataset.split = '1';
+      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+      const texts = [];
+      let n; while ((n = walker.nextNode())) texts.push(n);
+      let idx = 0;
+      texts.forEach(function (node) {
+        const parts = node.nodeValue.split(/(\s+)/);
+        const frag = document.createDocumentFragment();
+        parts.forEach(function (p) {
+          if (/^\s+$/.test(p) || p === '') { frag.appendChild(document.createTextNode(p)); return; }
+          const span = document.createElement('span');
+          span.className = 'w';
+          span.style.setProperty('--i', idx++);
+          span.textContent = p;
+          frag.appendChild(span);
+        });
+        node.parentNode.replaceChild(frag, node);
+      });
+    });
+  }
+
+  // ---------- Magnetic primary CTAs ----------
+  if (!prefersReducedMotion && window.matchMedia('(pointer: fine)').matches) {
+    document.querySelectorAll('.btn--primary').forEach(function (btn) {
+      const strength = 12; // px max pull
+      btn.addEventListener('mouseenter', function () { btn.classList.add('is-magnetic'); });
+      btn.addEventListener('mousemove', function (e) {
+        const r = btn.getBoundingClientRect();
+        const dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
+        const dy = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
+        btn.style.transform = 'translate(' + (dx * strength).toFixed(1) + 'px,' + (dy * strength - 2).toFixed(1) + 'px)';
+      });
+      btn.addEventListener('mouseleave', function () {
+        btn.classList.remove('is-magnetic');
+        btn.style.transform = '';
+      });
+    });
+  }
+
+  // ---------- Process-grid reveal trigger (line-draw) ----------
+  if ('IntersectionObserver' in window) {
+    const pgIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); pgIO.unobserve(e.target); }
+      });
+    }, { threshold: 0.25 });
+    document.querySelectorAll('.process-grid, .industries-strip').forEach(function (g) { pgIO.observe(g); });
+  }
 })();
