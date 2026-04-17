@@ -1714,8 +1714,7 @@ body::before {
   background: linear-gradient(
     110deg,
     transparent 0%,
-    rgba(255, 255, 255, .55) 45%,
-    rgba(232, 242, 58, .35) 55%,
+    rgba(255, 255, 255, .45) 50%,
     transparent 100%
   );
   transform: translateX(-60%) skewX(-18deg);
