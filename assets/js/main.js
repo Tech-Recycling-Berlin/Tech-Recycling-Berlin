@@ -400,4 +400,101 @@
     }, { threshold: 0.35 });
     fcIO.observe(featureCard);
   }
+
+  // ---------- Value Calculator ----------
+  const calc = document.querySelector('[data-calc]');
+  if (calc) {
+    const valueEl = calc.querySelector('[data-calc-value]');
+    const breakdownEl = calc.querySelector('[data-calc-breakdown]');
+    const inputs = calc.querySelectorAll('input[type="range"]');
+    const formatter = new Intl.NumberFormat('de-DE');
+
+    function easeDisplay(from, to, el) {
+      if (prefersReducedMotion) { el.textContent = formatter.format(Math.round(to)); return; }
+      const duration = 380;
+      const start = performance.now();
+      function step(now) {
+        const t = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = formatter.format(Math.round(from + (to - from) * eased));
+        if (t < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    let lastValue = 0;
+    function update(triggered) {
+      let total = 0;
+      const parts = [];
+      inputs.forEach(function (input) {
+        const count = parseInt(input.value, 10) || 0;
+        const price = parseFloat(input.getAttribute('data-price')) || 0;
+        const label = input.getAttribute('data-label') || '';
+        const fill = ((count - input.min) / (input.max - input.min)) * 100;
+        input.style.setProperty('--fill', fill + '%');
+        const out = document.querySelector('output[for="' + input.id + '"]');
+        if (out) out.textContent = count;
+        if (count > 0) {
+          const sub = count * price;
+          total += sub;
+          parts.push({ label: label, count: count, sub: sub });
+        }
+      });
+
+      easeDisplay(lastValue, total, valueEl);
+      lastValue = total;
+
+      if (triggered && !prefersReducedMotion) {
+        valueEl.classList.remove('is-bump');
+        // force reflow to restart animation
+        void valueEl.offsetWidth;
+        valueEl.classList.add('is-bump');
+      }
+
+      // Rebuild breakdown
+      breakdownEl.innerHTML = '';
+      if (!parts.length) {
+        const li = document.createElement('li');
+        li.className = 'calc__empty';
+        li.textContent = 'Geräte auswählen, um Angebot zu berechnen.';
+        breakdownEl.appendChild(li);
+      } else {
+        parts.forEach(function (p) {
+          const li = document.createElement('li');
+          li.innerHTML = '<span>' + p.count + ' × ' + p.label + '</span><strong>€ ' + formatter.format(p.sub) + '</strong>';
+          breakdownEl.appendChild(li);
+        });
+      }
+    }
+
+    inputs.forEach(function (input) {
+      input.addEventListener('input', function () { update(true); });
+    });
+    update(false);
+  }
+
+  // ---------- Sticky quote tab visibility ----------
+  const quoteTab = document.querySelector('.quote-tab');
+  if (quoteTab) {
+    let qtTicking = false;
+    function toggleQuoteTab() {
+      if (qtTicking) return;
+      qtTicking = true;
+      requestAnimationFrame(function () {
+        const y = window.scrollY;
+        const past = y > window.innerHeight * 0.6;
+        const footer = document.querySelector('.site-footer');
+        let nearFooter = false;
+        if (footer) {
+          const rect = footer.getBoundingClientRect();
+          nearFooter = rect.top < window.innerHeight - 80;
+        }
+        quoteTab.classList.toggle('is-visible', past && !nearFooter);
+        qtTicking = false;
+      });
+    }
+    window.addEventListener('scroll', toggleQuoteTab, { passive: true });
+    window.addEventListener('resize', toggleQuoteTab);
+    toggleQuoteTab();
+  }
 })();
