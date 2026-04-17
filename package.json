@@ -5,5 +5,8 @@
   "description": "Static site + contact-form serverless function (Vercel)",
   "engines": {
     "node": ">=18"
+  },
+  "dependencies": {
+    "framer-motion": "^12.38.0"
   }
 }

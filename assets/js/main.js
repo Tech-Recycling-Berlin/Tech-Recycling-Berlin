@@ -294,4 +294,110 @@
     }, { threshold: 0.25 });
     document.querySelectorAll('.process-grid, .industries-strip').forEach(function (g) { pgIO.observe(g); });
   }
+
+  // ---------- Hero cursor-following spotlight ----------
+  const hero = document.querySelector('.hero');
+  if (hero && !prefersReducedMotion && window.matchMedia('(pointer: fine)').matches) {
+    const spotlight = document.createElement('div');
+    spotlight.className = 'hero__spotlight';
+    hero.prepend(spotlight);
+    let spotTick = false;
+    hero.addEventListener('mousemove', function (e) {
+      if (spotTick) return;
+      spotTick = true;
+      requestAnimationFrame(function () {
+        const r = hero.getBoundingClientRect();
+        const x = ((e.clientX - r.left) / r.width) * 100;
+        const y = ((e.clientY - r.top) / r.height) * 100;
+        hero.style.setProperty('--hx', x + '%');
+        hero.style.setProperty('--hy', y + '%');
+        spotTick = false;
+      });
+    });
+  }
+
+  // ---------- Service-card shine sweep ----------
+  document.querySelectorAll('.service-card').forEach(function (card) {
+    if (card.querySelector('.shine')) return;
+    const shine = document.createElement('span');
+    shine.className = 'shine';
+    card.appendChild(shine);
+  });
+
+  // ---------- Scroll-linked parallax on hero visual ----------
+  const heroVisualEl = document.querySelector('.hero__visual');
+  if (heroVisualEl && !prefersReducedMotion) {
+    let pTicking = false;
+    function onHeroParallax() {
+      if (pTicking) return;
+      pTicking = true;
+      requestAnimationFrame(function () {
+        const r = heroVisualEl.getBoundingClientRect();
+        const vh = window.innerHeight;
+        if (r.bottom < 0 || r.top > vh) { pTicking = false; return; }
+        const centerOffset = (r.top + r.height / 2 - vh / 2) / vh; // ~-0.5..0.5
+        const ty = Math.max(-18, Math.min(18, centerOffset * -24));
+        heroVisualEl.style.setProperty('--parallax-y', ty.toFixed(1) + 'px');
+        heroVisualEl.style.transform = 'translateY(' + ty.toFixed(1) + 'px)';
+        pTicking = false;
+      });
+    }
+    // Wait for the initial hero-fade-up animation to finish (~1.3s) before
+    // taking over the transform, so we don't clash with the entrance animation.
+    setTimeout(function () {
+      onHeroParallax();
+      window.addEventListener('scroll', onHeroParallax, { passive: true });
+      window.addEventListener('resize', onHeroParallax);
+    }, 1400);
+  }
+
+  // ---------- Button ripple on click ----------
+  if (!prefersReducedMotion) {
+    document.addEventListener('click', function (e) {
+      const btn = e.target && e.target.closest && e.target.closest('.btn');
+      if (!btn) return;
+      const r = btn.getBoundingClientRect();
+      const size = Math.max(r.width, r.height);
+      const x = e.clientX - r.left - size / 2;
+      const y = e.clientY - r.top - size / 2;
+      const ripple = document.createElement('span');
+      ripple.className = 'ripple';
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = x + 'px';
+      ripple.style.top = y + 'px';
+      btn.appendChild(ripple);
+      setTimeout(function () { ripple.remove(); }, 750);
+    });
+  }
+
+  // ---------- Counter flash when finished ----------
+  (function patchCounterFlash() {
+    // wrap animateCounter to add .is-flashed on completion
+    const els = document.querySelectorAll('.stat-big strong, .hero__stat strong, .feature-card .bignum');
+    if (!els.length || prefersReducedMotion) return;
+    const flashIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        flashIO.unobserve(el);
+        // existing counter runs ~1400ms; trigger flash near the end
+        setTimeout(function () {
+          el.classList.add('is-flashed');
+          setTimeout(function () { el.classList.remove('is-flashed'); }, 950);
+        }, 1200);
+      });
+    }, { threshold: 0.5 });
+    els.forEach(function (el) { flashIO.observe(el); });
+  })();
+
+  // ---------- Feature card ring: trigger when visible ----------
+  const featureCard = document.querySelector('.feature-card');
+  if (featureCard && 'IntersectionObserver' in window) {
+    const fcIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); fcIO.unobserve(e.target); }
+      });
+    }, { threshold: 0.35 });
+    fcIO.observe(featureCard);
+  }
 })();

@@ -1675,6 +1675,177 @@ body::before {
 
 /* (Process-grid connector line removed — steps stand on their own.) */
 
+/* ---------- Premium interactions v4 ---------- */
+
+/* Hero cursor-following spotlight (whole hero, not just visual) */
+.hero > .hero__spotlight {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    520px circle at var(--hx, 50%) var(--hy, 30%),
+    rgba(232, 242, 58, .18),
+    rgba(58, 158, 30, .08) 25%,
+    transparent 55%
+  );
+  opacity: 0;
+  transition: opacity .45s var(--ease-out);
+  mix-blend-mode: screen;
+}
+.hero:hover > .hero__spotlight { opacity: 1; }
+
+/* Service-card shine sweep on hover (injected span) */
+.service-card .shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+  z-index: 0;
+}
+.service-card .shine::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  left: -40%;
+  width: 40%;
+  height: 160%;
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgba(255, 255, 255, .55) 45%,
+    rgba(232, 242, 58, .35) 55%,
+    transparent 100%
+  );
+  transform: translateX(-60%) skewX(-18deg);
+  transition: transform .9s var(--ease-out);
+}
+.service-card:hover .shine::before { transform: translateX(380%) skewX(-18deg); }
+
+/* Feature card: circular progress ring around 98% */
+.feature-card__bignum-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+}
+.feature-card__bignum-wrap .bignum { position: relative; z-index: 1; }
+.feature-card__ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(170px, 24vw, 280px);
+  height: clamp(170px, 24vw, 280px);
+  transform: translate(-50%, -50%) rotate(-90deg);
+  pointer-events: none;
+  overflow: visible;
+  z-index: 0;
+}
+.feature-card__ring circle {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  transform-origin: center;
+}
+.feature-card__ring .ring-track {
+  stroke: rgba(255, 255, 255, .08);
+}
+.feature-card__ring .ring-fill {
+  stroke: url(#ringGrad);
+  stroke-dasharray: var(--ring-len, 628);
+  stroke-dashoffset: var(--ring-len, 628);
+  transition: stroke-dashoffset 2s var(--ease-out);
+  filter: drop-shadow(0 0 8px rgba(134, 214, 61, .5));
+}
+.feature-card.is-visible .feature-card__ring .ring-fill {
+  stroke-dashoffset: calc(var(--ring-len, 628) * .02); /* 98% filled */
+}
+
+/* Counter-finish flash glow for stat strongs */
+.stat-big strong,
+.hero__stat strong,
+.feature-card .bignum { position: relative; }
+.stat-big strong.is-flashed::after,
+.hero__stat strong.is-flashed::after,
+.feature-card .bignum.is-flashed::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232, 242, 58, .55), transparent 65%);
+  pointer-events: none;
+  animation: counter-flash .9s var(--ease-out) forwards;
+  mix-blend-mode: screen;
+}
+@keyframes counter-flash {
+  0%   { opacity: 0; transform: scale(.4); }
+  35%  { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.4); }
+}
+
+/* Button ripple */
+.btn .ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .55);
+  transform: scale(0);
+  animation: ripple-out .7s var(--ease-out) forwards;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  z-index: 0;
+}
+.btn--ghost .ripple { background: rgba(58, 158, 30, .28); mix-blend-mode: normal; }
+.btn--dark .ripple { background: rgba(134, 214, 61, .45); mix-blend-mode: normal; }
+@keyframes ripple-out {
+  to { transform: scale(3.2); opacity: 0; }
+}
+
+/* Check-list animated checkmark on reveal */
+.check-list li svg {
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+  transition: stroke-dashoffset .8s var(--ease-out);
+}
+.check-list.is-visible li svg,
+.reveal.is-visible .check-list li svg { stroke-dashoffset: 0; }
+.check-list li:nth-child(1) svg { transition-delay: .1s; }
+.check-list li:nth-child(2) svg { transition-delay: .25s; }
+.check-list li:nth-child(3) svg { transition-delay: .40s; }
+.check-list li:nth-child(4) svg { transition-delay: .55s; }
+.check-list li:nth-child(5) svg { transition-delay: .70s; }
+
+/* Hero visual scroll-linked parallax (very subtle) */
+.hero__visual { will-change: transform; }
+
+/* Testimonial: quote mark subtle animation on hover */
+.testimonial::before {
+  transition: transform .6s var(--ease-spring), color .3s ease;
+}
+.testimonial:hover::before {
+  transform: translate(-6px, 4px) rotate(-6deg);
+  color: #c9e6a9;
+}
+
+/* FAQ hover: content preview peek */
+.faq-item summary {
+  position: relative;
+}
+.faq-item summary::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 50%;
+  width: 3px;
+  height: 0;
+  background: linear-gradient(180deg, var(--green), var(--accent-lime));
+  border-radius: 2px;
+  transform: translateY(-50%);
+  transition: height .35s var(--ease-out);
+}
+.faq-item[open] summary::before,
+.faq-item summary:hover::before { height: 60%; }
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -1682,5 +1853,7 @@ body::before {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   body::before { display: none; }
   .page-transition, .scroll-progress { display: none !important; }
-  .hero::before, .hero::after { display: none; }
+  .hero::before, .hero::after, .hero__spotlight { display: none; }
+  .check-list li svg { stroke-dashoffset: 0; }
+  .feature-card__ring .ring-fill { stroke-dashoffset: calc(var(--ring-len, 628) * .02); }
 }

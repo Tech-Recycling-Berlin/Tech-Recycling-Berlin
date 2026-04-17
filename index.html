@@ -762,7 +762,19 @@
 
       <div class="feature-card reveal" aria-hidden="true">
         <span class="eyebrow" style="color:#e8f23a">Unsere Bilanz</span>
-        <div class="bignum">98<small>%</small></div>
+        <div class="feature-card__bignum-wrap">
+          <svg class="feature-card__ring" viewBox="0 0 200 200" aria-hidden="true">
+            <defs>
+              <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#86d63d"/>
+                <stop offset="100%" stop-color="#e8f23a"/>
+              </linearGradient>
+            </defs>
+            <circle class="ring-track" cx="100" cy="100" r="90"/>
+            <circle class="ring-fill" cx="100" cy="100" r="90" style="--ring-len: 566;"/>
+          </svg>
+          <div class="bignum">98<small>%</small></div>
+        </div>
         <p style="color:#b6c1b1;margin-top:1rem">aller angenommenen Geräte werden recycelt, wiederverwendet oder in Rohstoffkreisläufe zurückgeführt — statt auf der Deponie zu landen.</p>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.1)">
           <div>
