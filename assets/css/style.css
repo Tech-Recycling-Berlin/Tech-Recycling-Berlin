@@ -819,7 +819,7 @@ body::before {
   inset: 0;
   border-radius: inherit;
   padding: 1.5px;
-  background: linear-gradient(135deg, var(--green), var(--accent-yellow) 60%, transparent 80%);
+  background: linear-gradient(135deg, var(--green) 0%, rgba(58,158,30,.55) 55%, transparent 85%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
@@ -833,7 +833,7 @@ body::before {
   border-color: transparent;
   box-shadow: var(--shadow-lg);
 }
-.service-card:hover::before { opacity: 1; }
+.service-card:hover::before { opacity: 0; }
 .service-card:hover::after { opacity: 1; transform: translate(10%, -10%); }
 
 .service-card__icon {
@@ -859,7 +859,7 @@ body::before {
   transform: scale(.9);
 }
 .service-card:hover .service-card__icon { transform: rotate(-6deg) scale(1.05); background: linear-gradient(135deg, var(--green), var(--green-dark)); color: #fff; }
-.service-card:hover .service-card__icon::after { opacity: .35; transform: scale(1); }
+.service-card:hover .service-card__icon::after { opacity: 0; transform: scale(1); }
 .service-card__icon svg { width: 28px; height: 28px; transition: transform .35s var(--ease-out); }
 .service-card h3 { font-size: 1.3rem; margin-bottom: .6rem; }
 .service-card p { flex-grow: 1; font-size: .96rem; color: var(--ink-soft); }
@@ -1390,8 +1390,8 @@ body::before {
 }
 @media (max-width: 800px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 500px) { .footer-grid { grid-template-columns: 1fr; } }
-.site-footer .brand { color: #fff; margin-bottom: 1rem; }
-.site-footer .brand img { filter: brightness(1.2); }
+.site-footer .brand { color: #fff; margin-bottom: 1rem; display: inline-block; }
+.site-footer .brand img { width: auto; height: 88px; filter: none; display: block; }
 .site-footer p { color: #9aa896; font-size: .92rem; }
 .footer-col h4 {
   font-size: .8rem;
@@ -1772,11 +1772,11 @@ body::before {
 .feature-card .bignum.is-flashed::after {
   content: "";
   position: absolute;
-  inset: -20%;
+  inset: -18%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(232, 242, 58, .55), transparent 65%);
+  background: radial-gradient(circle, rgba(58, 158, 30, .35), transparent 65%);
   pointer-events: none;
-  animation: counter-flash .9s var(--ease-out) forwards;
+  animation: counter-flash .8s var(--ease-out) forwards;
   mix-blend-mode: screen;
 }
 @keyframes counter-flash {
@@ -2583,4 +2583,226 @@ button:focus-visible,
   outline-offset: 3px;
   border-radius: 6px;
 }
+
+/* =====================================================================
+   3D hero visual — reusable across sub-pages
+   ===================================================================== */
+
+.page-hero--split .page-hero__inner {
+  max-width: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: center;
+}
+@media (max-width: 900px) {
+  .page-hero--split .page-hero__inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+.page-hero__visual {
+  position: relative;
+  width: 100%;
+  min-height: 380px;
+  perspective: 1400px;
+  transform-style: preserve-3d;
+  z-index: 2;
+}
+@media (max-width: 900px) {
+  .page-hero__visual { min-height: 300px; margin-top: 1rem; }
+}
+
+.hero-float {
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: transform .4s cubic-bezier(.16,1,.3,1);
+  will-change: transform;
+}
+
+/* Back glass card — big stat or seal */
+.hero-float--back {
+  top: 8%;
+  right: 4%;
+  width: 72%;
+  aspect-ratio: 1.15 / 1;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.88), rgba(255,255,255,.55));
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255,255,255,.9);
+  border-radius: 22px;
+  box-shadow:
+    0 40px 80px -30px rgba(15,26,13,.28),
+    0 20px 40px -20px rgba(58,158,30,.18),
+    inset 0 1px 0 rgba(255,255,255,.9);
+  padding: 1.6rem 1.4rem;
+  transform:
+    rotateY(-8deg) rotateX(4deg)
+    translate3d(var(--lx,0px), var(--ly,0px), -40px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.hero-float--back::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 40% at 80% 20%, rgba(189,234,92,.35), transparent 60%);
+  pointer-events: none;
+}
+.hero-float--back > * { position: relative; z-index: 1; }
+
+.hero-float__mark {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--green), var(--green-dark));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 22px -6px rgba(58,158,30,.5);
+}
+.hero-float__mark svg { width: 28px; height: 28px; }
+
+.hero-float__big {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+  line-height: 1;
+  letter-spacing: -.03em;
+  color: var(--ink);
+  margin-top: .5rem;
+}
+.hero-float__big small {
+  font-size: .35em;
+  font-weight: 600;
+  vertical-align: super;
+  color: var(--green-dark);
+  margin-left: .1em;
+}
+.hero-float__tag {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: .85rem;
+  color: var(--ink-soft);
+  letter-spacing: .01em;
+  margin-top: .4rem;
+  line-height: 1.4;
+}
+
+/* Middle seal — circular cert mark with arc text */
+.hero-float--seal {
+  top: 45%;
+  left: 2%;
+  width: 160px;
+  height: 160px;
+  background: linear-gradient(145deg, #0f1f0d, #1a2e17);
+  border-radius: 50%;
+  border: 1px solid rgba(189,234,92,.22);
+  box-shadow:
+    0 30px 60px -20px rgba(0,0,0,.4),
+    0 0 0 6px rgba(255,255,255,.85),
+    0 0 0 7px rgba(189,234,92,.18),
+    inset 0 1px 0 rgba(255,255,255,.06);
+  transform:
+    rotateZ(-6deg)
+    translate3d(calc(var(--lx,0px) * 1.8), calc(var(--ly,0px) * 1.8), 30px);
+  z-index: 2;
+}
+.hero-float--seal svg {
+  width: 100%; height: 100%;
+}
+.hero-float--seal .seal__core {
+  fill: none;
+  stroke: rgba(189,234,92,.35);
+  stroke-width: 1;
+  stroke-dasharray: 2 4;
+}
+.hero-float--seal .seal__check {
+  fill: none;
+  stroke: var(--lime, #bdea5c);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.hero-float--seal .seal__text {
+  fill: #bdea5c;
+  font-family: var(--font-display);
+  font-size: 9px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Top pill — tiny live chip */
+.hero-float--pill {
+  top: 4%;
+  left: 8%;
+  background: rgba(15,26,13,.92);
+  color: #fff;
+  padding: .55rem 1rem;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: .78rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  box-shadow: 0 12px 30px -8px rgba(0,0,0,.3);
+  transform:
+    translate3d(calc(var(--lx,0px) * 2.4), calc(var(--ly,0px) * 2.4), 60px);
+  z-index: 3;
+}
+.hero-float--pill .dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--lime, #bdea5c);
+  box-shadow: 0 0 0 3px rgba(189,234,92,.25);
+  animation: dotPulse 2.4s ease-in-out infinite;
+}
+
+/* Bottom chip — numeric fact */
+.hero-float--chip {
+  bottom: 6%;
+  right: 10%;
+  background: linear-gradient(140deg, var(--ink) 0%, #1f2d1b 100%);
+  color: #fff;
+  padding: .9rem 1.1rem;
+  border-radius: 14px;
+  min-width: 150px;
+  box-shadow: 0 22px 40px -12px rgba(15,26,13,.45);
+  border: 1px solid rgba(255,255,255,.06);
+  transform:
+    translate3d(calc(var(--lx,0px) * 3), calc(var(--ly,0px) * 3), 80px);
+  z-index: 3;
+}
+.hero-float--chip b {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: -.01em;
+  color: var(--lime, #bdea5c);
+  line-height: 1;
+}
+.hero-float--chip span {
+  font-size: .8rem;
+  color: #c4d4be;
+  font-family: var(--font-display);
+}
+
+@media (max-width: 900px) {
+  .page-hero__visual { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-float { transition: none !important; }
+  .hero-float--pill .dot { animation: none !important; }
+}
+
 
