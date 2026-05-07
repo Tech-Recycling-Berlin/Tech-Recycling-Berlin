@@ -526,7 +526,9 @@
       sending: 'Wird gesendet…',
       successTitle: 'Vielen Dank!',
       successBody:  'Ihre Nachricht ist bei uns angekommen. Wir melden uns innerhalb von 24 Stunden.',
-      errorTitle:   'Bitte prüfen Sie Ihre Eingaben',
+      validationTitle: 'Bitte prüfen Sie Ihre Eingaben',
+      sendFailTitle:   'Senden fehlgeschlagen',
+      sendFailBody:    'Wir konnten Ihre Nachricht gerade nicht zustellen. Bitte versuchen Sie es in ein paar Minuten erneut oder rufen Sie uns direkt an: +49 155 66044719.',
       errorNetwork: 'Verbindung fehlgeschlagen. Bitte versuchen Sie es erneut oder rufen Sie uns an: +49 155 66044719.',
       field_name:    'Bitte geben Sie Ihren Namen ein.',
       field_email:   'Bitte geben Sie eine gültige E-Mail-Adresse ein.',
@@ -537,7 +539,9 @@
       sending: 'Sending…',
       successTitle: 'Thank you!',
       successBody:  'Your message is on its way. We will reply within 24 hours.',
-      errorTitle:   'Please check your entries',
+      validationTitle: 'Please check your entries',
+      sendFailTitle:   "Couldn't send right now",
+      sendFailBody:    "We couldn't deliver your message just now. Please try again in a few minutes or call us directly: +49 155 66044719.",
       errorNetwork: 'Connection failed. Please try again or call us: +49 155 66044719.',
       field_name:    'Please enter your name.',
       field_email:   'Please enter a valid email address.',
@@ -643,7 +647,7 @@
       const errors = clientValidate(form, t);
       if (Object.keys(errors).length) {
         Object.keys(errors).forEach(function (k) { showFieldError(form, k, errors[k]); });
-        setStatus(form, 'error', t.errorTitle, '');
+        setStatus(form, 'error', t.validationTitle, '');
         const firstErr = form.querySelector('.has-error [name]');
         if (firstErr && typeof firstErr.focus === 'function') firstErr.focus();
         return;
@@ -687,14 +691,15 @@
           Object.keys(payload.fieldErrors).forEach(function (k) {
             showFieldError(form, k, payload.fieldErrors[k]);
           });
-          setStatus(form, 'error', t.errorTitle, payload.message || '');
+          setStatus(form, 'error', t.validationTitle, payload.message || '');
           const firstErr = form.querySelector('.has-error [name]');
           if (firstErr && typeof firstErr.focus === 'function') firstErr.focus();
         } else {
-          setStatus(form, 'error', t.errorTitle, (payload && payload.message) || t.errorNetwork);
+          // Server-side / delivery failure (5xx, no field errors)
+          setStatus(form, 'error', t.sendFailTitle, t.sendFailBody);
         }
       } catch (err) {
-        setStatus(form, 'error', t.errorTitle, t.errorNetwork);
+        setStatus(form, 'error', t.sendFailTitle, t.errorNetwork);
       } finally {
         if (submitBtn) {
           submitBtn.classList.remove('is-loading');
