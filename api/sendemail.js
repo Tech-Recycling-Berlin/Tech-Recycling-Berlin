@@ -68,6 +68,122 @@ function escapeHtml(s) {
   );
 }
 
+// ---- Auto-reply (acknowledgement) email ---------------------------------
+// Sent to the form submitter. Bilingual DE/EN, design-matched to the site
+// (green primary #3A9E1E, lime accent #bdea5c, dark footer #0f1a0d).
+// Inline styles only — most email clients strip <style> blocks.
+function renderAckHtml({ ticket, name }) {
+  const safeName = escapeHtml(name) || 'Kunde / customer';
+  return `<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tech Recycling Berlin</title>
+</head>
+<body style="margin:0;padding:24px 12px;background:#f4faf0;font-family:'Manrope','Helvetica Neue',Arial,sans-serif;color:#0f1a0d;-webkit-font-smoothing:antialiased">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse">
+    <tr><td align="center">
+      <table role="presentation" width="560" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;width:100%;background:#ffffff;border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(15,26,13,.06),0 14px 34px -14px rgba(15,26,13,.12)">
+
+        <!-- Top header strip -->
+        <tr><td style="background:#3A9E1E;color:#ffffff;padding:30px 32px">
+          <div style="font-family:'Manrope','Helvetica Neue',Arial,sans-serif;font-weight:800;font-size:22px;letter-spacing:-.01em;line-height:1.2">Tech Recycling Berlin</div>
+          <div style="font-size:14px;line-height:1.5;color:#e8f5e1;margin-top:6px">Ihr Partner für zertifizierte IT-Entsorgung</div>
+        </td></tr>
+
+        <!-- Ticket reference bar -->
+        <tr><td style="background:#f4faf0;border-bottom:1px solid #e5e9e2;padding:14px 32px;font-size:13px;color:#2a3328">
+          <strong style="color:#2d7d16;letter-spacing:.04em;text-transform:uppercase;font-size:11px">Ticket-Referenz</strong>
+          &nbsp;&nbsp;
+          <code style="font-family:'SFMono-Regular',Consolas,Menlo,monospace;font-size:13px;color:#0f1a0d">${escapeHtml(ticket)}</code>
+        </td></tr>
+
+        <!-- DE body -->
+        <tr><td style="padding:28px 32px 8px;font-size:15px;line-height:1.6;color:#1b2a19">
+          <p style="margin:0 0 12px"><strong>Sehr geehrte/r ${safeName},</strong></p>
+          <p style="margin:0 0 12px">vielen Dank für Ihre Nachricht. Wir haben Ihre Anfrage erhalten und melden uns innerhalb von <strong>24 Stunden</strong> bei Ihnen mit einem individuellen Angebot.</p>
+          <p style="margin:0 0 4px">Bei dringenden Anliegen erreichen Sie uns unter</p>
+          <p style="margin:0 0 18px">
+            <a href="mailto:info@techrecycling-berlin.com" style="color:#3A9E1E;text-decoration:none;font-weight:600">info@techrecycling-berlin.com</a>
+            &nbsp;oder&nbsp;
+            <a href="tel:+4915566044719" style="color:#3A9E1E;text-decoration:none;font-weight:600">+49 155 660 44719</a>.
+          </p>
+        </td></tr>
+
+        <!-- Divider -->
+        <tr><td style="padding:0 32px"><div style="border-top:1px solid #e5e9e2"></div></td></tr>
+
+        <!-- EN body -->
+        <tr><td style="padding:24px 32px 8px;font-size:15px;line-height:1.6;color:#1b2a19">
+          <p style="margin:0 0 12px"><strong>Dear ${safeName},</strong></p>
+          <p style="margin:0 0 12px">thank you for your message. We have received your enquiry and will reply within <strong>24 hours</strong> with a tailored offer.</p>
+          <p style="margin:0 0 4px">For urgent matters, please contact us at</p>
+          <p style="margin:0 0 18px">
+            <a href="mailto:info@techrecycling-berlin.com" style="color:#3A9E1E;text-decoration:none;font-weight:600">info@techrecycling-berlin.com</a>
+            &nbsp;or&nbsp;
+            <a href="tel:+4915566044719" style="color:#3A9E1E;text-decoration:none;font-weight:600">+49 155 660 44719</a>.
+          </p>
+        </td></tr>
+
+        <!-- Sign-off -->
+        <tr><td style="padding:0 32px 28px;font-size:15px;line-height:1.6">
+          <p style="margin:0 0 4px;color:#6b7669;font-size:13px">Mit freundlichen Grüßen / Best regards,</p>
+          <p style="margin:0;font-weight:700;color:#0f1a0d">Ihr Tech Recycling Team</p>
+        </td></tr>
+
+        <!-- Dark footer -->
+        <tr><td style="background:#0f1a0d;color:#9aa896;padding:22px 32px;font-size:13px;line-height:1.55">
+          <div style="color:#ffffff;font-family:'Manrope','Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:14px;margin-bottom:4px">Tech Recycling Berlin</div>
+          <div>Keithstraße 15 &middot; 10787 Berlin &middot; Deutschland</div>
+          <div style="margin-top:8px">
+            <a href="mailto:info@techrecycling-berlin.com" style="color:#bdea5c;text-decoration:none">info@techrecycling-berlin.com</a>
+            &nbsp;&middot;&nbsp;
+            <a href="https://techrecycling-berlin.com" style="color:#bdea5c;text-decoration:none">techrecycling-berlin.com</a>
+          </div>
+          <div style="margin-top:14px;font-size:11px;color:#6e7a6a;line-height:1.5">
+            Diese E-Mail wurde automatisch versendet, bitte antworten Sie nicht direkt darauf.<br>
+            This is an automated confirmation; please do not reply to this email.
+          </div>
+        </td></tr>
+
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
+}
+
+function renderAckText({ ticket, name }) {
+  const safeName = (name || 'Kunde / customer').trim();
+  return `Tech Recycling Berlin
+Ihr Partner für zertifizierte IT-Entsorgung
+
+Ticket-Referenz: ${ticket}
+
+Sehr geehrte/r ${safeName},
+vielen Dank für Ihre Nachricht. Wir haben Ihre Anfrage erhalten und melden uns innerhalb von 24 Stunden bei Ihnen.
+Bei dringenden Anliegen: info@techrecycling-berlin.com oder +49 155 660 44719.
+
+----------------------------------------
+
+Dear ${safeName},
+thank you for your message. We have received your enquiry and will reply within 24 hours.
+For urgent matters: info@techrecycling-berlin.com or +49 155 660 44719.
+
+Mit freundlichen Grüßen / Best regards,
+Ihr Tech Recycling Team
+
+—
+Tech Recycling Berlin
+Keithstraße 15 · 10787 Berlin · Deutschland
+info@techrecycling-berlin.com · techrecycling-berlin.com
+
+Diese E-Mail wurde automatisch versendet, bitte antworten Sie nicht darauf.
+This is an automated confirmation; please do not reply to this email.
+`;
+}
+
 function wantsJson(req) {
   const accept = (req.headers.accept || '').toLowerCase();
   if (accept.includes('application/json')) return true;
@@ -180,12 +296,16 @@ export default async function handler(req, res) {
     });
   }
 
-  const to     = process.env.MAIL_TO   || 'info@techrecycling-berlin.com';
-  const from   = process.env.MAIL_FROM || 'Tech Recycling Berlin <onboarding@resend.dev>';
-  const apiKey = process.env.RESEND_API_KEY;
+  const to        = process.env.MAIL_TO      || 'info@techrecycling-berlin.com';
+  const from      = process.env.MAIL_FROM    || 'Tech Recycling Berlin <onboarding@resend.dev>';
+  const noreplyFrom = process.env.NOREPLY_FROM || from;
+  const apiKey    = process.env.RESEND_API_KEY;
 
-  const textBody =
-`Neue Anfrage / New enquiry
+  // Ticket reference for both the internal mail and the auto-reply
+  const ticket = 'TRB-' + (10000 + Math.floor(Math.random() * 90000));
+
+  const adminText =
+`Neue Anfrage / New enquiry — ${ticket}
 
 Name:     ${name}
 Firma/Co: ${company}
@@ -207,6 +327,7 @@ ${message}
     });
   }
 
+  // 1) Admin notification — must succeed for the request to count as "sent"
   try {
     const r = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -218,13 +339,13 @@ ${message}
         from,
         to: [to],
         reply_to: email,
-        subject: t.subject,
-        text: textBody,
+        subject: `[${ticket}] ${t.subject}`,
+        text: adminText,
       }),
     });
     if (!r.ok) {
       const detail = await r.text().catch(() => '');
-      console.error('[sendemail] Resend error', r.status, detail);
+      console.error('[sendemail] Resend error (admin)', r.status, detail);
       return respond(req, res, {
         json, status: 502, lang, kind: 'error',
         title: t.titleErr, message: t.error,
@@ -232,12 +353,43 @@ ${message}
       });
     }
   } catch (e) {
-    console.error('[sendemail] fetch failed', e);
+    console.error('[sendemail] fetch failed (admin)', e);
     return respond(req, res, {
       json, status: 502, lang, kind: 'error',
       title: t.titleErr, message: t.error,
       backUrl: t.backForm, backLabel: t.backBtn,
     });
+  }
+
+  // 2) Auto-reply to the submitter — best-effort. If it fails (e.g. domain
+  //    not yet verified on Resend, so the sandbox sender can't deliver to a
+  //    third-party address), log it but still return success — the admin
+  //    already received the enquiry and that's the critical path.
+  try {
+    const ackHtml = renderAckHtml({ ticket, name });
+    const ackText = renderAckText({ ticket, name });
+    const ackSubject = `[${ticket}] Ihre Anfrage / Your inquiry — Tech Recycling Berlin`;
+    const ackRes = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type':  'application/json',
+      },
+      body: JSON.stringify({
+        from: noreplyFrom,
+        to: [email],
+        reply_to: to,
+        subject: ackSubject,
+        html: ackHtml,
+        text: ackText,
+      }),
+    });
+    if (!ackRes.ok) {
+      const detail = await ackRes.text().catch(() => '');
+      console.warn('[sendemail] Resend warn (acknowledgement skipped)', ackRes.status, detail);
+    }
+  } catch (e) {
+    console.warn('[sendemail] acknowledgement failed', e);
   }
 
   return respond(req, res, {
