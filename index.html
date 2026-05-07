@@ -811,9 +811,12 @@ p{margin:0 0 1em;color:var(--ink-3)}
   background:linear-gradient(130deg,var(--dark) 0%,#15281a 70%,var(--green-deep) 160%);
   color:#fff;border-radius:var(--radius-xl);
   padding:clamp(2.5rem,5vw,4rem);
-  position:relative;overflow:hidden;text-align:center;
+  position:relative;overflow:hidden;text-align:center;isolation:isolate;
 }
-.cta::before{content:"";position:absolute;inset:-1px;background:conic-gradient(from 120deg at 50% 50%, rgba(58,158,30,.2), transparent 30%, rgba(232,242,58,.18) 60%, transparent 80%);animation:spin 28s linear infinite;border-radius:inherit;z-index:0}
+.cta::before{content:"";position:absolute;inset:-20%;background:conic-gradient(from 120deg at 50% 50%, rgba(58,158,30,.28), transparent 28%, rgba(232,242,58,.22) 58%, transparent 82%);animation:ctaSweep 18s linear infinite;border-radius:inherit;z-index:0;will-change:transform}
+.cta::after{content:"";position:absolute;top:-40%;right:-15%;width:65%;height:200%;background:radial-gradient(ellipse, rgba(189,234,92,.22), transparent 65%);pointer-events:none;animation:ctaDrift 14s ease-in-out infinite alternate;z-index:0;will-change:transform,opacity}
+@keyframes ctaSweep{from{transform:rotate(0deg) scale(1.05)}to{transform:rotate(360deg) scale(1.05)}}
+@keyframes ctaDrift{0%{transform:translate(0,0) scale(1);opacity:.85}50%{transform:translate(-12%,8%) scale(1.18);opacity:1}100%{transform:translate(8%,-6%) scale(.95);opacity:.8}}
 .cta > *{position:relative;z-index:1}
 .cta h2{color:#fff;max-width:22ch;margin:0 auto .75rem}
 .cta p{color:#b6c1b1;max-width:58ch;margin:0 auto 1.8rem}

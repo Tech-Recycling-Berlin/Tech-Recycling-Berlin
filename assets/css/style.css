@@ -1231,21 +1231,30 @@ body::before {
   position: absolute;
   top: -50%; right: -10%;
   width: 60%; height: 200%;
-  background: radial-gradient(ellipse, rgba(58,158,30,.4), transparent 60%);
+  background: radial-gradient(ellipse, rgba(58,158,30,.45), transparent 60%);
   pointer-events: none;
-  animation: ctaGlow 12s ease-in-out infinite alternate;
+  animation: ctaGlowA 16s ease-in-out infinite alternate;
+  will-change: transform, opacity;
 }
-@keyframes ctaGlow {
-  from { transform: translate(0, 0) rotate(0deg); }
-  to { transform: translate(-10%, 5%) rotate(15deg); }
+@keyframes ctaGlowA {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1);     opacity: .85; }
+  50%  { transform: translate(-14%, 8%) rotate(8deg) scale(1.12); opacity: 1; }
+  100% { transform: translate(6%, -6%) rotate(-6deg) scale(.95);  opacity: .8; }
 }
 .cta-big::after {
   content: "";
   position: absolute;
   bottom: -40%; left: -10%;
   width: 50%; height: 150%;
-  background: radial-gradient(ellipse, rgba(232,242,58,.12), transparent 65%);
+  background: radial-gradient(ellipse, rgba(189,234,92,.22), transparent 65%);
   pointer-events: none;
+  animation: ctaGlowB 22s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+@keyframes ctaGlowB {
+  0%   { transform: translate(0, 0) scale(1);     opacity: .75; }
+  50%  { transform: translate(14%, -8%) scale(1.18); opacity: 1; }
+  100% { transform: translate(-6%, 6%) scale(.92);  opacity: .8; }
 }
 .cta-big h2 {
   color: #fff;
@@ -2423,6 +2432,7 @@ body::before {
   line-height: 1.1;
 }
 .cta-big::before { animation-duration: 14s; }
+.cta-big::after  { animation-duration: 20s; }
 
 /* Feature-card (dark) — softer rim light + clearer bignum */
 .feature-card {
@@ -2564,7 +2574,8 @@ body::before {
 @media (prefers-reduced-motion: reduce) {
   .page-hero::after,
   .trust-row__item--dot::before,
-  .cta-big::before { animation: none !important; }
+  .cta-big::before,
+  .cta-big::after { animation: none !important; }
   .reveal { opacity: 1 !important; transform: none !important; }
 }
 
