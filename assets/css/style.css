@@ -239,18 +239,16 @@ body::before {
   font-size: 1.05rem;
   letter-spacing: -0.01em;
   color: var(--ink);
-  transition: transform .25s var(--ease-spring);
   margin-block: -.9rem;
 }
-.brand:hover { color: var(--ink); transform: scale(1.03); }
+.brand:hover { color: var(--ink); }
 .brand img {
   width: 108px;
   height: 108px;
   object-fit: contain;
   display: block;
-  transition: width .3s var(--ease-out), height .3s var(--ease-out), transform .5s var(--ease-out);
+  transition: width .3s var(--ease-out), height .3s var(--ease-out);
 }
-.brand:hover img { transform: rotate(-8deg); }
 .site-header.is-scrolled .brand img { width: 84px; height: 84px; }
 
 .nav { display: flex; align-items: center; gap: 2rem; }
