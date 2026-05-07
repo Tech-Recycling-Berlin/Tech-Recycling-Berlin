@@ -1764,11 +1764,9 @@ body::before {
 
 /* Counter-finish flash glow for stat strongs */
 .stat-big strong,
-.hero__stat strong,
-.feature-card .bignum { position: relative; }
+.hero__stat strong { position: relative; }
 .stat-big strong.is-flashed::after,
-.hero__stat strong.is-flashed::after,
-.feature-card .bignum.is-flashed::after {
+.hero__stat strong.is-flashed::after {
   content: "";
   position: absolute;
   inset: -18%;

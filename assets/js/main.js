@@ -390,7 +390,7 @@
   // ---------- Counter flash when finished ----------
   (function patchCounterFlash() {
     // wrap animateCounter to add .is-flashed on completion
-    const els = document.querySelectorAll('.stat-big strong, .hero__stat strong, .feature-card .bignum');
+    const els = document.querySelectorAll('.stat-big strong, .hero__stat strong');
     if (!els.length || prefersReducedMotion) return;
     const flashIO = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
