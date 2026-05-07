@@ -515,3 +515,193 @@
     toggleQuoteTab();
   }
 })();
+
+/* =====================================================================
+   Contact form — client-side validation + AJAX submit (no page reload)
+   Falls back to native form POST if JS is disabled.
+===================================================================== */
+(function () {
+  const STRINGS = {
+    de: {
+      sending: 'Wird gesendet…',
+      successTitle: 'Vielen Dank!',
+      successBody:  'Ihre Nachricht ist bei uns angekommen. Wir melden uns innerhalb von 24 Stunden.',
+      errorTitle:   'Bitte prüfen Sie Ihre Eingaben',
+      errorNetwork: 'Verbindung fehlgeschlagen. Bitte versuchen Sie es erneut oder rufen Sie uns an: +49 155 66044719.',
+      field_name:    'Bitte geben Sie Ihren Namen ein.',
+      field_email:   'Bitte geben Sie eine gültige E-Mail-Adresse ein.',
+      field_message: 'Bitte beschreiben Sie kurz Ihre Anfrage (mindestens 10 Zeichen).',
+      field_consent: 'Bitte stimmen Sie der Datenschutzerklärung zu.',
+    },
+    en: {
+      sending: 'Sending…',
+      successTitle: 'Thank you!',
+      successBody:  'Your message is on its way. We will reply within 24 hours.',
+      errorTitle:   'Please check your entries',
+      errorNetwork: 'Connection failed. Please try again or call us: +49 155 66044719.',
+      field_name:    'Please enter your name.',
+      field_email:   'Please enter a valid email address.',
+      field_message: 'Please briefly describe your enquiry (at least 10 characters).',
+      field_consent: 'Please agree to the Privacy Policy.',
+    }
+  };
+
+  const ICONS = {
+    success: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>',
+    error:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg>'
+  };
+
+  function getLang(form) {
+    const explicit = form.querySelector('input[name="lang"]');
+    if (explicit && (explicit.value === 'en' || explicit.value === 'de')) return explicit.value;
+    return document.documentElement.lang === 'en' ? 'en' : 'de';
+  }
+
+  function ensureFieldErrorEl(group) {
+    let err = group.querySelector('.field-error');
+    if (!err) {
+      err = document.createElement('div');
+      err.className = 'field-error';
+      group.appendChild(err);
+    }
+    return err;
+  }
+
+  function showFieldError(form, fieldName, message) {
+    const input = form.querySelector('[name="' + fieldName + '"]');
+    if (!input) return;
+    const group = input.closest('.form-group') || input.closest('.form-consent');
+    if (!group) return;
+    group.classList.add('has-error');
+    const err = ensureFieldErrorEl(group);
+    err.textContent = message;
+    input.setAttribute('aria-invalid', 'true');
+  }
+
+  function clearErrors(form) {
+    form.querySelectorAll('.has-error').forEach(function (g) { g.classList.remove('has-error'); });
+    form.querySelectorAll('[aria-invalid="true"]').forEach(function (el) { el.removeAttribute('aria-invalid'); });
+  }
+
+  function setStatus(form, kind, title, body) {
+    let box = form.querySelector('.form-status');
+    if (!box) {
+      box = document.createElement('div');
+      box.className = 'form-status';
+      box.setAttribute('role', 'status');
+      box.setAttribute('aria-live', 'polite');
+      form.insertBefore(box, form.firstChild);
+    }
+    box.className = 'form-status is-visible form-status--' + kind;
+    box.innerHTML =
+      '<span class="form-status__icon">' + ICONS[kind === 'success' ? 'success' : 'error'] + '</span>' +
+      '<p>' + (title ? '<strong>' + title + '</strong>' : '') + (body || '') + '</p>';
+  }
+
+  function clearStatus(form) {
+    const box = form.querySelector('.form-status');
+    if (box) box.classList.remove('is-visible');
+  }
+
+  function clientValidate(form, t) {
+    const errors = {};
+    const get = function (n) { const el = form.querySelector('[name="' + n + '"]'); return el ? (el.value || '').trim() : ''; };
+    if (get('name').length < 2) errors.name = t.field_name;
+    const email = get('email');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = t.field_email;
+    if (get('message').length < 10) errors.message = t.field_message;
+    const consentEl = form.querySelector('[name="consent"]');
+    if (consentEl && !consentEl.checked) errors.consent = t.field_consent;
+    return errors;
+  }
+
+  document.querySelectorAll('form[data-contact]').forEach(function (form) {
+    // Clear field errors as user types/changes
+    form.addEventListener('input', function (e) {
+      const t = e.target;
+      if (!t.name) return;
+      const group = t.closest('.form-group') || t.closest('.form-consent');
+      if (group && group.classList.contains('has-error')) {
+        group.classList.remove('has-error');
+        t.removeAttribute('aria-invalid');
+      }
+    });
+    form.addEventListener('change', function (e) {
+      if (e.target && e.target.name === 'consent') {
+        const group = e.target.closest('.form-consent');
+        if (group && group.classList.contains('has-error')) group.classList.remove('has-error');
+      }
+    });
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const lang = getLang(form);
+      const t = STRINGS[lang];
+      clearErrors(form);
+      clearStatus(form);
+
+      const errors = clientValidate(form, t);
+      if (Object.keys(errors).length) {
+        Object.keys(errors).forEach(function (k) { showFieldError(form, k, errors[k]); });
+        setStatus(form, 'error', t.errorTitle, '');
+        const firstErr = form.querySelector('.has-error [name]');
+        if (firstErr && typeof firstErr.focus === 'function') firstErr.focus();
+        return;
+      }
+
+      // Build payload (FormData -> plain object). Skip empty consent if unchecked.
+      const data = {};
+      const fd = new FormData(form);
+      fd.forEach(function (v, k) { data[k] = typeof v === 'string' ? v : ''; });
+      if (form.querySelector('[name="consent"]')) {
+        data.consent = !!form.querySelector('[name="consent"]').checked;
+      }
+
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalLabel = submitBtn ? submitBtn.innerHTML : '';
+      if (submitBtn) {
+        submitBtn.classList.add('is-loading');
+        submitBtn.disabled = true;
+      }
+
+      try {
+        const res = await fetch(form.getAttribute('action') || '/api/sendemail', {
+          method: 'POST',
+          headers: {
+            'Content-Type':     'application/json',
+            'Accept':           'application/json',
+            'X-Requested-With': 'fetch'
+          },
+          body: JSON.stringify(data)
+        });
+
+        let payload = null;
+        try { payload = await res.json(); } catch { payload = null; }
+
+        if (res.ok && payload && payload.ok) {
+          setStatus(form, 'success', t.successTitle, t.successBody);
+          form.reset();
+          const status = form.querySelector('.form-status');
+          if (status && status.scrollIntoView) status.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else if (payload && payload.fieldErrors) {
+          Object.keys(payload.fieldErrors).forEach(function (k) {
+            showFieldError(form, k, payload.fieldErrors[k]);
+          });
+          setStatus(form, 'error', t.errorTitle, payload.message || '');
+          const firstErr = form.querySelector('.has-error [name]');
+          if (firstErr && typeof firstErr.focus === 'function') firstErr.focus();
+        } else {
+          setStatus(form, 'error', t.errorTitle, (payload && payload.message) || t.errorNetwork);
+        }
+      } catch (err) {
+        setStatus(form, 'error', t.errorTitle, t.errorNetwork);
+      } finally {
+        if (submitBtn) {
+          submitBtn.classList.remove('is-loading');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalLabel;
+        }
+      }
+    });
+  });
+})();

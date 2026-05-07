@@ -3,6 +3,11 @@
 // Optional env vars:
 //   MAIL_TO     — recipient (default: info@techrecycling-berlin.com)
 //   MAIL_FROM   — sender    (default: Tech Recycling Berlin <onboarding@resend.dev>)
+//
+// Response format:
+//   - If the client sends `Accept: application/json` (the on-page JS handler does),
+//     responds with JSON: { ok, message, fieldErrors? }
+//   - Otherwise responds with a styled HTML page (no-JS fallback)
 
 export const config = { runtime: 'nodejs' };
 
@@ -10,11 +15,14 @@ const MESSAGES = {
   de: {
     success: 'Vielen Dank! Ihre Nachricht wurde erfolgreich gesendet. Wir melden uns innerhalb von 24 Stunden.',
     error:   'Beim Senden ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut oder rufen Sie uns an.',
-    invalid: 'Bitte füllen Sie alle Pflichtfelder korrekt aus.',
-    consent: 'Bitte stimmen Sie der Datenschutzerklärung zu.',
-    subject: 'Neue Anfrage über techrecycling-berlin.com',
-    backBtn: 'Zurück',
-    titleOk: 'Nachricht gesendet',
+    invalid: 'Bitte prüfen Sie die markierten Felder.',
+    field_name:    'Bitte geben Sie Ihren Namen ein.',
+    field_email:   'Bitte geben Sie eine gültige E-Mail-Adresse ein.',
+    field_message: 'Bitte beschreiben Sie kurz Ihre Anfrage (mindestens 10 Zeichen).',
+    field_consent: 'Bitte stimmen Sie der Datenschutzerklärung zu.',
+    subject:  'Neue Anfrage über techrecycling-berlin.com',
+    backBtn:  'Zurück',
+    titleOk:  'Nachricht gesendet',
     titleErr: 'Fehler',
     backHome: '/',
     backForm: '/kontakt.html',
@@ -22,11 +30,14 @@ const MESSAGES = {
   en: {
     success: 'Thank you! Your message was sent successfully. We will reply within 24 hours.',
     error:   'An error occurred. Please try again later or give us a call.',
-    invalid: 'Please fill in all required fields correctly.',
-    consent: 'Please agree to the Privacy Policy.',
-    subject: 'New enquiry via techrecycling-berlin.com',
-    backBtn: 'Back',
-    titleOk: 'Message sent',
+    invalid: 'Please check the highlighted fields.',
+    field_name:    'Please enter your name.',
+    field_email:   'Please enter a valid email address.',
+    field_message: 'Please briefly describe your enquiry (at least 10 characters).',
+    field_consent: 'Please agree to the Privacy Policy.',
+    subject:  'New enquiry via techrecycling-berlin.com',
+    backBtn:  'Back',
+    titleOk:  'Message sent',
     titleErr: 'Error',
     backHome: '/en/',
     backForm: '/en/contact.html',
@@ -55,6 +66,14 @@ function escapeHtml(s) {
   return String(s ?? '').replace(/[&<>"']/g, c =>
     ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c])
   );
+}
+
+function wantsJson(req) {
+  const accept = (req.headers.accept || '').toLowerCase();
+  if (accept.includes('application/json')) return true;
+  const xrw = (req.headers['x-requested-with'] || '').toLowerCase();
+  if (xrw === 'xmlhttprequest' || xrw === 'fetch') return true;
+  return false;
 }
 
 function renderPage({ lang, kind, title, message, backUrl, backLabel }) {
@@ -91,12 +110,27 @@ function renderPage({ lang, kind, title, message, backUrl, backLabel }) {
 </html>`;
 }
 
-export default async function handler(req, res) {
+function respond(req, res, { json, status, lang, kind, title, message, backUrl, backLabel, fieldErrors }) {
+  res.statusCode = status;
+  if (json) {
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    return res.end(JSON.stringify({
+      ok: kind === 'success',
+      message,
+      fieldErrors: fieldErrors || null,
+    }));
+  }
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  return res.end(renderPage({ lang, kind, title, message, backUrl, backLabel }));
+}
+
+export default async function handler(req, res) {
+  const json = wantsJson(req);
 
   if (req.method !== 'POST') {
     res.statusCode = 405;
-    return res.end('Method not allowed');
+    res.setHeader('Content-Type', json ? 'application/json' : 'text/plain');
+    return res.end(json ? JSON.stringify({ ok: false, message: 'Method not allowed' }) : 'Method not allowed');
   }
 
   let body;
@@ -119,34 +153,35 @@ export default async function handler(req, res) {
   const message = (body.message || '').trim();
   const consent = !!body.consent;
 
-  // Honeypot
+  // Honeypot — silently treat as success
   if ((body.website || '').trim() !== '') {
-    res.statusCode = 200;
-    return res.end(renderPage({
-      lang, kind: 'success', title: t.titleOk, message: t.success,
+    return respond(req, res, {
+      json, status: 200, lang, kind: 'success',
+      title: t.titleOk, message: t.success,
       backUrl: t.backHome, backLabel: t.backBtn,
-    }));
+    });
   }
 
-  // Validation
+  // Field-level validation
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  const errors = [];
-  if (name.length < 2) errors.push(t.invalid);
-  if (!emailOk)        errors.push(t.invalid);
-  if (message.length < 10) errors.push(t.invalid);
-  if (!consent)        errors.push(t.consent);
+  const fieldErrors = {};
+  if (name.length < 2)       fieldErrors.name    = t.field_name;
+  if (!emailOk)              fieldErrors.email   = t.field_email;
+  if (message.length < 10)   fieldErrors.message = t.field_message;
+  if (!consent)              fieldErrors.consent = t.field_consent;
 
-  if (errors.length) {
-    res.statusCode = 400;
-    return res.end(renderPage({
-      lang, kind: 'error', title: t.titleErr,
-      message: [...new Set(errors)].join(' '),
+  if (Object.keys(fieldErrors).length) {
+    return respond(req, res, {
+      json, status: 400, lang, kind: 'error',
+      title: t.titleErr,
+      message: t.invalid,
+      fieldErrors,
       backUrl: t.backForm, backLabel: t.backBtn,
-    }));
+    });
   }
 
-  const to   = process.env.MAIL_TO   || 'info@techrecycling-berlin.com';
-  const from = process.env.MAIL_FROM || 'Tech Recycling Berlin <onboarding@resend.dev>';
+  const to     = process.env.MAIL_TO   || 'info@techrecycling-berlin.com';
+  const from   = process.env.MAIL_FROM || 'Tech Recycling Berlin <onboarding@resend.dev>';
   const apiKey = process.env.RESEND_API_KEY;
 
   const textBody =
@@ -165,11 +200,11 @@ ${message}
 
   if (!apiKey) {
     console.error('[sendemail] RESEND_API_KEY is not set');
-    res.statusCode = 500;
-    return res.end(renderPage({
-      lang, kind: 'error', title: t.titleErr, message: t.error,
+    return respond(req, res, {
+      json, status: 500, lang, kind: 'error',
+      title: t.titleErr, message: t.error,
       backUrl: t.backForm, backLabel: t.backBtn,
-    }));
+    });
   }
 
   try {
@@ -190,24 +225,24 @@ ${message}
     if (!r.ok) {
       const detail = await r.text().catch(() => '');
       console.error('[sendemail] Resend error', r.status, detail);
-      res.statusCode = 502;
-      return res.end(renderPage({
-        lang, kind: 'error', title: t.titleErr, message: t.error,
+      return respond(req, res, {
+        json, status: 502, lang, kind: 'error',
+        title: t.titleErr, message: t.error,
         backUrl: t.backForm, backLabel: t.backBtn,
-      }));
+      });
     }
   } catch (e) {
     console.error('[sendemail] fetch failed', e);
-    res.statusCode = 502;
-    return res.end(renderPage({
-      lang, kind: 'error', title: t.titleErr, message: t.error,
+    return respond(req, res, {
+      json, status: 502, lang, kind: 'error',
+      title: t.titleErr, message: t.error,
       backUrl: t.backForm, backLabel: t.backBtn,
-    }));
+    });
   }
 
-  res.statusCode = 200;
-  return res.end(renderPage({
-    lang, kind: 'success', title: t.titleOk, message: t.success,
+  return respond(req, res, {
+    json, status: 200, lang, kind: 'success',
+    title: t.titleOk, message: t.success,
     backUrl: t.backHome, backLabel: t.backBtn,
-  }));
+  });
 }
