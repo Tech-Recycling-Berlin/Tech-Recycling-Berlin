@@ -249,7 +249,7 @@ body::before {
   display: block;
   transition: width .3s var(--ease-out), height .3s var(--ease-out);
 }
-.site-header.is-scrolled .brand img { width: 84px; height: 84px; }
+.site-header.is-scrolled .brand img { width: 96px; height: 96px; }
 
 .nav { display: flex; align-items: center; gap: 2rem; }
 .nav > a, .nav-has-sub > a {
@@ -413,7 +413,7 @@ body::before {
     height: 88px;
     transition: width .25s var(--ease-out), height .25s var(--ease-out);
   }
-  .site-header.is-scrolled .brand img { width: 72px; height: 72px; }
+  .site-header.is-scrolled .brand img { width: 80px; height: 80px; }
   .header-actions { gap: .45rem; align-items: center; }
   .lang-switch {
     font-size: .72rem;
