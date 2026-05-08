@@ -1421,7 +1421,7 @@ body::before {
 
 /* ---------- Page hero (for subpages) ---------- */
 .page-hero {
-  padding: clamp(2.5rem, 5vw, 4.5rem) 0 clamp(2.5rem, 4.5vw, 4rem);
+  padding: clamp(1.25rem, 2.5vw, 2.25rem) 0 clamp(2rem, 4vw, 3.5rem);
   background:
     radial-gradient(ellipse 60% 50% at 80% 20%, rgba(58,158,30,.12), transparent 60%),
     radial-gradient(ellipse 50% 40% at 10% 90%, rgba(232,242,58,.08), transparent 60%),
