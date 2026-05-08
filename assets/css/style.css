@@ -1421,7 +1421,7 @@ body::before {
 
 /* ---------- Page hero (for subpages) ---------- */
 .page-hero {
-  padding: clamp(4rem, 8vw, 7rem) 0 clamp(3rem, 5vw, 5rem);
+  padding: clamp(2.5rem, 5vw, 4.5rem) 0 clamp(2.5rem, 4.5vw, 4rem);
   background:
     radial-gradient(ellipse 60% 50% at 80% 20%, rgba(58,158,30,.12), transparent 60%),
     radial-gradient(ellipse 50% 40% at 10% 90%, rgba(232,242,58,.08), transparent 60%),
@@ -2919,14 +2919,24 @@ button:focus-visible,
 /* Photo variant — used when the illustration is a transparent PNG that
    already contains its own background / labels / pills. Drops the white
    card framing so the artwork bleeds to the edge, keeps the 3D tilt and
-   adds a gentle idle float. */
+   adds a gentle idle float. The container fills the entire visual area
+   and the <img> uses object-fit: contain so it always fits without
+   clipping, no matter how tall the image is. */
 .hero-art--photo {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: transparent;
   border: 0;
   border-radius: 0;
   box-shadow: none;
   aspect-ratio: auto;
   overflow: visible;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   animation: heroArtFloat 6s ease-in-out infinite alternate;
   will-change: transform;
 }
@@ -2934,7 +2944,8 @@ button:focus-visible,
 .hero-art--photo .hero-art__img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
   user-select: none;
   -webkit-user-drag: none;
   filter: drop-shadow(0 30px 50px rgba(15, 26, 13, .22))
@@ -2955,6 +2966,8 @@ button:focus-visible,
 @media (prefers-reduced-motion: reduce) {
   .hero-art--photo { animation: none !important; }
 }
+/* Pages that use a photo hero need more vertical room than the SVG ones */
+.page-hero--split:has(.hero-art--photo) .page-hero__visual { min-height: 460px; }
 .hero-art::before {
   content: "";
   position: absolute;
