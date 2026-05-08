@@ -2945,9 +2945,11 @@ button:focus-visible,
   display: block;
   width: auto;
   height: auto;
-  /* Scale down on small viewports, cap on large ones */
-  max-width: min(100%, 460px);
-  max-height: min(100%, 380px);
+  /* Scale down on small viewports, cap on large ones. The cap is tuned so
+     landscape (1.5) images get reasonable presence (~540×360) while
+     square ones stay bounded by max-height (~400×400). */
+  max-width: min(100%, 540px);
+  max-height: min(100%, 400px);
   object-fit: contain;
   user-select: none;
   -webkit-user-drag: none;
@@ -2969,9 +2971,9 @@ button:focus-visible,
 @media (prefers-reduced-motion: reduce) {
   .hero-art--photo { animation: none !important; }
 }
-/* Visual column height for photo heroes — shrunk to match the new
-   bounding box so the column doesn't reserve dead vertical space. */
-.page-hero--split:has(.hero-art--photo) .page-hero__visual { min-height: 380px; }
+/* Visual column height for photo heroes — matches the image bounding box
+   so the column doesn't reserve dead vertical space. */
+.page-hero--split:has(.hero-art--photo) .page-hero__visual { min-height: 400px; }
 .hero-art::before {
   content: "";
   position: absolute;
