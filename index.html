@@ -94,10 +94,10 @@
   "totalTime": "P5D",
   "estimatedCost": { "@type": "MonetaryAmount", "currency": "EUR", "value": "0" },
   "step": [
-    { "@type": "HowToStep", "position": 1, "name": "Anfrage", "text": "Unverbindliches Angebot in 24 h per Telefon, E-Mail oder Formular.", "url": "https://techrecycling-berlin.com/kontakt.html" },
-    { "@type": "HowToStep", "position": 2, "name": "Abholung", "text": "Kostenlose, versiegelte Abholung in Berlin/Brandenburg mit Chain-of-Custody.", "url": "https://techrecycling-berlin.com/it-recycling.html" },
-    { "@type": "HowToStep", "position": 3, "name": "Löschung & Verwertung", "text": "Datenlöschung nach BSI / DIN 66399 und Recycling nach ElektroG.", "url": "https://techrecycling-berlin.com/sichere-datenloeschung.html" },
-    { "@type": "HowToStep", "position": 4, "name": "Zertifikat", "text": "Revisionssicheres Lösch- und Entsorgungszertifikat für Audits.", "url": "https://techrecycling-berlin.com/sichere-datenloeschung.html" }
+    { "@type": "HowToStep", "position": 1, "name": "Anfrage", "text": "Unverbindliches Angebot in 24 h per Telefon, E-Mail oder Formular.", "url": "https://techrecycling-berlin.com/kontakt" },
+    { "@type": "HowToStep", "position": 2, "name": "Abholung", "text": "Kostenlose, versiegelte Abholung in Berlin/Brandenburg mit Chain-of-Custody.", "url": "https://techrecycling-berlin.com/it-recycling" },
+    { "@type": "HowToStep", "position": 3, "name": "Löschung & Verwertung", "text": "Datenlöschung nach BSI / DIN 66399 und Recycling nach ElektroG.", "url": "https://techrecycling-berlin.com/sichere-datenloeschung" },
+    { "@type": "HowToStep", "position": 4, "name": "Zertifikat", "text": "Revisionssicheres Lösch- und Entsorgungszertifikat für Audits.", "url": "https://techrecycling-berlin.com/sichere-datenloeschung" }
   ]
 }
 </script>
@@ -251,8 +251,10 @@ p{margin:0 0 1em;color:var(--ink-3)}
   transition:opacity .2s, transform .2s, visibility 0s linear .2s;z-index:5;
 }
 .has-dd:hover .dd-menu,.has-dd:focus-within .dd-menu{opacity:1;visibility:visible;transform:translateY(0);transition:opacity .2s, transform .2s}
-.dd-menu a{display:block;padding:.6rem .8rem;border-radius:10px;font-size:.9rem;color:var(--ink-3)}
-.dd-menu a:hover{background:var(--green-soft);color:var(--green-dark)}
+.dd-menu a{display:flex;align-items:center;gap:.6rem;padding:.7rem .9rem;border-radius:8px;font-size:.92rem;font-family:var(--font-display);font-weight:500;color:var(--ink-3);transition:background .2s ease, color .2s ease, transform .2s ease}
+.dd-menu a::before{content:"→";opacity:0;transform:translateX(-6px);transition:opacity .2s ease, transform .2s ease;color:var(--green)}
+.dd-menu a:hover{background:var(--green-soft);color:var(--green-dark);transform:translateX(2px)}
+.dd-menu a:hover::before{opacity:1;transform:translateX(0)}
 
 .hdr-actions{display:flex;align-items:center;gap:.9rem}
 .lang-switch{

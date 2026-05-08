@@ -1334,6 +1334,8 @@ body::before {
   color: var(--muted);
 }
 .form-consent input { margin-top: 3px; accent-color: var(--green); width: 18px; height: 18px; flex-shrink: 0; cursor: pointer; }
+.form-turnstile { margin: 0 0 1.25rem; min-height: 65px; }
+.form-turnstile .cf-turnstile { display: flex; justify-content: flex-start; }
 .form button[type="submit"] { width: 100%; }
 
 /* Field-level error state */
@@ -2678,7 +2680,6 @@ button:focus-visible,
    ===================================================================== */
 
 .page-hero--split .page-hero__inner {
-  max-width: none;
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
   gap: clamp(1.5rem, 4vw, 4rem);

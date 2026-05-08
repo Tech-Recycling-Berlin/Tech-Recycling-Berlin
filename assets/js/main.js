@@ -661,6 +661,23 @@
         data.consent = !!form.querySelector('[name="consent"]').checked;
       }
 
+      // Cloudflare Turnstile — only block if widget is present on the page.
+      // The widget injects a hidden input named "cf-turnstile-response"; the
+      // token lives there once the visitor has been verified.
+      const turnstileEl = form.querySelector('.cf-turnstile');
+      if (turnstileEl) {
+        const tokenInput = form.querySelector('[name="cf-turnstile-response"]');
+        const token = tokenInput && tokenInput.value;
+        if (!token) {
+          setStatus(form, 'error', t.validationTitle, lang === 'en'
+            ? 'Please complete the verification challenge above.'
+            : 'Bitte schließen Sie die Sicherheitsprüfung oben ab.');
+          if (turnstileEl.scrollIntoView) turnstileEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
+        data['cf-turnstile-response'] = token;
+      }
+
       const submitBtn = form.querySelector('button[type="submit"]');
       const originalLabel = submitBtn ? submitBtn.innerHTML : '';
       if (submitBtn) {
@@ -688,6 +705,7 @@
             : '';
           setStatus(form, 'success', t.successTitle, t.successBody + ref);
           form.reset();
+          if (window.turnstile && typeof window.turnstile.reset === 'function') window.turnstile.reset();
           const status = form.querySelector('.form-status');
           if (status && status.scrollIntoView) status.scrollIntoView({ behavior: 'smooth', block: 'center' });
         } else if (payload && payload.fieldErrors) {
@@ -695,14 +713,17 @@
             showFieldError(form, k, payload.fieldErrors[k]);
           });
           setStatus(form, 'error', t.validationTitle, payload.message || '');
+          if (window.turnstile && typeof window.turnstile.reset === 'function') window.turnstile.reset();
           const firstErr = form.querySelector('.has-error [name]');
           if (firstErr && typeof firstErr.focus === 'function') firstErr.focus();
         } else {
           // Server-side / delivery failure (5xx, no field errors)
           setStatus(form, 'error', t.sendFailTitle, t.sendFailBody);
+          if (window.turnstile && typeof window.turnstile.reset === 'function') window.turnstile.reset();
         }
       } catch (err) {
         setStatus(form, 'error', t.sendFailTitle, t.errorNetwork);
+        if (window.turnstile && typeof window.turnstile.reset === 'function') window.turnstile.reset();
       } finally {
         if (submitBtn) {
           submitBtn.classList.remove('is-loading');

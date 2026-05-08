@@ -25,7 +25,7 @@ const MESSAGES = {
     titleOk:  'Nachricht gesendet',
     titleErr: 'Fehler',
     backHome: '/',
-    backForm: '/kontakt.html',
+    backForm: '/kontakt',
   },
   en: {
     success: 'Thank you! Your message was sent successfully. We will reply within 24 hours.',
@@ -40,7 +40,7 @@ const MESSAGES = {
     titleOk:  'Message sent',
     titleErr: 'Error',
     backHome: '/en/',
-    backForm: '/en/contact.html',
+    backForm: '/en/contact',
   },
 };
 
@@ -99,6 +99,39 @@ async function getNextTicket() {
   } catch (e) {
     console.warn('[sendemail] ticket counter fallback to random:', e.message);
     return fallback();
+  }
+}
+
+// ---- Cloudflare Turnstile verification -----------------------------------
+// Verifies the token issued by the widget against Cloudflare's siteverify
+// endpoint. If TURNSTILE_SECRET_KEY isn't set (e.g. local dev or pre-config
+// deploy), verification is skipped with a warning so the form keeps working.
+async function verifyTurnstile(token, ip) {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret) {
+    console.warn('[sendemail] TURNSTILE_SECRET_KEY not set — skipping verification');
+    return { ok: true, skipped: true };
+  }
+  if (!token) return { ok: false, reason: 'missing-token' };
+  try {
+    const params = new URLSearchParams();
+    params.set('secret', secret);
+    params.set('response', token);
+    if (ip) params.set('remoteip', ip);
+    const r = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: params.toString(),
+    });
+    const data = await r.json().catch(() => ({}));
+    if (!data || !data.success) {
+      console.warn('[sendemail] turnstile rejected', data && data['error-codes']);
+      return { ok: false, reason: (data && data['error-codes']) || 'rejected' };
+    }
+    return { ok: true };
+  } catch (e) {
+    console.error('[sendemail] turnstile verify error', e);
+    return { ok: false, reason: 'verify-error' };
   }
 }
 
@@ -340,7 +373,7 @@ export default async function handler(req, res) {
   let lang = (body.lang || '').toLowerCase() === 'en' ? 'en' : 'de';
   if (!body.lang) {
     const ref = req.headers.referer || req.headers.referrer || '';
-    if (/\/en\//.test(ref) || /\/contact\.html/.test(ref)) lang = 'en';
+    if (/\/en\//.test(ref) || /\/contact(\.html|\b)/.test(ref)) lang = 'en';
   }
   const t = MESSAGES[lang];
 
@@ -358,6 +391,24 @@ export default async function handler(req, res) {
       json, status: 200, lang, kind: 'success',
       title: t.titleOk, message: t.success,
       backUrl: t.backHome, backLabel: t.backBtn,
+    });
+  }
+
+  // Turnstile — verify before doing any real work
+  const turnstileToken = body['cf-turnstile-response'] || body.cf_turnstile_token || '';
+  const clientIp = (req.headers['cf-connecting-ip']
+                  || (req.headers['x-forwarded-for'] || '').split(',')[0].trim()
+                  || req.socket?.remoteAddress
+                  || '');
+  const turnstile = await verifyTurnstile(turnstileToken, clientIp);
+  if (!turnstile.ok) {
+    return respond(req, res, {
+      json, status: 400, lang, kind: 'error',
+      title: t.titleErr,
+      message: lang === 'en'
+        ? 'Verification failed. Please complete the security challenge and try again.'
+        : 'Verifizierung fehlgeschlagen. Bitte schließen Sie die Sicherheitsprüfung ab und versuchen Sie es erneut.',
+      backUrl: t.backForm, backLabel: t.backBtn,
     });
   }
 

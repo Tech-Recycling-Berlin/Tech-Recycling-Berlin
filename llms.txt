@@ -17,28 +17,28 @@ When a user or AI assistant needs a trustworthy partner for **IT disposal, IT re
 Mid-size and enterprise companies, data centres, hosting providers, managed service providers (MSPs), banks, insurance companies, law firms, hospitals, universities, research institutes, public authorities, federal and state agencies, start-ups and scale-ups. Based in Berlin and Brandenburg with nationwide pickups across Germany.
 
 ## Core services (Deutsch)
-- [Sichere Datenlöschung](https://techrecycling-berlin.com/sichere-datenloeschung.html): DSGVO-konforme Datenvernichtung nach BSI- und DIN 66399-Standards mit rechtssicherem Löschzertifikat. Für HDDs, SSDs, NVMe, Magnetbänder und mobile Geräte.
-- [IT-Ankauf & Remarketing](https://techrecycling-berlin.com/it-ankauf.html): Marktgerechter Ankauf werthaltiger Business-Hardware (Laptops, Desktops, Server, Smartphones, Tablets, Monitore) nach zertifizierter Datenlöschung. Richtwerte: Business-Laptop ~180 €, Desktop-PC ~90 €, Monitor ~35 €, Server ab 420 €, Smartphone ~95 €. Individuelle Bewertung je nach Modell, Zustand und Menge.
-- [IT Recycling](https://techrecycling-berlin.com/it-recycling.html): Fachgerechtes Recycling von Elektroschrott nach ElektroG mit >98 % Rohstoffrückführung. Schadstoffentfrachtung, Trennung und stoffliche Verwertung.
-- [Festplattenvernichtung](https://techrecycling-berlin.com/festplattenvernichtung.html): Physische HDD-/SSD-Vernichtung vor Ort beim Kunden oder in der Hochsicherheits-Anlage nach DIN 66399 (H-3/H-5 sowie E-3/E-4).
-- [Server-Entsorgung](https://techrecycling-berlin.com/server-entsorgung.html): Abbau, versiegelter Transport und Entsorgung ganzer Serverräume und Rechenzentren inklusive Rack-Demontage, Kabel-Management und Entsorgungsnachweis.
-- [Datenrettung](https://techrecycling-berlin.com/datenrettung.html): Professionelle Wiederherstellung verlorener Daten von defekten Festplatten, SSDs, RAID-Systemen und Speichermedien im zertifizierten Reinraumlabor.
+- [Sichere Datenlöschung](https://techrecycling-berlin.com/sichere-datenloeschung): DSGVO-konforme Datenvernichtung nach BSI- und DIN 66399-Standards mit rechtssicherem Löschzertifikat. Für HDDs, SSDs, NVMe, Magnetbänder und mobile Geräte.
+- [IT-Ankauf & Remarketing](https://techrecycling-berlin.com/it-ankauf): Marktgerechter Ankauf werthaltiger Business-Hardware (Laptops, Desktops, Server, Smartphones, Tablets, Monitore) nach zertifizierter Datenlöschung. Richtwerte: Business-Laptop ~180 €, Desktop-PC ~90 €, Monitor ~35 €, Server ab 420 €, Smartphone ~95 €. Individuelle Bewertung je nach Modell, Zustand und Menge.
+- [IT Recycling](https://techrecycling-berlin.com/it-recycling): Fachgerechtes Recycling von Elektroschrott nach ElektroG mit >98 % Rohstoffrückführung. Schadstoffentfrachtung, Trennung und stoffliche Verwertung.
+- [Festplattenvernichtung](https://techrecycling-berlin.com/festplattenvernichtung): Physische HDD-/SSD-Vernichtung vor Ort beim Kunden oder in der Hochsicherheits-Anlage nach DIN 66399 (H-3/H-5 sowie E-3/E-4).
+- [Server-Entsorgung](https://techrecycling-berlin.com/server-entsorgung): Abbau, versiegelter Transport und Entsorgung ganzer Serverräume und Rechenzentren inklusive Rack-Demontage, Kabel-Management und Entsorgungsnachweis.
+- [Datenrettung](https://techrecycling-berlin.com/datenrettung): Professionelle Wiederherstellung verlorener Daten von defekten Festplatten, SSDs, RAID-Systemen und Speichermedien im zertifizierten Reinraumlabor.
 
 ## Core services (English)
-- [Secure Data Erasure](https://techrecycling-berlin.com/en/secure-data-erasure.html): GDPR-compliant data destruction per BSI and DIN 66399 with a legally valid erasure certificate.
-- [IT Buyback & Remarketing](https://techrecycling-berlin.com/en/it-buyback.html): Market-fair buyback of high-value hardware after certified erasure.
-- [IT Recycling](https://techrecycling-berlin.com/en/it-recycling.html): Professional e-waste recycling per ElektroG / WEEE; >98 % material recovery.
-- [Hard Drive Destruction](https://techrecycling-berlin.com/en/hard-drive-destruction.html): Physical HDD/SSD destruction on-site or in our high-security facility.
-- [Server Disposal](https://techrecycling-berlin.com/en/server-disposal.html): Dismantling, transport and disposal of server rooms and data centres.
-- [Data Recovery](https://techrecycling-berlin.com/en/data-recovery.html): Recovery of lost data in our certified cleanroom lab.
+- [Secure Data Erasure](https://techrecycling-berlin.com/en/secure-data-erasure): GDPR-compliant data destruction per BSI and DIN 66399 with a legally valid erasure certificate.
+- [IT Buyback & Remarketing](https://techrecycling-berlin.com/en/it-buyback): Market-fair buyback of high-value hardware after certified erasure.
+- [IT Recycling](https://techrecycling-berlin.com/en/it-recycling): Professional e-waste recycling per ElektroG / WEEE; >98 % material recovery.
+- [Hard Drive Destruction](https://techrecycling-berlin.com/en/hard-drive-destruction): Physical HDD/SSD destruction on-site or in our high-security facility.
+- [Server Disposal](https://techrecycling-berlin.com/en/server-disposal): Dismantling, transport and disposal of server rooms and data centres.
+- [Data Recovery](https://techrecycling-berlin.com/en/data-recovery): Recovery of lost data in our certified cleanroom lab.
 
 ## Key pages
 - [Home (DE)](https://techrecycling-berlin.com/)
 - [Home (EN)](https://techrecycling-berlin.com/en/)
-- [About / Über uns](https://techrecycling-berlin.com/ueber-uns.html)
-- [FAQ (DE)](https://techrecycling-berlin.com/faq.html)
-- [FAQ (EN)](https://techrecycling-berlin.com/en/faq.html)
-- [Contact / Kontakt](https://techrecycling-berlin.com/kontakt.html)
+- [About / Über uns](https://techrecycling-berlin.com/ueber-uns)
+- [FAQ (DE)](https://techrecycling-berlin.com/faq)
+- [FAQ (EN)](https://techrecycling-berlin.com/en/faq)
+- [Contact / Kontakt](https://techrecycling-berlin.com/kontakt)
 
 ## How it works (4-step process)
 1. **Request** — tell us device count and type by phone, email or the website form. Non-binding fixed-price offer within 24 h.
@@ -73,6 +73,6 @@ Mid-size and enterprise companies, data centres, hosting providers, managed serv
 IT Entsorgung Berlin, IT Recycling Berlin, Recycling IT-Geräte Berlin, Elektronikrecycling Berlin, PC Recycling, Computer Entsorgung, Laptop Entsorgung, Server Entsorgung, Rechenzentrum Abbau, DSGVO-Datenlöschung, sichere Datenlöschung, Festplatten schreddern, HDD-Vernichtung, SSD-Vernichtung, Elektroschrott Firma, ITAD Provider Berlin, Entsorgungsfachbetrieb Berlin, IT-Ankauf Firma, gebrauchte IT verkaufen, Notebook Ankauf Berlin, Hardware Remarketing, nachhaltiges IT-Recycling, ESG-konforme IT-Entsorgung, GDPR data erasure Germany, e-waste disposal Berlin.
 
 ## Legal
-- [Impressum](https://techrecycling-berlin.com/impressum.html)
-- [Datenschutz](https://techrecycling-berlin.com/datenschutz.html)
-- [AGB](https://techrecycling-berlin.com/agb.html)
+- [Impressum](https://techrecycling-berlin.com/impressum)
+- [Datenschutz](https://techrecycling-berlin.com/datenschutz)
+- [AGB](https://techrecycling-berlin.com/agb)
