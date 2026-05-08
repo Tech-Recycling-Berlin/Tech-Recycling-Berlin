@@ -683,7 +683,10 @@
         try { payload = await res.json(); } catch { payload = null; }
 
         if (res.ok && payload && payload.ok) {
-          setStatus(form, 'success', t.successTitle, t.successBody);
+          var ref = payload.ticket
+            ? ' <span style="display:inline-block;margin-top:.35rem;font-size:.82rem;color:#1f5a30;font-family:SFMono-Regular,Consolas,Menlo,monospace">' + payload.ticket + '</span>'
+            : '';
+          setStatus(form, 'success', t.successTitle, t.successBody + ref);
           form.reset();
           const status = form.querySelector('.form-status');
           if (status && status.scrollIntoView) status.scrollIntoView({ behavior: 'smooth', block: 'center' });

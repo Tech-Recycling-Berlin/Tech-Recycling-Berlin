@@ -266,7 +266,7 @@ function renderPage({ lang, kind, title, message, backUrl, backLabel }) {
 </html>`;
 }
 
-function respond(req, res, { json, status, lang, kind, title, message, backUrl, backLabel, fieldErrors }) {
+function respond(req, res, { json, status, lang, kind, title, message, backUrl, backLabel, fieldErrors, ticket }) {
   res.statusCode = status;
   if (json) {
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -274,6 +274,7 @@ function respond(req, res, { json, status, lang, kind, title, message, backUrl, 
       ok: kind === 'success',
       message,
       fieldErrors: fieldErrors || null,
+      ticket: ticket || null,
     }));
   }
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
@@ -437,5 +438,6 @@ ${message}
     json, status: 200, lang, kind: 'success',
     title: t.titleOk, message: t.success,
     backUrl: t.backHome, backLabel: t.backBtn,
+    ticket,
   });
 }
