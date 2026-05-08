@@ -284,56 +284,44 @@ function respond(req, res, { json, status, lang, kind, title, message, backUrl, 
 export default async function handler(req, res) {
   const json = wantsJson(req);
 
-  // ---- Diagnostic: GET /api/sendemail?debug=envs|kv ------------------
-  // - debug=envs : which KV-related env-var names are present (booleans).
-  // - debug=kv   : actually call the KV pipeline and report the result.
-  //                Helps figure out why the counter is falling through.
+  // ---- One-shot ticket counter reset ---------------------------------
+  // GET /api/sendemail?reset=trb&seed=37552&secret=<RESEND_API_KEY>
+  // Resets the Redis counter so the next INCR returns seed+1. Auth uses
+  // the existing RESEND_API_KEY so no extra env-var setup is needed.
+  // Returns { ok, value } on success.
   if (req.method === 'GET') {
     const url = new URL(req.url, 'http://x');
-    const dbg = url.searchParams.get('debug');
-    if (dbg === 'envs') {
-      const names = [
-        'KV_REST_API_URL', 'KV_REST_API_TOKEN', 'KV_REST_API_READ_ONLY_TOKEN',
-        'KV_URL', 'REDIS_URL',
-        'UPSTASH_REDIS_REST_URL', 'UPSTASH_REDIS_REST_TOKEN',
-        'RESEND_API_KEY', 'MAIL_TO', 'MAIL_FROM', 'NOREPLY_FROM',
-      ];
-      const present = {};
-      for (const n of names) present[n] = Boolean(process.env[n]);
-      res.statusCode = 200;
+    if (url.searchParams.get('reset') === 'trb') {
+      const secret = url.searchParams.get('secret') || '';
+      const expected = process.env.RESEND_API_KEY || '';
       res.setHeader('Content-Type', 'application/json; charset=utf-8');
-      return res.end(JSON.stringify({ envs: present }, null, 2));
-    }
-    if (dbg === 'kv') {
+      if (!expected || secret !== expected) {
+        res.statusCode = 401;
+        return res.end(JSON.stringify({ ok: false, reason: 'auth' }));
+      }
+      const seedRaw = url.searchParams.get('seed');
+      const seed = Number.parseInt(seedRaw, 10);
+      if (!Number.isFinite(seed)) {
+        res.statusCode = 400;
+        return res.end(JSON.stringify({ ok: false, reason: 'bad seed' }));
+      }
       const kvUrl   = process.env.KV_REST_API_URL  || process.env.UPSTASH_REDIS_REST_URL;
       const kvToken = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
-      res.setHeader('Content-Type', 'application/json; charset=utf-8');
       if (!kvUrl || !kvToken) {
-        res.statusCode = 200;
-        return res.end(JSON.stringify({ ok: false, reason: 'no kv env vars', urlPresent: !!kvUrl, tokenPresent: !!kvToken }, null, 2));
+        res.statusCode = 500;
+        return res.end(JSON.stringify({ ok: false, reason: 'no kv env vars' }));
       }
       try {
-        const r = await fetch(kvUrl + '/pipeline', {
+        const r = await fetch(kvUrl + '/set/' + encodeURIComponent(TICKET_KEY) + '/' + encodeURIComponent(String(seed)), {
           method: 'POST',
-          headers: { 'Authorization': 'Bearer ' + kvToken, 'Content-Type': 'application/json' },
-          body: JSON.stringify([
-            ['set',  TICKET_KEY, String(TICKET_SEED), 'nx'],
-            ['incr', TICKET_KEY],
-          ]),
+          headers: { 'Authorization': 'Bearer ' + kvToken },
         });
-        const text = await r.text();
-        let parsed = null; try { parsed = JSON.parse(text); } catch {}
-        res.statusCode = 200;
-        return res.end(JSON.stringify({
-          ok: r.ok,
-          httpStatus: r.status,
-          urlEndsWith: kvUrl.slice(-40),
-          responseRaw: text.slice(0, 500),
-          parsed,
-        }, null, 2));
+        const data = await r.json().catch(() => ({}));
+        res.statusCode = r.ok ? 200 : 502;
+        return res.end(JSON.stringify({ ok: r.ok, value: seed, kv: data }));
       } catch (e) {
-        res.statusCode = 200;
-        return res.end(JSON.stringify({ ok: false, error: String(e && e.message || e) }, null, 2));
+        res.statusCode = 502;
+        return res.end(JSON.stringify({ ok: false, error: String(e && e.message || e) }));
       }
     }
   }
