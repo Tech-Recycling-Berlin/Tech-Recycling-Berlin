@@ -284,6 +284,27 @@ function respond(req, res, { json, status, lang, kind, title, message, backUrl, 
 export default async function handler(req, res) {
   const json = wantsJson(req);
 
+  // ---- Diagnostic: GET /api/sendemail?debug=envs ----------------------
+  // Returns which KV-related env-var names are present (not their values).
+  // Lets us figure out which name pattern the Upstash/Vercel-KV integration
+  // injected, without leaking secrets.
+  if (req.method === 'GET') {
+    const url = new URL(req.url, 'http://x');
+    if (url.searchParams.get('debug') === 'envs') {
+      const names = [
+        'KV_REST_API_URL', 'KV_REST_API_TOKEN', 'KV_REST_API_READ_ONLY_TOKEN',
+        'KV_URL', 'REDIS_URL',
+        'UPSTASH_REDIS_REST_URL', 'UPSTASH_REDIS_REST_TOKEN',
+        'RESEND_API_KEY', 'MAIL_TO', 'MAIL_FROM', 'NOREPLY_FROM',
+      ];
+      const present = {};
+      for (const n of names) present[n] = Boolean(process.env[n]);
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'application/json; charset=utf-8');
+      return res.end(JSON.stringify({ envs: present }, null, 2));
+    }
+  }
+
   if (req.method !== 'POST') {
     res.statusCode = 405;
     res.setHeader('Content-Type', json ? 'application/json' : 'text/plain');
