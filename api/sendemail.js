@@ -62,6 +62,46 @@ function parseForm(req) {
   });
 }
 
+// ---- Sequential ticket counter ------------------------------------------
+// Uses Upstash / Vercel-KV REST API to atomically fetch the next ticket
+// number. Bootstrap value = 37552 (set only if the key does not yet exist),
+// so the first ticket out of the gate is TRB-37553. If no KV credentials
+// are configured (or the call fails for any reason), gracefully fall back
+// to a random TRB-NNNNN — the form will keep working, tickets just won't
+// be sequential until KV is wired up.
+const TICKET_KEY = 'trb_ticket_seq';
+const TICKET_SEED = 37552;
+
+async function getNextTicket() {
+  const url   = process.env.KV_REST_API_URL  || process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+  const fallback = () => 'TRB-' + (10000 + Math.floor(Math.random() * 90000));
+
+  if (!url || !token) return fallback();
+
+  try {
+    const r = await fetch(url + '/pipeline', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'Content-Type':  'application/json',
+      },
+      body: JSON.stringify([
+        ['set',  TICKET_KEY, String(TICKET_SEED), 'nx'],
+        ['incr', TICKET_KEY],
+      ]),
+    });
+    if (!r.ok) throw new Error('kv http ' + r.status);
+    const data = await r.json();
+    const num  = data && data[1] && (data[1].result ?? data[1].response);
+    if (typeof num === 'number' && Number.isFinite(num)) return 'TRB-' + num;
+    throw new Error('kv unexpected response: ' + JSON.stringify(data));
+  } catch (e) {
+    console.warn('[sendemail] ticket counter fallback to random:', e.message);
+    return fallback();
+  }
+}
+
 function escapeHtml(s) {
   return String(s ?? '').replace(/[&<>"']/g, c =>
     ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c])
@@ -301,8 +341,9 @@ export default async function handler(req, res) {
   const noreplyFrom = process.env.NOREPLY_FROM || from;
   const apiKey    = process.env.RESEND_API_KEY;
 
-  // Ticket reference for both the internal mail and the auto-reply
-  const ticket = 'TRB-' + (10000 + Math.floor(Math.random() * 90000));
+  // Ticket reference for both the internal mail and the auto-reply.
+  // Sequential when KV is configured, random otherwise — see getNextTicket().
+  const ticket = await getNextTicket();
 
   const adminText =
 `Neue Anfrage / New enquiry — ${ticket}
