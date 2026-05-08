@@ -284,13 +284,14 @@ function respond(req, res, { json, status, lang, kind, title, message, backUrl, 
 export default async function handler(req, res) {
   const json = wantsJson(req);
 
-  // ---- Diagnostic: GET /api/sendemail?debug=envs ----------------------
-  // Returns which KV-related env-var names are present (not their values).
-  // Lets us figure out which name pattern the Upstash/Vercel-KV integration
-  // injected, without leaking secrets.
+  // ---- Diagnostic: GET /api/sendemail?debug=envs|kv ------------------
+  // - debug=envs : which KV-related env-var names are present (booleans).
+  // - debug=kv   : actually call the KV pipeline and report the result.
+  //                Helps figure out why the counter is falling through.
   if (req.method === 'GET') {
     const url = new URL(req.url, 'http://x');
-    if (url.searchParams.get('debug') === 'envs') {
+    const dbg = url.searchParams.get('debug');
+    if (dbg === 'envs') {
       const names = [
         'KV_REST_API_URL', 'KV_REST_API_TOKEN', 'KV_REST_API_READ_ONLY_TOKEN',
         'KV_URL', 'REDIS_URL',
@@ -302,6 +303,38 @@ export default async function handler(req, res) {
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json; charset=utf-8');
       return res.end(JSON.stringify({ envs: present }, null, 2));
+    }
+    if (dbg === 'kv') {
+      const kvUrl   = process.env.KV_REST_API_URL  || process.env.UPSTASH_REDIS_REST_URL;
+      const kvToken = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+      res.setHeader('Content-Type', 'application/json; charset=utf-8');
+      if (!kvUrl || !kvToken) {
+        res.statusCode = 200;
+        return res.end(JSON.stringify({ ok: false, reason: 'no kv env vars', urlPresent: !!kvUrl, tokenPresent: !!kvToken }, null, 2));
+      }
+      try {
+        const r = await fetch(kvUrl + '/pipeline', {
+          method: 'POST',
+          headers: { 'Authorization': 'Bearer ' + kvToken, 'Content-Type': 'application/json' },
+          body: JSON.stringify([
+            ['set',  TICKET_KEY, String(TICKET_SEED), 'nx'],
+            ['incr', TICKET_KEY],
+          ]),
+        });
+        const text = await r.text();
+        let parsed = null; try { parsed = JSON.parse(text); } catch {}
+        res.statusCode = 200;
+        return res.end(JSON.stringify({
+          ok: r.ok,
+          httpStatus: r.status,
+          urlEndsWith: kvUrl.slice(-40),
+          responseRaw: text.slice(0, 500),
+          parsed,
+        }, null, 2));
+      } catch (e) {
+        res.statusCode = 200;
+        return res.end(JSON.stringify({ ok: false, error: String(e && e.message || e) }, null, 2));
+      }
     }
   }
 
