@@ -2916,6 +2916,45 @@ button:focus-visible,
   padding: 0;
   z-index: 1;
 }
+/* Photo variant — used when the illustration is a transparent PNG that
+   already contains its own background / labels / pills. Drops the white
+   card framing so the artwork bleeds to the edge, keeps the 3D tilt and
+   adds a gentle idle float. */
+.hero-art--photo {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  aspect-ratio: auto;
+  overflow: visible;
+  animation: heroArtFloat 6s ease-in-out infinite alternate;
+  will-change: transform;
+}
+.hero-art--photo::before { display: none; }
+.hero-art--photo .hero-art__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: drop-shadow(0 30px 50px rgba(15, 26, 13, .22))
+          drop-shadow(0 12px 24px rgba(58, 158, 30, .12));
+}
+@keyframes heroArtFloat {
+  from {
+    transform:
+      rotateY(-6deg) rotateX(3deg)
+      translate3d(var(--lx, 0px), calc(var(--ly, 0px) - 6px), -20px);
+  }
+  to {
+    transform:
+      rotateY(-6deg) rotateX(3deg)
+      translate3d(var(--lx, 0px), calc(var(--ly, 0px) + 6px), -20px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-art--photo { animation: none !important; }
+}
 .hero-art::before {
   content: "";
   position: absolute;
