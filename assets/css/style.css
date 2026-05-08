@@ -2919,9 +2919,9 @@ button:focus-visible,
 /* Photo variant — used when the illustration is a transparent PNG that
    already contains its own background / labels / pills. Drops the white
    card framing so the artwork bleeds to the edge, keeps the 3D tilt and
-   adds a gentle idle float. The container fills the entire visual area
-   and the <img> uses object-fit: contain so it always fits without
-   clipping, no matter how tall the image is. */
+   adds a gentle idle float. Image is centered inside the visual column
+   and capped to a sensible bounding box so it never feels oversized,
+   regardless of the column width or the photo's aspect ratio. */
 .hero-art--photo {
   top: 0;
   left: 0;
@@ -2943,8 +2943,11 @@ button:focus-visible,
 .hero-art--photo::before { display: none; }
 .hero-art--photo .hero-art__img {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: auto;
+  /* Scale down on small viewports, cap on large ones */
+  max-width: min(100%, 460px);
+  max-height: min(100%, 380px);
   object-fit: contain;
   user-select: none;
   -webkit-user-drag: none;
@@ -2966,8 +2969,9 @@ button:focus-visible,
 @media (prefers-reduced-motion: reduce) {
   .hero-art--photo { animation: none !important; }
 }
-/* Pages that use a photo hero need more vertical room than the SVG ones */
-.page-hero--split:has(.hero-art--photo) .page-hero__visual { min-height: 460px; }
+/* Visual column height for photo heroes — shrunk to match the new
+   bounding box so the column doesn't reserve dead vertical space. */
+.page-hero--split:has(.hero-art--photo) .page-hero__visual { min-height: 380px; }
 .hero-art::before {
   content: "";
   position: absolute;
