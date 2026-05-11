@@ -723,6 +723,15 @@
         try { payload = await res.json(); } catch { payload = null; }
 
         if (res.ok && payload && payload.ok) {
+          // Google Ads conversion — "Lead-Formular senden". Consent Mode v2
+          // gates cookie dropping at the gtag layer, so this is safe to call
+          // unconditionally (denied consent still counts as a modeled
+          // conversion in Google Ads).
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'conversion', {
+              'send_to': 'AW-11395987098/ARjICKyuy_IYEJrtg7oq'
+            });
+          }
           var ref = payload.ticket
             ? ' <span style="display:inline-block;margin-top:.35rem;font-size:.82rem;color:#1f5a30;font-family:SFMono-Regular,Consolas,Menlo,monospace">' + payload.ticket + '</span>'
             : '';
