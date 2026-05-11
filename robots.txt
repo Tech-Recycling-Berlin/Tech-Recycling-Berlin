@@ -23,4 +23,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://techrecycling-berlin.com/sitemap.xml
+Sitemap: https://www.techrecycling-berlin.com/sitemap.xml
