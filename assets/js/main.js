@@ -253,6 +253,20 @@
     }
   } catch (err) { /* storage may be blocked */ }
 
+  // ---------- Click tracking: tel: and mailto: ----------
+  document.addEventListener('click', function (e) {
+    if (typeof window.gtag !== 'function') return;
+    const a = e.target.closest && e.target.closest('a[href^="tel:"], a[href^="mailto:"]');
+    if (!a) return;
+    const href = a.getAttribute('href') || '';
+    const isPhone = href.indexOf('tel:') === 0;
+    window.gtag('event', isPhone ? 'click_phone' : 'click_email', {
+      link_url: href,
+      link_text: (a.textContent || '').trim().slice(0, 80),
+      page_location: window.location.pathname
+    });
+  });
+
   // ---------- Contact form validation ----------
   const form = document.querySelector('form[data-contact]');
   if (form) {
@@ -736,6 +750,14 @@
             ? ' <span style="display:inline-block;margin-top:.35rem;font-size:.82rem;color:#1f5a30;font-family:SFMono-Regular,Consolas,Menlo,monospace">' + payload.ticket + '</span>'
             : '';
           setStatus(form, 'success', t.successTitle, t.successBody + ref);
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'generate_lead', {
+              form_id: form.getAttribute('id') || form.getAttribute('name') || 'contact_form',
+              form_location: window.location.pathname,
+              currency: 'EUR',
+              value: 1
+            });
+          }
           form.reset();
           if (window.turnstile && typeof window.turnstile.reset === 'function') window.turnstile.reset();
           const status = form.querySelector('.form-status');
