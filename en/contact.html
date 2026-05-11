@@ -31,6 +31,34 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="../assets/css/style.css">
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<!-- Google tag (gtag.js) — Tech Recycling, Consent Mode v2 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7L4J2ZBQVP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  // Default-deny under GDPR until visitor accepts via cookie banner.
+  // main.js calls gtag('consent', 'update', ...) when "Alle akzeptieren" is clicked.
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied',
+    'wait_for_update': 500
+  });
+  try {
+    if (localStorage.getItem('trb_cookie_consent_v1') === 'all') {
+      gtag('consent', 'update', {
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted',
+        'analytics_storage': 'granted'
+      });
+    }
+  } catch(e) {}
+  gtag('js', new Date());
+  gtag('config', 'G-7L4J2ZBQVP');
+  gtag('config', 'AW-11395987098');
+</script>
 </head>
 <body>
 <header class="site-header">

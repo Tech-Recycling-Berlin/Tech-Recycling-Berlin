@@ -216,6 +216,27 @@
   }
 
   // ---------- Cookie banner ----------
+  // Notifies Google Consent Mode (gtag, declared in <head>) when the visitor
+  // makes a choice. "all" → grant analytics + ads storage; "essential" stays
+  // denied (the default set in the gtag snippet).
+  function updateGtagConsent(choice) {
+    if (typeof window.gtag !== 'function') return;
+    if (choice === 'all') {
+      window.gtag('consent', 'update', {
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted',
+        'analytics_storage': 'granted'
+      });
+    } else {
+      window.gtag('consent', 'update', {
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'denied'
+      });
+    }
+  }
   try {
     const KEY = 'trb_cookie_consent_v1';
     const banner = document.getElementById('cookie-banner');
@@ -223,7 +244,9 @@
       setTimeout(function () { banner.classList.add('is-visible'); }, 1200);
       banner.querySelectorAll('[data-consent]').forEach(function (btn) {
         btn.addEventListener('click', function () {
-          localStorage.setItem(KEY, btn.getAttribute('data-consent'));
+          const choice = btn.getAttribute('data-consent');
+          localStorage.setItem(KEY, choice);
+          updateGtagConsent(choice);
           banner.classList.remove('is-visible');
         });
       });
