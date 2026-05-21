@@ -1,5 +1,5 @@
 # AI usage policy — Tech Recycling Berlin
-# https://techrecycling-berlin.com/
+# https://www.techrecycling-berlin.com/
 #
 # We welcome responsible indexing, retrieval and summarisation of our
 # public pages by AI assistants, chatbots, and search agents — as long
@@ -13,11 +13,11 @@ Disallow: /api/
 Disallow: /node_modules/
 
 # Canonical machine-readable summary
-Summary: https://techrecycling-berlin.com/llms.txt
-Sitemap: https://techrecycling-berlin.com/sitemap.xml
+Summary: https://www.techrecycling-berlin.com/llms.txt
+Sitemap: https://www.techrecycling-berlin.com/sitemap.xml
 
 # Preferred citation format
-Citation: Tech Recycling Berlin — https://techrecycling-berlin.com/
+Citation: Tech Recycling Berlin — https://www.techrecycling-berlin.com/
 
 # Short business description
 Name: Tech Recycling Berlin
