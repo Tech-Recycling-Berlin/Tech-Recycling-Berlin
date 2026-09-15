@@ -267,31 +267,6 @@
     });
   });
 
-  // ---------- Contact form validation ----------
-  const form = document.querySelector('form[data-contact]');
-  if (form) {
-    form.addEventListener('submit', function (e) {
-      const required = form.querySelectorAll('[required]');
-      let ok = true;
-      required.forEach(function (el) {
-        const valid = el.type === 'checkbox' ? el.checked : el.value.trim().length > 0;
-        if (!valid) {
-          el.style.borderColor = '#dc3545';
-          el.style.boxShadow = '0 0 0 3px rgba(220,53,69,.15)';
-          ok = false;
-        } else {
-          el.style.borderColor = '';
-          el.style.boxShadow = '';
-        }
-      });
-      if (!ok) {
-        e.preventDefault();
-        const first = form.querySelector('[style*="dc3545"]');
-        if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    });
-  }
-
   // ---------- Year injection (fallback) ----------
   const yearEls = document.querySelectorAll('#year, [data-year]');
   yearEls.forEach(function (el) { el.textContent = new Date().getFullYear(); });
@@ -569,8 +544,13 @@
       errorNetwork: 'Verbindung fehlgeschlagen. Bitte versuchen Sie es erneut oder rufen Sie uns an: +49 155 66044719.',
       field_name:    'Bitte geben Sie Ihren Namen ein.',
       field_email:   'Bitte geben Sie eine gültige E-Mail-Adresse ein.',
-      field_message: 'Bitte beschreiben Sie kurz Ihre Anfrage (mindestens 10 Zeichen).',
+      field_company: 'Bitte geben Sie Ihre Firma an.',
+      field_devices: 'Bitte beschreiben Sie kurz die Geräte oder laden Sie eine Liste bzw. Fotos hoch.',
       field_consent: 'Bitte stimmen Sie der Datenschutzerklärung zu.',
+      files_count:   'Bitte höchstens 10 Dateien hochladen.',
+      files_type:    'Dieses Dateiformat wird nicht unterstützt: ',
+      files_size:    'Die Dateien sind zusammen zu groß (max. 3 MB). Bitte weniger Dateien oder die Liste als PDF/CSV hochladen.',
+      files_remove:  'Entfernen',
     },
     en: {
       sending: 'Sending…',
@@ -582,8 +562,13 @@
       errorNetwork: 'Connection failed. Please try again or call us: +49 155 66044719.',
       field_name:    'Please enter your name.',
       field_email:   'Please enter a valid email address.',
-      field_message: 'Please briefly describe your enquiry (at least 10 characters).',
+      field_company: 'Please enter your company.',
+      field_devices: 'Please briefly describe the devices or upload a list or photos.',
       field_consent: 'Please agree to the Privacy Policy.',
+      files_count:   'Please upload no more than 10 files.',
+      files_type:    'This file format is not supported: ',
+      files_size:    'The files are too large in total (max. 3 MB). Please upload fewer files or send the list as PDF/CSV.',
+      files_remove:  'Remove',
     }
   };
 
@@ -644,19 +629,157 @@
     if (box) box.classList.remove('is-visible');
   }
 
+  // ---- File upload ----
+  // Files are sent base64-encoded inside the JSON body. Vercel caps request
+  // bodies at 4.5 MB, so the total stays at 3 MB; photos are downscaled first.
+  const UPLOAD_MAX_FILES = 10;
+  const UPLOAD_MAX_TOTAL = 3000000;
+  const UPLOAD_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'pdf', 'txt', 'csv', 'tsv', 'xls', 'xlsx', 'ods', 'doc', 'docx', 'odt'];
+  const IMAGE_MAX_EDGE = 2000;
+  const IMAGE_SKIP_BELOW = 400000;
+
+  function fileExt(name) {
+    const m = /\.([a-z0-9]+)$/i.exec(name || '');
+    return m ? m[1].toLowerCase() : '';
+  }
+
+  function formatSize(bytes) {
+    return bytes >= 1000000 ? (bytes / 1000000).toFixed(1).replace('.', ',') + ' MB' : Math.max(1, Math.round(bytes / 1000)) + ' KB';
+  }
+
+  function readAsBase64(blob) {
+    return new Promise(function (resolve, reject) {
+      const reader = new FileReader();
+      reader.onload = function () { resolve(String(reader.result).split(',')[1] || ''); };
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  }
+
+  // Downscales JPEG/PNG/WEBP photos to JPEG. Small files, GIFs and anything
+  // that fails to decode are sent unchanged.
+  function shrinkImage(file) {
+    const ext = fileExt(file.name);
+    if (['jpg', 'jpeg', 'png', 'webp'].indexOf(ext) === -1 || file.size < IMAGE_SKIP_BELOW) {
+      return Promise.resolve({ blob: file, filename: file.name });
+    }
+    return new Promise(function (resolve) {
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      const keep = function () { URL.revokeObjectURL(url); resolve({ blob: file, filename: file.name }); };
+      img.onerror = keep;
+      img.onload = function () {
+        const scale = Math.min(1, IMAGE_MAX_EDGE / Math.max(img.naturalWidth, img.naturalHeight));
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.round(img.naturalWidth * scale);
+        canvas.height = Math.round(img.naturalHeight * scale);
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return keep();
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        canvas.toBlob(function (blob) {
+          URL.revokeObjectURL(url);
+          if (!blob || blob.size >= file.size) return resolve({ blob: file, filename: file.name });
+          resolve({ blob: blob, filename: file.name.replace(/\.[^.]+$/, '') + '.jpg' });
+        }, 'image/jpeg', 0.82);
+      };
+      img.src = url;
+    });
+  }
+
+  function setupUpload(form, t) {
+    const wrap = form.querySelector('[data-upload]');
+    if (!wrap) return;
+    const input = wrap.querySelector('input[type="file"]');
+    const list = wrap.querySelector('[data-upload-list]');
+    form._files = [];
+    wrap.hidden = false; // hidden without JS — the no-JS POST cannot carry files
+
+    function render() {
+      list.innerHTML = '';
+      form._files.forEach(function (file, i) {
+        const li = document.createElement('li');
+        const name = document.createElement('span');
+        name.className = 'form-files__name';
+        name.textContent = file.name;
+        const size = document.createElement('span');
+        size.className = 'form-files__size';
+        size.textContent = formatSize(file.size);
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = '×';
+        btn.setAttribute('aria-label', t.files_remove + ': ' + file.name);
+        btn.addEventListener('click', function () {
+          form._files.splice(i, 1);
+          render();
+        });
+        li.appendChild(name);
+        li.appendChild(size);
+        li.appendChild(btn);
+        list.appendChild(li);
+      });
+    }
+
+    input.addEventListener('change', function () {
+      form.querySelectorAll('[name="attachments"], [name="devices"]').forEach(function (el) {
+        const group = el.closest('.form-group');
+        if (group) group.classList.remove('has-error');
+        el.removeAttribute('aria-invalid');
+      });
+      Array.prototype.forEach.call(input.files || [], function (file) {
+        if (UPLOAD_EXTENSIONS.indexOf(fileExt(file.name)) === -1) {
+          showFieldError(form, 'attachments', t.files_type + file.name);
+          return;
+        }
+        if (form._files.length >= UPLOAD_MAX_FILES) {
+          showFieldError(form, 'attachments', t.files_count);
+          return;
+        }
+        form._files.push(file);
+      });
+      input.value = ''; // allow picking more files in a second round
+      render();
+    });
+
+    form.addEventListener('reset', function () {
+      form._files = [];
+      render();
+    });
+  }
+
+  // Resolves to [{ filename, content }] or null when the total is too large.
+  async function prepareAttachments(form) {
+    const files = form._files || [];
+    const out = [];
+    let total = 0;
+    for (const file of files) {
+      const shrunk = await shrinkImage(file);
+      total += shrunk.blob.size;
+      if (total > UPLOAD_MAX_TOTAL) return null;
+      out.push({ filename: shrunk.filename, content: await readAsBase64(shrunk.blob) });
+    }
+    return out;
+  }
+
   function clientValidate(form, t) {
     const errors = {};
     const get = function (n) { const el = form.querySelector('[name="' + n + '"]'); return el ? (el.value || '').trim() : ''; };
     if (get('name').length < 2) errors.name = t.field_name;
+    if (form.querySelector('[name="company"]') && !get('company')) errors.company = t.field_company;
     const email = get('email');
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = t.field_email;
-    if (get('message').length < 10) errors.message = t.field_message;
+    if (form.querySelector('[name="devices"]') && !get('devices') && !(form._files && form._files.length)) {
+      errors.devices = t.field_devices;
+    }
     const consentEl = form.querySelector('[name="consent"]');
     if (consentEl && !consentEl.checked) errors.consent = t.field_consent;
     return errors;
   }
 
   document.querySelectorAll('form[data-contact]').forEach(function (form) {
+    setupUpload(form, STRINGS[getLang(form)]);
+
     // Clear field errors as user types/changes
     form.addEventListener('input', function (e) {
       const t = e.target;
@@ -693,7 +816,11 @@
       // Build payload (FormData -> plain object). Skip empty consent if unchecked.
       const data = {};
       const fd = new FormData(form);
-      fd.forEach(function (v, k) { data[k] = typeof v === 'string' ? v : ''; });
+      fd.forEach(function (v, k) {
+        if (typeof v !== 'string') return; // files are added below
+        if (k === 'service') (data.service = data.service || []).push(v);
+        else data[k] = v;
+      });
       if (form.querySelector('[name="consent"]')) {
         data.consent = !!form.querySelector('[name="consent"]').checked;
       }
@@ -723,6 +850,16 @@
       }
 
       try {
+        if (form._files && form._files.length) {
+          const attachments = await prepareAttachments(form);
+          if (!attachments) {
+            showFieldError(form, 'attachments', t.files_size);
+            setStatus(form, 'error', t.validationTitle, '');
+            return;
+          }
+          data.attachments = attachments;
+        }
+
         const res = await fetch(form.getAttribute('action') || '/api/sendemail', {
           method: 'POST',
           headers: {

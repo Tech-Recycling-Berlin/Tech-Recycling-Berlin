@@ -4,6 +4,10 @@
 //   MAIL_TO     — recipient (default: info@techrecycling-berlin.com)
 //   MAIL_FROM   — sender    (default: Tech Recycling Berlin <onboarding@resend.dev>)
 //
+// The internal mail follows the format the enquiry automation parses
+// (one `Label: value` line per field, `Geräte:` block, `Nachricht / Message:`
+// last). Change labels or option texts only together with the automation.
+//
 // Response format:
 //   - If the client sends `Accept: application/json` (the on-page JS handler does),
 //     responds with JSON: { ok, message, fieldErrors? }
@@ -18,9 +22,10 @@ const MESSAGES = {
     invalid: 'Bitte prüfen Sie die markierten Felder.',
     field_name:    'Bitte geben Sie Ihren Namen ein.',
     field_email:   'Bitte geben Sie eine gültige E-Mail-Adresse ein.',
-    field_message: 'Bitte beschreiben Sie kurz Ihre Anfrage (mindestens 10 Zeichen).',
+    field_company: 'Bitte geben Sie Ihre Firma an.',
+    field_devices: 'Bitte beschreiben Sie kurz die Geräte oder laden Sie eine Liste bzw. Fotos hoch.',
+    field_attachments: 'Die Dateien sind zu groß oder haben ein nicht unterstütztes Format (max. 10 Dateien, zusammen 3 MB).',
     field_consent: 'Bitte stimmen Sie der Datenschutzerklärung zu.',
-    subject:  'Neue Anfrage über techrecycling-berlin.com',
     backBtn:  'Zurück',
     titleOk:  'Nachricht gesendet',
     titleErr: 'Fehler',
@@ -33,9 +38,10 @@ const MESSAGES = {
     invalid: 'Please check the highlighted fields.',
     field_name:    'Please enter your name.',
     field_email:   'Please enter a valid email address.',
-    field_message: 'Please briefly describe your enquiry (at least 10 characters).',
+    field_company: 'Please enter your company.',
+    field_devices: 'Please briefly describe the devices or upload a list or photos.',
+    field_attachments: 'The files are too large or in an unsupported format (max. 10 files, 3 MB in total).',
     field_consent: 'Please agree to the Privacy Policy.',
-    subject:  'New enquiry via techrecycling-berlin.com',
     backBtn:  'Back',
     titleOk:  'Message sent',
     titleErr: 'Error',
@@ -44,17 +50,72 @@ const MESSAGES = {
   },
 };
 
+// Internal mail subject — always German, the automation expects this wording.
+const ADMIN_SUBJECT = 'Neue Anfrage über techrecycling-berlin.com';
+
+// Field labels and option texts for the internal mail. Option texts must stay
+// word-for-word identical to the labels on kontakt.html / en/contact.html.
+const LABELS = {
+  de: {
+    salutation: 'Anrede', name: 'Name', company: 'Firma', email: 'E-Mail', phone: 'Telefon',
+    service: 'Leistung', carriers: 'Datenträger', location: 'Abholort', date: 'Wunschtermin',
+    devices: 'Geräte',
+  },
+  en: {
+    salutation: 'Salutation', name: 'Name', company: 'Company', email: 'Email', phone: 'Phone',
+    service: 'Service', carriers: 'Data carriers', location: 'Collection location', date: 'Preferred date',
+    devices: 'Devices',
+  },
+};
+
+const OPTIONS = {
+  salutation: {
+    frau: { de: 'Frau', en: 'Ms' },
+    herr: { de: 'Herr', en: 'Mr' },
+  },
+  service: {
+    entsorgung: { de: 'Entsorgen / recyceln', en: 'Disposal / recycling' },
+    ankauf:     { de: 'Ankauf prüfen',        en: 'Check purchase' },
+  },
+  carriers: {
+    loeschen:   { de: 'Daten löschen',                   en: 'Erase data' },
+    vernichten: { de: 'Datenträger physisch vernichten', en: 'Physically destroy data carriers' },
+    beides:     { de: 'Löschen und zusätzlich vernichten', en: 'Erase and additionally destroy' },
+    unklar:     { de: 'Noch unklar — bitte beraten',     en: 'Not sure yet — please advise' },
+  },
+};
+
+// Attachments arrive base64-encoded in the JSON body. Vercel caps request
+// bodies at 4.5 MB, so the decoded total stays at 3 MB (base64 adds ~33 %).
+const ATTACHMENT_MAX_FILES = 10;
+const ATTACHMENT_MAX_TOTAL = 3_000_000;
+const ATTACHMENT_EXTENSIONS = new Set([
+  'jpg', 'jpeg', 'png', 'gif', 'webp', 'pdf', 'txt', 'csv', 'tsv',
+  'xls', 'xlsx', 'ods', 'doc', 'docx', 'odt',
+]);
+const BODY_LIMIT = 4_600_000;
+
 function parseForm(req) {
   return new Promise((resolve, reject) => {
-    let raw = '';
-    req.on('data', chunk => { raw += chunk; if (raw.length > 1_000_000) req.destroy(); });
+    const chunks = [];
+    let size = 0;
+    req.on('data', chunk => {
+      size += chunk.length;
+      if (size > BODY_LIMIT) { reject(new Error('body too large')); req.destroy(); return; }
+      chunks.push(chunk);
+    });
     req.on('end', () => {
       try {
+        // Decode once at the end so multi-byte characters split across chunks survive.
+        const raw = Buffer.concat(chunks).toString('utf8');
         const ct = (req.headers['content-type'] || '').toLowerCase();
         if (ct.includes('application/json')) return resolve(JSON.parse(raw || '{}'));
         const params = new URLSearchParams(raw);
         const obj = {};
-        for (const [k, v] of params) obj[k] = v;
+        for (const [k, v] of params) {
+          if (k in obj) obj[k] = [].concat(obj[k], v);
+          else obj[k] = v;
+        }
         resolve(obj);
       } catch (e) { reject(e); }
     });
@@ -69,33 +130,64 @@ function parseForm(req) {
 // are configured (or the call fails for any reason), gracefully fall back
 // to a random TRB-NNNNN — the form will keep working, tickets just won't
 // be sequential until KV is wired up.
+//
+// TRB-84000 … TRB-84999 belongs to customer numbers; a ticket in that range
+// would be matched to the wrong customer by the automation, so it is skipped.
 const TICKET_KEY = 'trb_ticket_seq';
 const TICKET_SEED = 37552;
+const RESERVED_FROM = 84000;
+const RESERVED_TO = 84999;
+
+function isReservedTicket(n) {
+  return n >= RESERVED_FROM && n <= RESERVED_TO;
+}
+
+async function kvPipeline(url, token, commands) {
+  const r = await fetch(url + '/pipeline', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type':  'application/json',
+    },
+    body: JSON.stringify(commands),
+  });
+  if (!r.ok) throw new Error('kv http ' + r.status);
+  return r.json();
+}
+
+function kvNumber(entry) {
+  const num = entry && (entry.result ?? entry.response);
+  return typeof num === 'number' && Number.isFinite(num) ? num : null;
+}
 
 async function getNextTicket() {
   const url   = process.env.KV_REST_API_URL  || process.env.UPSTASH_REDIS_REST_URL;
   const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
-  const fallback = () => 'TRB-' + (10000 + Math.floor(Math.random() * 90000));
+  const fallback = () => {
+    let n;
+    do { n = 10000 + Math.floor(Math.random() * 90000); } while (isReservedTicket(n));
+    return 'TRB-' + n;
+  };
 
   if (!url || !token) return fallback();
 
   try {
-    const r = await fetch(url + '/pipeline', {
-      method: 'POST',
-      headers: {
-        'Authorization': 'Bearer ' + token,
-        'Content-Type':  'application/json',
-      },
-      body: JSON.stringify([
-        ['set',  TICKET_KEY, String(TICKET_SEED), 'nx'],
-        ['incr', TICKET_KEY],
-      ]),
-    });
-    if (!r.ok) throw new Error('kv http ' + r.status);
-    const data = await r.json();
-    const num  = data && data[1] && (data[1].result ?? data[1].response);
-    if (typeof num === 'number' && Number.isFinite(num)) return 'TRB-' + num;
-    throw new Error('kv unexpected response: ' + JSON.stringify(data));
+    const data = await kvPipeline(url, token, [
+      ['set',  TICKET_KEY, String(TICKET_SEED), 'nx'],
+      ['incr', TICKET_KEY],
+    ]);
+    let num = kvNumber(data && data[1]);
+    if (num === null) throw new Error('kv unexpected response: ' + JSON.stringify(data));
+    if (isReservedTicket(num)) {
+      // Jump past the reserved range. INCRBY is relative and atomic, so
+      // concurrent requests still get distinct numbers.
+      const jump = await kvPipeline(url, token, [
+        ['incrby', TICKET_KEY, String(RESERVED_TO + 1 - num)],
+      ]);
+      num = kvNumber(jump && jump[0]);
+      if (num === null || isReservedTicket(num)) throw new Error('kv unexpected response: ' + JSON.stringify(jump));
+    }
+    return 'TRB-' + num;
   } catch (e) {
     console.warn('[sendemail] ticket counter fallback to random:', e.message);
     return fallback();
@@ -141,12 +233,96 @@ function escapeHtml(s) {
   );
 }
 
+// ---- Form fields ---------------------------------------------------------
+function str(v) {
+  return typeof v === 'string' ? v : '';
+}
+
+// Single-line value: no line breaks, collapsed whitespace.
+function oneLine(v) {
+  return str(v).replace(/\s+/g, ' ').trim();
+}
+
+// Multi-line value: normalised line endings, trailing spaces removed.
+function multiLine(v) {
+  return str(v).replace(/\r\n?/g, '\n').split('\n').map(l => l.trimEnd()).join('\n').trim();
+}
+
+function pickOption(group, value) {
+  return Object.prototype.hasOwnProperty.call(OPTIONS[group], value) ? value : '';
+}
+
+// Greeting for the acknowledgement mail. The salutation is never derived
+// from the first name — without one we greet with the full name.
+function greeting(lang, salutation, name) {
+  const lastName = name.split(' ').pop();
+  if (lang === 'en') {
+    if (salutation === 'frau') return `Dear Ms ${lastName}`;
+    if (salutation === 'herr') return `Dear Mr ${lastName}`;
+    return name ? `Dear ${name}` : 'Dear customer';
+  }
+  if (salutation === 'frau') return `Sehr geehrte Frau ${lastName}`;
+  if (salutation === 'herr') return `Sehr geehrter Herr ${lastName}`;
+  return name ? `Guten Tag ${name}` : 'Guten Tag';
+}
+
+// Internal mail body. Empty fields are left out entirely — a placeholder
+// like "-" would be read as a value by the automation.
+function buildAdminText({ ticket, lang, fields }) {
+  const L = LABELS[lang];
+  const opt = (group, key) => OPTIONS[group][key][lang];
+  const lines = [];
+  const add = (label, value) => { if (value) lines.push(`${label}: ${value}`); };
+
+  add(L.salutation, fields.salutation && opt('salutation', fields.salutation));
+  add(L.name,     fields.name);
+  add(L.company,  fields.company);
+  add(L.email,    fields.email);
+  add(L.phone,    fields.phone);
+  add(L.service,  fields.service.map(k => opt('service', k)).join(', '));
+  add(L.carriers, opt('carriers', fields.carriers));
+  add(L.location, fields.location);
+  add(L.date,     fields.date);
+  add('Sprache',  lang);
+
+  let text = `Neue Anfrage / New enquiry — ${ticket}\n\n${lines.join('\n')}\n`;
+  if (fields.devices) text += `\n${L.devices}:\n${fields.devices}\n`;
+  if (fields.message) text += `\nNachricht / Message:\n${fields.message}\n`;
+  return text;
+}
+
+// Validates uploaded files. Returns { ok, attachments } in Resend's format.
+function parseAttachments(raw) {
+  if (raw == null || raw === '') return { ok: true, attachments: [] };
+  if (!Array.isArray(raw) || raw.length > ATTACHMENT_MAX_FILES) return { ok: false };
+  const attachments = [];
+  let total = 0;
+  for (const file of raw) {
+    const filename = oneLine(file && file.filename).replace(/[\\/:*?"<>|]/g, '_').slice(-120);
+    const content = str(file && file.content);
+    const ext = (filename.match(/\.([a-z0-9]+)$/i) || [])[1];
+    if (!filename || !content || !ext || !ATTACHMENT_EXTENSIONS.has(ext.toLowerCase())) return { ok: false };
+    if (!/^[A-Za-z0-9+/]+=*$/.test(content)) return { ok: false };
+    total += Buffer.byteLength(content, 'base64');
+    if (total > ATTACHMENT_MAX_TOTAL) return { ok: false };
+    attachments.push({ filename, content });
+  }
+  return { ok: true, attachments };
+}
+
+// The sending address must stay on our verified domain (SPF/DMARC), so the
+// customer goes into the display name and Reply-To.
+function senderFor(from, name) {
+  const address = (from.match(/<([^>]+)>/) || [])[1] || from.trim();
+  const display = name.replace(/["<>\\,;]/g, '').trim();
+  return display ? `"${display} via Kontaktformular" <${address}>` : from;
+}
+
 // ---- Auto-reply (acknowledgement) email ---------------------------------
 // Sent to the form submitter. Bilingual DE/EN, design-matched to the site
 // (green primary #3A9E1E, lime accent #bdea5c, dark footer #0f1a0d).
 // Inline styles only — most email clients strip <style> blocks.
-function renderAckHtml({ ticket, name }) {
-  const safeName = escapeHtml(name) || 'Kunde / customer';
+function renderAckHtml({ ticket, name, salutation }) {
   return `<!doctype html>
 <html lang="de">
 <head>
@@ -174,7 +350,7 @@ function renderAckHtml({ ticket, name }) {
 
         <!-- DE body -->
         <tr><td style="padding:28px 32px 8px;font-size:15px;line-height:1.6;color:#1b2a19">
-          <p style="margin:0 0 12px"><strong>Sehr geehrte/r ${safeName},</strong></p>
+          <p style="margin:0 0 12px"><strong>${escapeHtml(greeting('de', salutation, name))},</strong></p>
           <p style="margin:0 0 12px">vielen Dank für Ihre Nachricht. Wir haben Ihre Anfrage erhalten und melden uns innerhalb von <strong>24 Stunden</strong> bei Ihnen mit einem individuellen Angebot.</p>
           <p style="margin:0 0 4px">Bei dringenden Anliegen erreichen Sie uns unter</p>
           <p style="margin:0 0 18px">
@@ -189,7 +365,7 @@ function renderAckHtml({ ticket, name }) {
 
         <!-- EN body -->
         <tr><td style="padding:24px 32px 8px;font-size:15px;line-height:1.6;color:#1b2a19">
-          <p style="margin:0 0 12px"><strong>Dear ${safeName},</strong></p>
+          <p style="margin:0 0 12px"><strong>${escapeHtml(greeting('en', salutation, name))},</strong></p>
           <p style="margin:0 0 12px">thank you for your message. We have received your enquiry and will reply within <strong>24 hours</strong> with a tailored offer.</p>
           <p style="margin:0 0 4px">For urgent matters, please contact us at</p>
           <p style="margin:0 0 18px">
@@ -227,20 +403,19 @@ function renderAckHtml({ ticket, name }) {
 </html>`;
 }
 
-function renderAckText({ ticket, name }) {
-  const safeName = (name || 'Kunde / customer').trim();
+function renderAckText({ ticket, name, salutation }) {
   return `Tech Recycling Berlin
 Ihr Partner für zertifizierte IT-Entsorgung
 
 Ticket-Referenz: ${ticket}
 
-Sehr geehrte/r ${safeName},
+${greeting('de', salutation, name)},
 vielen Dank für Ihre Nachricht. Wir haben Ihre Anfrage erhalten und melden uns innerhalb von 24 Stunden bei Ihnen.
 Bei dringenden Anliegen: info@techrecycling-berlin.com oder +49 155 660 44719.
 
 ----------------------------------------
 
-Dear ${safeName},
+${greeting('en', salutation, name)},
 thank you for your message. We have received your enquiry and will reply within 24 hours.
 For urgent matters: info@techrecycling-berlin.com or +49 155 660 44719.
 
@@ -366,27 +541,36 @@ export default async function handler(req, res) {
   }
 
   let body;
+  let bodyTooLarge = false;
   try { body = await parseForm(req); }
-  catch { body = {}; }
+  catch (e) { body = {}; bodyTooLarge = e.message === 'body too large'; }
 
   // Language: explicit form field, else referer, else German
-  let lang = (body.lang || '').toLowerCase() === 'en' ? 'en' : 'de';
+  let lang = str(body.lang).toLowerCase() === 'en' ? 'en' : 'de';
   if (!body.lang) {
     const ref = req.headers.referer || req.headers.referrer || '';
     if (/\/en\//.test(ref) || /\/contact(\.html|\b)/.test(ref)) lang = 'en';
   }
   const t = MESSAGES[lang];
 
-  const name    = (body.name    || '').trim();
-  const email   = (body.email   || '').trim();
-  const company = (body.company || '').trim();
-  const phone   = (body.phone   || '').trim();
-  const service = (body.service || '').trim();
-  const message = (body.message || '').trim();
+  const fields = {
+    salutation: pickOption('salutation', str(body.salutation)),
+    name:       oneLine(body.name),
+    company:    oneLine(body.company),
+    email:      oneLine(body.email),
+    phone:      oneLine(body.phone),
+    service:    [...new Set([].concat(body.service || []))].map(str).filter(k => pickOption('service', k)),
+    carriers:   pickOption('carriers', str(body.carriers)) || 'unklar',
+    location:   oneLine(`${str(body.zip)} ${str(body.city)}`),
+    date:       oneLine(body.date),
+    devices:    multiLine(body.devices).split('\n').filter(l => l.trim()).join('\n'),
+    message:    multiLine(body.message),
+  };
   const consent = !!body.consent;
+  const upload = bodyTooLarge ? { ok: false } : parseAttachments(body.attachments);
 
   // Honeypot — silently treat as success
-  if ((body.website || '').trim() !== '') {
+  if (oneLine(body.website) !== '') {
     return respond(req, res, {
       json, status: 200, lang, kind: 'success',
       title: t.titleOk, message: t.success,
@@ -413,12 +597,14 @@ export default async function handler(req, res) {
   }
 
   // Field-level validation
-  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email);
   const fieldErrors = {};
-  if (name.length < 2)       fieldErrors.name    = t.field_name;
-  if (!emailOk)              fieldErrors.email   = t.field_email;
-  if (message.length < 10)   fieldErrors.message = t.field_message;
-  if (!consent)              fieldErrors.consent = t.field_consent;
+  if (fields.name.length < 2)    fieldErrors.name        = t.field_name;
+  if (!fields.company)           fieldErrors.company     = t.field_company;
+  if (!emailOk)                  fieldErrors.email       = t.field_email;
+  if (!upload.ok)                fieldErrors.attachments = t.field_attachments;
+  else if (!fields.devices && !upload.attachments.length) fieldErrors.devices = t.field_devices;
+  if (!consent)                  fieldErrors.consent     = t.field_consent;
 
   if (Object.keys(fieldErrors).length) {
     return respond(req, res, {
@@ -439,19 +625,7 @@ export default async function handler(req, res) {
   // Sequential when KV is configured, random otherwise — see getNextTicket().
   const ticket = await getNextTicket();
 
-  const adminText =
-`Neue Anfrage / New enquiry — ${ticket}
-
-Name:     ${name}
-Firma/Co: ${company}
-E-Mail:   ${email}
-Telefon:  ${phone}
-Leistung: ${service}
-Sprache:  ${lang}
-
-Nachricht / Message:
-${message}
-`;
+  const adminText = buildAdminText({ ticket, lang, fields });
 
   if (!apiKey) {
     console.error('[sendemail] RESEND_API_KEY is not set');
@@ -471,11 +645,12 @@ ${message}
         'Content-Type':  'application/json',
       },
       body: JSON.stringify({
-        from,
+        from: senderFor(from, fields.name),
         to: [to],
-        reply_to: email,
-        subject: `[${ticket}] ${t.subject}`,
+        reply_to: fields.email,
+        subject: `[${ticket}] ${ADMIN_SUBJECT}`,
         text: adminText,
+        ...(upload.attachments.length ? { attachments: upload.attachments } : {}),
       }),
     });
     if (!r.ok) {
@@ -501,8 +676,8 @@ ${message}
   //    third-party address), log it but still return success — the admin
   //    already received the enquiry and that's the critical path.
   try {
-    const ackHtml = renderAckHtml({ ticket, name });
-    const ackText = renderAckText({ ticket, name });
+    const ackHtml = renderAckHtml({ ticket, name: fields.name, salutation: fields.salutation });
+    const ackText = renderAckText({ ticket, name: fields.name, salutation: fields.salutation });
     const ackSubject = `[${ticket}] Ihre Anfrage / Your inquiry — Tech Recycling Berlin`;
     const ackRes = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -512,7 +687,7 @@ ${message}
       },
       body: JSON.stringify({
         from: noreplyFrom,
-        to: [email],
+        to: [fields.email],
         reply_to: to,
         subject: ackSubject,
         html: ackHtml,

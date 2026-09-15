@@ -150,48 +150,86 @@
         <input type="hidden" name="lang" value="de">
         <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true">
         <h3 style="margin-top:0">Angebot anfragen</h3>
-        <p style="color:var(--muted);font-size:.92rem;margin-bottom:1.5rem">Beschreiben Sie kurz Ihr Anliegen — wir melden uns innerhalb von 24 Stunden mit einem individuellen Angebot.</p>
+        <p style="color:var(--muted);font-size:.92rem;margin-bottom:1.5rem">Je genauer Sie die Geräte beschreiben, desto schneller erhalten Sie ein Angebot — wir melden uns innerhalb von 24 Stunden. Pflichtfelder sind mit * markiert.</p>
         <div class="form-status" role="status" aria-live="polite"></div>
 
-        <div class="form-row">
+        <div class="form-row form-row--salutation">
           <div class="form-group">
-            <label for="name">Name *</label>
-            <input type="text" id="name" name="name" required autocomplete="name">
+            <label for="salutation">Anrede</label>
+            <select id="salutation" name="salutation">
+              <option value="">keine Angabe</option>
+              <option value="frau">Frau</option>
+              <option value="herr">Herr</option>
+            </select>
           </div>
           <div class="form-group">
-            <label for="company">Firma</label>
-            <input type="text" id="company" name="company" autocomplete="organization">
+            <label for="name">Name *</label>
+            <input type="text" id="name" name="name" required autocomplete="name" placeholder="Vor- und Nachname">
           </div>
         </div>
 
         <div class="form-row">
+          <div class="form-group">
+            <label for="company">Firma *</label>
+            <input type="text" id="company" name="company" required autocomplete="organization" aria-describedby="company-hint">
+            <p class="form-hint" id="company-hint">Wir arbeiten ausschließlich mit Geschäftskunden.</p>
+          </div>
           <div class="form-group">
             <label for="email">E-Mail *</label>
             <input type="email" id="email" name="email" required autocomplete="email">
           </div>
+        </div>
+
+        <div class="form-row">
           <div class="form-group">
             <label for="phone">Telefon</label>
             <input type="tel" id="phone" name="phone" autocomplete="tel">
           </div>
+          <div class="form-group">
+            <label for="zip">Abholort</label>
+            <div class="form-location">
+              <input type="text" id="zip" name="zip" inputmode="numeric" autocomplete="postal-code" placeholder="PLZ" aria-label="Postleitzahl">
+              <input type="text" id="city" name="city" autocomplete="address-level2" placeholder="Ort" aria-label="Ort">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <fieldset class="form-group form-choice">
+            <legend>Was sollen wir mit den Geräten machen?</legend>
+            <label class="form-choice__option"><input type="checkbox" name="service" value="entsorgung"> <span>Entsorgen / recyceln</span></label>
+            <label class="form-choice__option"><input type="checkbox" name="service" value="ankauf"> <span>Ankauf prüfen</span></label>
+          </fieldset>
+          <fieldset class="form-group form-choice">
+            <legend>Was soll mit den Datenträgern geschehen?</legend>
+            <label class="form-choice__option"><input type="radio" name="carriers" value="loeschen"> <span>Daten löschen</span></label>
+            <label class="form-choice__option"><input type="radio" name="carriers" value="vernichten"> <span>Datenträger physisch vernichten</span></label>
+            <label class="form-choice__option"><input type="radio" name="carriers" value="beides"> <span>Löschen und zusätzlich vernichten</span></label>
+            <label class="form-choice__option"><input type="radio" name="carriers" value="unklar" checked> <span>Noch unklar — bitte beraten</span></label>
+          </fieldset>
         </div>
 
         <div class="form-group">
-          <label for="service">Leistung</label>
-          <select id="service" name="service">
-            <option value="">Bitte auswählen</option>
-            <option>Sichere Datenlöschung</option>
-            <option>IT-Ankauf</option>
-            <option>IT Recycling</option>
-            <option>Festplattenvernichtung</option>
-            <option>Server-Entsorgung</option>
-            <option>Datenrettung</option>
-            <option>Allgemeine Anfrage</option>
-          </select>
+          <label for="devices">Um welche Geräte geht es? *</label>
+          <textarea id="devices" name="devices" rows="4" placeholder="z. B. 12 Notebooks Dell Latitude, 3 Server, 5 Monitore" aria-describedby="devices-hint"></textarea>
+          <p class="form-hint" id="devices-hint">Eine Zeile je Posten. Statt einer Beschreibung genügt auch eine Liste oder ein Foto.</p>
+        </div>
+
+        <div class="form-group form-upload" data-upload hidden>
+          <label for="attachments">Liste oder Fotos</label>
+          <input type="file" id="attachments" name="attachments" multiple accept=".jpg,.jpeg,.png,.gif,.webp,.pdf,.txt,.csv,.tsv,.xls,.xlsx,.ods,.doc,.docx,.odt" aria-describedby="attachments-hint">
+          <p class="form-hint" id="attachments-hint">Eine Inventarliste oder ein paar Fotos vom Lagerraum genügen. Als CSV oder PDF wird die Liste sofort ausgewertet. Bis zu 10 Dateien, zusammen max. 3 MB — Fotos werden automatisch verkleinert.</p>
+          <ul class="form-files" data-upload-list></ul>
         </div>
 
         <div class="form-group">
-          <label for="message">Nachricht *</label>
-          <textarea id="message" name="message" required placeholder="Beschreiben Sie kurz, um welche Hardware es geht (Art, ungefähre Stückzahl, Zustand) und worauf es Ihnen ankommt."></textarea>
+          <label for="date">Wunschtermin</label>
+          <input type="text" id="date" name="date" placeholder="z. B. nächste Woche, ab KW 41, noch offen">
+        </div>
+
+        <div class="form-group">
+          <label for="message">Nachricht</label>
+          <textarea id="message" name="message" placeholder="Was sollten wir noch wissen?"></textarea>
         </div>
 
         <label class="form-consent">

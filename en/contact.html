@@ -150,35 +150,86 @@
         <input type="hidden" name="lang" value="en">
         <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true">
         <h3 style="margin-top:0">Request a quote</h3>
-        <p style="color:var(--muted);font-size:.92rem;margin-bottom:1.5rem">Briefly describe your project — we'll reply within 24 hours with a tailored offer.</p>
+        <p style="color:var(--muted);font-size:.92rem;margin-bottom:1.5rem">The more precisely you describe the devices, the faster you get a quote — we reply within 24 hours. Required fields are marked with *.</p>
         <div class="form-status" role="status" aria-live="polite"></div>
 
-        <div class="form-row">
-          <div class="form-group"><label for="name">Name *</label><input type="text" id="name" name="name" required autocomplete="name"></div>
-          <div class="form-group"><label for="company">Company</label><input type="text" id="company" name="company" autocomplete="organization"></div>
+        <div class="form-row form-row--salutation">
+          <div class="form-group">
+            <label for="salutation">Salutation</label>
+            <select id="salutation" name="salutation">
+              <option value="">Not specified</option>
+              <option value="frau">Ms</option>
+              <option value="herr">Mr</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="name">Name *</label>
+            <input type="text" id="name" name="name" required autocomplete="name" placeholder="First and last name">
+          </div>
         </div>
+
         <div class="form-row">
-          <div class="form-group"><label for="email">Email *</label><input type="email" id="email" name="email" required autocomplete="email"></div>
-          <div class="form-group"><label for="phone">Phone</label><input type="tel" id="phone" name="phone" autocomplete="tel"></div>
+          <div class="form-group">
+            <label for="company">Company *</label>
+            <input type="text" id="company" name="company" required autocomplete="organization" aria-describedby="company-hint">
+            <p class="form-hint" id="company-hint">We work exclusively with business customers.</p>
+          </div>
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required autocomplete="email">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel">
+          </div>
+          <div class="form-group">
+            <label for="zip">Collection location</label>
+            <div class="form-location">
+              <input type="text" id="zip" name="zip" inputmode="numeric" autocomplete="postal-code" placeholder="Postcode" aria-label="Postcode">
+              <input type="text" id="city" name="city" autocomplete="address-level2" placeholder="City" aria-label="City">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <fieldset class="form-group form-choice">
+            <legend>What should we do with the devices?</legend>
+            <label class="form-choice__option"><input type="checkbox" name="service" value="entsorgung"> <span>Disposal / recycling</span></label>
+            <label class="form-choice__option"><input type="checkbox" name="service" value="ankauf"> <span>Check purchase</span></label>
+          </fieldset>
+          <fieldset class="form-group form-choice">
+            <legend>What should happen to the data carriers?</legend>
+            <label class="form-choice__option"><input type="radio" name="carriers" value="loeschen"> <span>Erase data</span></label>
+            <label class="form-choice__option"><input type="radio" name="carriers" value="vernichten"> <span>Physically destroy data carriers</span></label>
+            <label class="form-choice__option"><input type="radio" name="carriers" value="beides"> <span>Erase and additionally destroy</span></label>
+            <label class="form-choice__option"><input type="radio" name="carriers" value="unklar" checked> <span>Not sure yet — please advise</span></label>
+          </fieldset>
         </div>
 
         <div class="form-group">
-          <label for="service">Service</label>
-          <select id="service" name="service">
-            <option value="">Please choose</option>
-            <option>Secure Data Erasure</option>
-            <option>IT Buyback</option>
-            <option>IT Recycling</option>
-            <option>Hard Drive Destruction</option>
-            <option>Server Disposal</option>
-            <option>Data Recovery</option>
-            <option>General enquiry</option>
-          </select>
+          <label for="devices">Which devices are involved? *</label>
+          <textarea id="devices" name="devices" rows="4" placeholder="e.g. 12 Dell Latitude notebooks, 3 servers, 5 monitors" aria-describedby="devices-hint"></textarea>
+          <p class="form-hint" id="devices-hint">One line per item. Instead of a description, a list or a photo is enough.</p>
+        </div>
+
+        <div class="form-group form-upload" data-upload hidden>
+          <label for="attachments">List or photos</label>
+          <input type="file" id="attachments" name="attachments" multiple accept=".jpg,.jpeg,.png,.gif,.webp,.pdf,.txt,.csv,.tsv,.xls,.xlsx,.ods,.doc,.docx,.odt" aria-describedby="attachments-hint">
+          <p class="form-hint" id="attachments-hint">An inventory list or a few photos of the storage room are enough. Lists sent as CSV or PDF are processed immediately. Up to 10 files, 3 MB in total — photos are resized automatically.</p>
+          <ul class="form-files" data-upload-list></ul>
         </div>
 
         <div class="form-group">
-          <label for="message">Message *</label>
-          <textarea id="message" name="message" required placeholder="Briefly describe the hardware (type, approx. quantity, condition) and what matters most to you."></textarea>
+          <label for="date">Preferred date</label>
+          <input type="text" id="date" name="date" placeholder="e.g. next week, from week 41, not fixed yet">
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Anything else we should know?"></textarea>
         </div>
 
         <label class="form-consent">

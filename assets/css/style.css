@@ -1325,6 +1325,71 @@ body::before {
   border-color: var(--green);
   box-shadow: 0 0 0 3px rgba(58,158,30,.15);
 }
+.form-row--salutation { grid-template-columns: minmax(0, 11rem) 1fr; }
+@media (max-width: 600px) { .form-row--salutation { grid-template-columns: 1fr; } }
+.form-hint { margin: .35rem 0 0; font-size: .8rem; line-height: 1.4; color: var(--muted); }
+.form-location { display: grid; grid-template-columns: minmax(0, 6.5rem) 1fr; gap: .5rem; }
+
+/* Checkbox / radio groups */
+.form-choice { border: 0; padding: 0; min-width: 0; }
+.form-choice legend {
+  padding: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: .85rem;
+  margin-bottom: .5rem;
+  color: var(--ink-soft);
+}
+.form-group .form-choice__option {
+  display: flex;
+  align-items: flex-start;
+  gap: .55rem;
+  margin: 0 0 .45rem;
+  font-family: var(--font-body);
+  font-size: .92rem;
+  color: var(--ink);
+  cursor: pointer;
+}
+.form-group .form-choice__option input {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  margin: 2px 0 0;
+  flex-shrink: 0;
+  accent-color: var(--green);
+  cursor: pointer;
+}
+.form-group .form-choice__option input:focus { box-shadow: none; }
+.form-group .form-choice__option input:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+/* File upload */
+.form-group input[type="file"] { padding: .65rem .75rem; cursor: pointer; font-size: .88rem; }
+.form-files { list-style: none; margin: .5rem 0 0; padding: 0; }
+.form-files:empty { display: none; }
+.form-files li {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .45rem .6rem;
+  margin-bottom: .35rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: .85rem;
+  color: var(--ink-soft);
+}
+.form-files__name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink); }
+.form-files__size { color: var(--muted); white-space: nowrap; }
+.form-files button {
+  border: 0;
+  background: none;
+  padding: .1rem .35rem;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--muted);
+  cursor: pointer;
+}
+.form-files button:hover { color: #b42318; }
+
 .form-consent {
   display: flex;
   align-items: flex-start;
