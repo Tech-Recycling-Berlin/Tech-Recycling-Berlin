@@ -33,16 +33,16 @@
       <path d="M18 22l10-10 10 10M28 12v22M20 38h16" stroke="#0f1a0d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
     </g>
     <text x="80" y="38" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="28" fill="#ffffff" letter-spacing="-0.5">Tech Recycling Berlin</text>
-    <text x="80" y="62" font-family="Inter, Arial, sans-serif" font-weight="500" font-size="16" fill="#86d63d" letter-spacing="2">ZERTIFIZIERTE IT-ENTSORGUNG</text>
+    <text x="80" y="62" font-family="Inter, Arial, sans-serif" font-weight="500" font-size="16" fill="#86d63d" letter-spacing="2">FACHGERECHTE IT-ENTSORGUNG</text>
   </g>
 
   <!-- Main headline -->
-  <g transform="translate(80,210)">
-    <text font-family="Inter, Arial, sans-serif" font-weight="800" font-size="82" fill="#ffffff" letter-spacing="-2">
+  <g transform="translate(80,262)">
+    <text font-family="Inter, Arial, sans-serif" font-weight="800" font-size="60" fill="#ffffff" letter-spacing="-1.5">
       <tspan x="0" dy="0">Sichere IT-Entsorgung</tspan>
-      <tspan x="0" dy="92">&amp; </tspan><tspan fill="url(#accent)">Datenvernichtung</tspan>
+      <tspan x="0" dy="72">&amp; </tspan><tspan fill="url(#accent)">Datenvernichtung</tspan>
     </text>
-    <text x="0" y="230" font-family="Inter, Arial, sans-serif" font-weight="500" font-size="26" fill="#b6c1b1">
+    <text x="0" y="148" font-family="Inter, Arial, sans-serif" font-weight="500" font-size="24" fill="#b6c1b1">
       DSGVO · BSI · DIN 66399 · Berlin &amp; deutschlandweit
     </text>
   </g>
@@ -91,8 +91,8 @@
       <rect x="184" y="0" width="170" height="42" rx="21" fill="url(#lime)"/>
       <text x="269" y="28" text-anchor="middle">BSI-Standard</text>
 
-      <rect x="370" y="0" width="180" height="42" rx="21" fill="#ffffff"/>
-      <text x="460" y="28" text-anchor="middle">98% Recyclingquote</text>
+      <rect x="370" y="0" width="212" height="42" rx="21" fill="#ffffff"/>
+      <text x="476" y="28" text-anchor="middle">98% Recyclingquote</text>
     </g>
     <text x="1040" y="28" text-anchor="end" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="22" fill="#ffffff">techrecycling-berlin.com</text>
   </g>

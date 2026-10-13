@@ -338,7 +338,7 @@ function renderAckHtml({ ticket, name, salutation }) {
         <!-- Top header strip -->
         <tr><td style="background:#3A9E1E;color:#ffffff;padding:30px 32px">
           <div style="font-family:'Manrope','Helvetica Neue',Arial,sans-serif;font-weight:800;font-size:22px;letter-spacing:-.01em;line-height:1.2">Tech Recycling Berlin</div>
-          <div style="font-size:14px;line-height:1.5;color:#e8f5e1;margin-top:6px">Ihr Partner für zertifizierte IT-Entsorgung</div>
+          <div style="font-size:14px;line-height:1.5;color:#e8f5e1;margin-top:6px">Ihr Partner für fachgerechte IT-Entsorgung</div>
         </td></tr>
 
         <!-- Ticket reference bar -->
@@ -405,7 +405,7 @@ function renderAckHtml({ ticket, name, salutation }) {
 
 function renderAckText({ ticket, name, salutation }) {
   return `Tech Recycling Berlin
-Ihr Partner für zertifizierte IT-Entsorgung
+Ihr Partner für fachgerechte IT-Entsorgung
 
 Ticket-Referenz: ${ticket}
 
