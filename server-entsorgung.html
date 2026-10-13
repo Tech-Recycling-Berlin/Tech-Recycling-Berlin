@@ -26,10 +26,8 @@
 <meta name="twitter:description" content="Server-Entsorgung in Berlin: Abbau, versiegelter Transport, DSGVO-Datenlöschung und Recycling kompletter Serverräume. Ein Partner für Ihr Projekt. Jetzt anfragen!">
 <link rel="icon" href="assets/images/favicon.ico">
 <link rel="apple-touch-icon" href="assets/images/Logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="assets/css/style.css"><script type="application/ld+json">
+<link rel="stylesheet" href="assets/fonts/fonts.css?v=20261013">
+<link rel="stylesheet" href="assets/css/style.css?v=20261013"><script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Service","serviceType":"Server-Entsorgung","name":"Server-Entsorgung","description":"Fachgerechter Abbau, Transport und Entsorgung kompletter Serverräume und Rechenzentren mit Chain-of-Custody.","url":"https://www.techrecycling-berlin.com/server-entsorgung","provider":{"@id":"https://www.techrecycling-berlin.com/#business"},"areaServed":[{"@type":"City","name":"Berlin"},{"@type":"Country","name":"Deutschland"}],"offers":{"@type":"Offer","priceCurrency":"EUR","availability":"https://schema.org/InStock","url":"https://www.techrecycling-berlin.com/kontakt"}}
 </script>
 
@@ -49,7 +47,7 @@
     'wait_for_update': 500
   });
   try {
-    if (localStorage.getItem('trb_cookie_consent_v1') === 'all') {
+    if (localStorage.getItem('trb_cookie_consent_v2') === 'all') {
       gtag('consent', 'update', {
         'ad_storage': 'granted',
         'ad_user_data': 'granted',
@@ -236,13 +234,14 @@
         <a href="impressum.html">Impressum</a>
         <a href="datenschutz.html">Datenschutz</a>
         <a href="agb.html">AGB</a>
+        <a href="datenschutz.html#cookies" data-cookie-settings>Cookie-Einstellungen</a>
       </div>
     </div>
   </div>
 </footer>
 
 <div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Cookie Hinweis">
-  <p><strong>Wir respektieren Ihre Privatsphäre.</strong> Diese Website nutzt nur technisch notwendige Cookies. Mit Ihrer Zustimmung helfen uns optionale Analyse-Cookies, die Seite zu verbessern. Details in unserer <a href="datenschutz.html" style="color:var(--green);">Datenschutzerklärung</a>.</p>
+  <p><strong>Wir respektieren Ihre Privatsphäre.</strong> Mit Ihrer Zustimmung nutzen wir Google Analytics, um die Seite zu verbessern, und Google Ads, um den Erfolg unserer Anzeigen zu messen und Werbung zu personalisieren. Dabei setzt Google Cookies und kann Daten in die USA übermitteln. Ihre Wahl können Sie jederzeit unter „Cookie-Einstellungen“ ändern. Details in unserer <a href="datenschutz.html" style="color:var(--green);">Datenschutzerklärung</a>.</p>
   <div class="actions">
     <button class="btn btn--primary" data-consent="all">Alle akzeptieren</button>
     <button class="btn btn--ghost" data-consent="essential">Nur notwendige</button>
@@ -250,6 +249,6 @@
 </div>
 
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-<script src="assets/js/main.js" defer></script>
+<script src="assets/js/main.js?v=20261013" defer></script>
 </body>
 </html>

@@ -26,10 +26,8 @@
 <meta name="twitter:description" content="Privacy Policy of Tech Recycling Berlin — information on collection and processing of personal data on this website.">
 <link rel="icon" href="../assets/images/favicon.ico">
 <link rel="apple-touch-icon" href="../assets/images/Logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/fonts/fonts.css?v=20261013">
+<link rel="stylesheet" href="../assets/css/style.css?v=20261013">
 
 <!-- Google tag (gtag.js) — Tech Recycling, Consent Mode v2 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q6J4WS153D"></script>
@@ -46,7 +44,7 @@
     'wait_for_update': 500
   });
   try {
-    if (localStorage.getItem('trb_cookie_consent_v1') === 'all') {
+    if (localStorage.getItem('trb_cookie_consent_v2') === 'all') {
       gtag('consent', 'update', {
         'ad_storage': 'granted',
         'ad_user_data': 'granted',
@@ -128,31 +126,46 @@
       <h2>1. Controller</h2>
       <p>Responsible for data processing on this website is:<br>
       Tech Recycling Berlin, Keithstraße 15, 10787 Berlin, Germany.<br>
+      Phone: <a href="tel:+4915566044719">+49 155 66044719</a><br>
       Email: <a href="mailto:info@techrecycling-berlin.com">info@techrecycling-berlin.com</a></p>
 
       <h2>2. General information</h2>
       <p>The following information provides an overview of what happens to your personal data when you visit this website. Personal data is any data with which you can be personally identified.</p>
 
-      <h2>3. Data collection on this website</h2>
-      <h3>Server log files</h3>
-      <p>The provider of these pages automatically collects and stores information in so-called server log files, which your browser automatically transmits to us. These include: browser type and version, operating system, referrer URL, hostname of the accessing computer, time of the server request, IP address.</p>
-      <p>This data is not combined with other data sources. The collection is based on Art. 6 para. 1 lit. f GDPR.</p>
+      <h2>3. Hosting and server log files</h2>
+      <p>This website is hosted by Vercel Inc. (California, USA). On every visit, Vercel processes technically necessary data in server log files on our behalf: IP address, date and time of the request, page requested, referrer URL, browser type and version, and operating system. The data is used to deliver and secure the website and is not combined with other data sources. The legal basis is Art. 6(1)(f) GDPR.</p>
 
-      <h3>Contact form</h3>
-      <p>If you send us enquiries via the contact form, your details — including the contact details you provide — will be stored by us for the purpose of processing the enquiry and in case of follow-up questions. We do not share this data without your consent.</p>
-      <p>If you upload files in the contact form (e.g. inventory lists or photos of your devices), they are sent to us by email together with your enquiry and are likewise used only to process your enquiry. Please do not upload files containing personal data of third parties.</p>
+      <h2>4. Fonts</h2>
+      <p>The fonts used (Manrope and Inter) are embedded locally and loaded from our own server. No connection to servers of Google or other font providers is made.</p>
 
-      <h2>4. Cookies</h2>
-      <p>This website uses only strictly necessary cookies required for operation. Optional analytics cookies are set only after your explicit consent.</p>
+      <h2>5. Contact form and enquiries</h2>
+      <p>When you contact us via the contact form or by email, we process your details, including your contact data, to handle the enquiry, ask follow-up questions and prepare a quote. The legal basis is Art. 6(1)(b) GDPR (pre-contractual measures) and Art. 6(1)(f) GDPR (our interest in answering enquiries).</p>
+      <p>If you upload files in the contact form (e.g. inventory lists or photos of your devices), they are sent to us by email together with your enquiry and are likewise used only to process your enquiry. Please do not upload files that contain personal data of third parties.</p>
+      <p><strong>Delivery.</strong> The form is sent to our mailbox via the email service Resend (USA); you receive a confirmation of your enquiry by email through the same service.</p>
+      <p><strong>Spam protection.</strong> On the contact pages we use Cloudflare Turnstile (Cloudflare, Inc., USA) to block automated submissions. Your IP address and technical characteristics of your browser are transmitted to Cloudflare to check whether the request comes from a human. The legal basis is Art. 6(1)(f) GDPR, our interest in a contact form free of abuse, and § 25(2) no. 2 TDDDG.</p>
+      <p><strong>Processing.</strong> We handle your enquiry in our mailbox at Google Workspace (Google Ireland Limited) and record it in our internal order system (hosted by Vercel, database by Neon in Frankfurt am Main). To capture details such as devices, quantities and pickup location and to prepare a reply, we have the text of your enquiry and attached files analysed by an AI service (Anthropic, PBC, USA). The AI only provides suggestions and drafts; we review and send every reply ourselves. The legal basis is Art. 6(1)(b) and (f) GDPR.</p>
+      <p><strong>Retention.</strong> We store enquiries for as long as needed to process them. If an order results, we keep the records for the periods required by commercial and tax law (up to ten years).</p>
 
-      <h2>5. Your rights</h2>
-      <p>You have the right at any time to free information about your stored personal data, its origin and recipients, and the purpose of processing — as well as the right to correction, blocking, or deletion of this data. You can contact us at any time.</p>
+      <h2 id="cookies">6. Cookies, consent and Google services</h2>
+      <p><strong>Necessary storage.</strong> We store your choice in the cookie banner in your browser's local storage (entry "trb_cookie_consent_v2") so the banner does not appear on every page. This is strictly necessary for the service you requested (§ 25(2) no. 2 TDDDG).</p>
+      <p><strong>Google Analytics and Google Ads.</strong> Only if you choose "Accept all" do we use Google Analytics 4 and Google Ads, provided by Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland. Google Analytics shows us how our website is used – for example pages viewed, time on page, approximate region, device type, clicks on our phone number or email address and enquiries sent – so we can improve it. With Google Ads we measure whether visitors reach us through our ads and send an enquiry (conversion tracking); Google may also show you relevant ads on other websites (remarketing). For this, Google sets cookies (including "_ga", "_ga_*" and "_gcl_au") that are stored for up to two years. Google Analytics does not store IP addresses; user- and event-level data is deleted after 14 months at the latest. The legal basis is your consent (Art. 6(1)(a) GDPR, § 25(1) TDDDG).</p>
+      <p><strong>Without consent</strong> the website loads the Google tag in restricted mode (Google Consent Mode): no cookies are set or read. For technical reasons, Google still receives your IP address and information about the page view without any identifier, which Google uses for statistical estimates of reach and ad performance. The legal basis is Art. 6(1)(f) GDPR.</p>
+      <p><strong>Withdrawal.</strong> You can change or withdraw your consent at any time with effect for the future – via the <a href="../en/privacy.html#cookies" data-cookie-settings>"Cookie settings"</a> link at the bottom of every page.</p>
 
-      <h2>6. SSL encryption</h2>
-      <p>For security reasons this site uses SSL encryption. An encrypted connection is indicated by the browser address bar changing from "http://" to "https://" and by the padlock icon in your browser.</p>
+      <h2>7. Transfers to the USA</h2>
+      <p>Vercel, Cloudflare, Resend, Anthropic and Google also process data in the USA. Transfers are based on the European Commission's adequacy decision for the EU-US Data Privacy Framework (Art. 45 GDPR) where the provider is certified under it, and otherwise on the European Commission's standard contractual clauses (Art. 46(2)(c) GDPR).</p>
 
-      <h2>7. Right of complaint</h2>
+      <h2>8. Your rights</h2>
+      <p>You have the right to access the data we store about you (Art. 15 GDPR), to rectification (Art. 16), erasure (Art. 17), restriction of processing (Art. 18) and data portability (Art. 20). You can withdraw any consent you have given at any time with effect for the future (Art. 7(3) GDPR). Simply contact us.</p>
+      <p><strong>Right to object:</strong> Where we process data on the basis of Art. 6(1)(f) GDPR, you may object at any time on grounds relating to your particular situation (Art. 21 GDPR).</p>
+
+      <h2>9. SSL encryption</h2>
+      <p>For security reasons this site uses SSL encryption. An encrypted connection is indicated by the browser address bar changing from "http://" to "https://" and by the padlock icon in your browser bar.</p>
+
+      <h2>10. Right of complaint</h2>
       <p>You have the right to complain to a data-protection supervisory authority about our processing of your personal data. The relevant authority is the Berlin Commissioner for Data Protection and Freedom of Information.</p>
+
+      <p>This English version is provided for convenience; the German version is authoritative. Last updated: October 2026</p>
     </div>
   </div>
 </section>
@@ -202,13 +215,14 @@
         <a href="../en/imprint.html">Imprint</a>
         <a href="../en/privacy.html">Privacy Policy</a>
         <a href="../en/terms.html">Terms</a>
+        <a href="../en/privacy.html#cookies" data-cookie-settings>Cookie settings</a>
       </div>
     </div>
   </div>
 </footer>
 
 <div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Cookie notice">
-  <p><strong>We respect your privacy.</strong> This site uses only strictly necessary cookies by default. With your consent, optional analytics cookies help us improve it. See our <a href="../en/privacy.html" style="color:var(--green);">Privacy Policy</a>.</p>
+  <p><strong>We respect your privacy.</strong> With your consent we use Google Analytics to improve this site and Google Ads to measure our ads and personalise advertising. Google sets cookies for this and may transfer data to the USA. You can change your choice at any time under “Cookie settings”. See our <a href="../en/privacy.html" style="color:var(--green);">Privacy Policy</a>.</p>
   <div class="actions">
     <button class="btn btn--primary" data-consent="all">Accept all</button>
     <button class="btn btn--ghost" data-consent="essential">Essential only</button>
@@ -216,6 +230,6 @@
 </div>
 
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/main.js?v=20261013" defer></script>
 </body>
 </html>

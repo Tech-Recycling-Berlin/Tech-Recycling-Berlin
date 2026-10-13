@@ -26,10 +26,8 @@
 <meta name="twitter:description" content="Tech Recycling Berlin: zertifizierter Entsorgungsfachbetrieb für IT-Entsorgung, DSGVO-Datenlöschung und nachhaltiges Recycling. Seit Jahren Ihr Partner in Berlin.">
 <link rel="icon" href="assets/images/favicon.ico">
 <link rel="apple-touch-icon" href="assets/images/Logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/fonts/fonts.css?v=20261013">
+<link rel="stylesheet" href="assets/css/style.css?v=20261013">
 
 <!-- Google tag (gtag.js) — Tech Recycling, Consent Mode v2 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q6J4WS153D"></script>
@@ -46,7 +44,7 @@
     'wait_for_update': 500
   });
   try {
-    if (localStorage.getItem('trb_cookie_consent_v1') === 'all') {
+    if (localStorage.getItem('trb_cookie_consent_v2') === 'all') {
       gtag('consent', 'update', {
         'ad_storage': 'granted',
         'ad_user_data': 'granted',
@@ -220,13 +218,14 @@
         <a href="impressum.html">Impressum</a>
         <a href="datenschutz.html">Datenschutz</a>
         <a href="agb.html">AGB</a>
+        <a href="datenschutz.html#cookies" data-cookie-settings>Cookie-Einstellungen</a>
       </div>
     </div>
   </div>
 </footer>
 
 <div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Cookie Hinweis">
-  <p><strong>Wir respektieren Ihre Privatsphäre.</strong> Diese Website nutzt nur technisch notwendige Cookies. Mit Ihrer Zustimmung helfen uns optionale Analyse-Cookies, die Seite zu verbessern. Details in unserer <a href="datenschutz.html" style="color:var(--green);">Datenschutzerklärung</a>.</p>
+  <p><strong>Wir respektieren Ihre Privatsphäre.</strong> Mit Ihrer Zustimmung nutzen wir Google Analytics, um die Seite zu verbessern, und Google Ads, um den Erfolg unserer Anzeigen zu messen und Werbung zu personalisieren. Dabei setzt Google Cookies und kann Daten in die USA übermitteln. Ihre Wahl können Sie jederzeit unter „Cookie-Einstellungen“ ändern. Details in unserer <a href="datenschutz.html" style="color:var(--green);">Datenschutzerklärung</a>.</p>
   <div class="actions">
     <button class="btn btn--primary" data-consent="all">Alle akzeptieren</button>
     <button class="btn btn--ghost" data-consent="essential">Nur notwendige</button>
@@ -234,6 +233,6 @@
 </div>
 
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-<script src="assets/js/main.js" defer></script>
+<script src="assets/js/main.js?v=20261013" defer></script>
 </body>
 </html>
