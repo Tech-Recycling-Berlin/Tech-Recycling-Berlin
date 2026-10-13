@@ -856,6 +856,20 @@ p{margin:0 0 1em;color:var(--ink-3)}
 .call-fab:hover{background:var(--green-dark);color:#fff;transform:translateY(-3px) scale(1.05)}
 .call-fab svg{width:22px;height:22px}
 
+/* ---------- Cookie banner (same markup + storage key as the sub-pages) ---------- */
+.cookie-banner{
+  position:fixed;bottom:1rem;left:1rem;right:1rem;z-index:75;
+  max-width:480px;margin-left:auto;
+  background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1px solid var(--line);border-radius:var(--radius);
+  padding:1.25rem;box-shadow:var(--shadow-lg);font-size:.9rem;
+  transform:translateY(calc(100% + 2rem));transition:transform .45s var(--ease);
+}
+.cookie-banner.is-visible{transform:translateY(0)}
+.cookie-banner p{margin:0 0 1rem;font-size:.88rem}
+.cookie-banner .actions{display:flex;gap:.5rem;flex-wrap:wrap}
+.cookie-banner .btn{padding:.6rem 1rem;font-size:.85rem}
+
 /* ---------- Reveal ---------- */
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .75s var(--ease), transform .75s var(--ease)}
 .reveal.is-in{opacity:1;transform:none}
@@ -952,7 +966,7 @@ p{margin:0 0 1em;color:var(--ink-3)}
 }
 </style>
 <!-- Google tag (gtag.js) — Tech Recycling, Consent Mode v2 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7L4J2ZBQVP"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q6J4WS153D"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -976,7 +990,7 @@ p{margin:0 0 1em;color:var(--ink-3)}
     }
   } catch(e) {}
   gtag('js', new Date());
-  gtag('config', 'G-7L4J2ZBQVP');
+  gtag('config', 'G-Q6J4WS153D');
   gtag('config', 'AW-11395987098');
 </script>
 </head>
@@ -1544,6 +1558,14 @@ p{margin:0 0 1em;color:var(--ink-3)}
 
 <div class="scroll-progress" id="progress"></div>
 
+<div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Cookie Hinweis">
+  <p><strong>Wir respektieren Ihre Privatsphäre.</strong> Diese Website nutzt nur technisch notwendige Cookies. Mit Ihrer Zustimmung helfen uns optionale Analyse-Cookies, die Seite zu verbessern. Details in unserer <a href="datenschutz.html" style="color:var(--green);">Datenschutzerklärung</a>.</p>
+  <div class="actions">
+    <button class="btn btn--primary" data-consent="all">Alle akzeptieren</button>
+    <button class="btn btn--ghost" data-consent="essential">Nur notwendige</button>
+  </div>
+</div>
+
 <script>
 (function(){
   'use strict';
@@ -1690,6 +1712,35 @@ p{margin:0 0 1em;color:var(--ink-3)}
       history.pushState(null, '', href);
     });
   });
+
+  // Cookie banner + Consent Mode update. Sub-pages get this from main.js,
+  // which the homepage doesn't load; same storage key, so one choice holds
+  // site-wide. Without it, homepage visitors could never grant consent.
+  function updateGtagConsent(choice){
+    if(typeof window.gtag !== 'function') return;
+    var state = choice === 'all' ? 'granted' : 'denied';
+    window.gtag('consent', 'update', {
+      'ad_storage': state,
+      'ad_user_data': state,
+      'ad_personalization': state,
+      'analytics_storage': state
+    });
+  }
+  try {
+    var KEY = 'trb_cookie_consent_v1';
+    var banner = document.getElementById('cookie-banner');
+    if(banner && !localStorage.getItem(KEY)){
+      setTimeout(function(){ banner.classList.add('is-visible'); }, 1200);
+      banner.querySelectorAll('[data-consent]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var choice = btn.getAttribute('data-consent');
+          localStorage.setItem(KEY, choice);
+          updateGtagConsent(choice);
+          banner.classList.remove('is-visible');
+        });
+      });
+    }
+  } catch(err){ /* storage may be blocked */ }
 })();
 </script>
 </body>
