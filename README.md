@@ -20,6 +20,8 @@ Built as static HTML + CSS + JS (no build step required), with PHP for contact f
 ├── impressum.html                    # Legal: Imprint
 ├── datenschutz.html                  # Legal: Privacy
 ├── agb.html                          # Legal: Terms
+├── it-entsorgung-potsdam-brandenburg.html  # Local page (DE only)
+├── ratgeber/                         # Guides (DE only): index + 4 articles
 │
 ├── en/                               # English mirror
 │   ├── index.html
@@ -39,8 +41,10 @@ Built as static HTML + CSS + JS (no build step required), with PHP for contact f
 ├── assets/
 │   ├── css/style.css                 # All styles
 │   ├── js/main.js                    # Mobile nav, scroll reveals, cookie banner
+│   ├── fonts/                        # Manrope + Inter (self-hosted, OFL)
 │   └── images/
-│       ├── logo.png                  # Full-colour logo
+│       ├── Logo.png                  # Full-size logo (apple-touch-icon, JSON-LD)
+│       ├── logo-400.webp             # Logo as shown in header/footer
 │       └── favicon.ico
 │
 ├── sendemail.php                     # Contact-form handler (requires PHPMailer)
@@ -72,7 +76,7 @@ Built as static HTML + CSS + JS (no build step required), with PHP for contact f
   - `BreadcrumbList` on homepage
 - XML sitemap with hreflang alternates
 - Robots.txt pointing to sitemap
-- Semantic HTML5 (`<header>`, `<nav>`, `<main>`-equivalent, `<article>`, `<section>`, `<footer>`)
+- Semantic HTML5 (`<header>`, `<nav>`, `<main>`, `<article>`, `<section>`, `<footer>`)
 - Accessible: ARIA labels, landmark roles, keyboard-friendly forms
 
 ## Local preview
@@ -131,6 +135,11 @@ Edit CSS variables at the top of `assets/css/style.css`:
 2. Update `<title>`, meta description, canonical, hreflang links
 3. Change the `active` state in the navigation
 4. Add the URL to `sitemap.xml`
+5. A page without an English twin: point the `EN` switch to the closest English page
+
+Old addresses of the previous website (e.g. `/service-details-3`) are 301-redirected
+in `vercel.json`. Files under `/assets/` are cached for a year: when `style.css` or
+`main.js` changes, bump the `?v=` query string on every page.
 
 ## Browser support
 
@@ -143,8 +152,9 @@ fall back to visible content).
 - No build step, no framework overhead
 - Only ~25 kB of CSS, ~3 kB of JS (minified would be ~18 kB / ~2 kB)
 - Lazy reveal via IntersectionObserver
-- Fonts loaded with `preconnect` + `display=swap`
-- Images: logo PNGs, custom SVG for hero (scalable, no binary images in hero)
+- Fonts self-hosted, `@font-face` inline in each page, `font-display: swap`
+- Google tag (gtag.js) is fetched after the page has loaded; consent defaults are set before
+- Images: logo as 400 px WebP, custom SVG for hero (scalable, no binary images in hero)
 
 ---
 

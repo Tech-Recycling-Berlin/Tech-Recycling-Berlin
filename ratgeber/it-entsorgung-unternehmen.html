@@ -27,11 +27,26 @@
 <meta name="twitter:description" content="Was Unternehmen bei Laptops, PCs und Servern beachten müssen: getrennte Erfassung, Batterien, Datenlöschung und Nachweise nach ElektroG und DSGVO.">
 <link rel="icon" href="/assets/images/favicon.ico">
 <link rel="apple-touch-icon" href="/assets/images/Logo.png">
-<link rel="stylesheet" href="/assets/fonts/fonts.css?v=20261013">
-<link rel="stylesheet" href="/assets/css/style.css?v=20261013">
+<style>/* Manrope + Inter, selbst gehostet (OFL 1.1, assets/fonts/), inline statt fonts.css: spart eine blockierende Anfrage */
+@font-face {font-family: 'Manrope';font-style: normal;font-display: swap;font-weight: 200 800;src: url(/assets/fonts/manrope-latin-ext-wght-normal.woff2) format('woff2');unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face {font-family: 'Manrope';font-style: normal;font-display: swap;font-weight: 200 800;src: url(/assets/fonts/manrope-latin-wght-normal.woff2) format('woff2');unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face {font-family: 'Inter';font-style: normal;font-display: swap;font-weight: 100 900;src: url(/assets/fonts/inter-latin-ext-wght-normal.woff2) format('woff2');unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face {font-family: 'Inter';font-style: normal;font-display: swap;font-weight: 100 900;src: url(/assets/fonts/inter-latin-wght-normal.woff2) format('woff2');unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+</style>
+<link rel="stylesheet" href="/assets/css/style.css?v=20261013b">
 
 <!-- Google tag (gtag.js) — Tech Recycling, Consent Mode v2 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q6J4WS153D"></script>
+<script>
+  // gtag.js erst nach dem Laden der Seite holen: Die Befehle unten warten in dataLayer,
+  // die Seite wird nicht durch das Skript gebremst.
+  addEventListener('load', function () {
+    (window.requestIdleCallback || setTimeout)(function () {
+      var s = document.createElement('script'); s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-Q6J4WS153D';
+      document.head.appendChild(s);
+    });
+  });
+</script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -75,14 +90,14 @@
 .guide-list a{font-weight:600}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://www.techrecycling-berlin.com/"}, {"@type": "ListItem", "position": 2, "name": "Ratgeber", "item": "https://www.techrecycling-berlin.com/ratgeber"}, {"@type": "ListItem", "position": 3, "name": "IT-Entsorgung im Unternehmen", "item": "https://www.techrecycling-berlin.com/ratgeber/it-entsorgung-unternehmen"}]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "IT-Geräte als Unternehmen entsorgen: Pflichten nach ElektroG und DSGVO", "description": "Was Unternehmen bei Laptops, PCs und Servern beachten müssen: getrennte Erfassung, Batterien, Datenlöschung und Nachweise nach ElektroG und DSGVO.", "inLanguage": "de-DE", "datePublished": "2026-10-13", "dateModified": "2026-10-13", "author": {"@type": "Organization", "name": "Tech Recycling Berlin", "url": "https://www.techrecycling-berlin.com/", "logo": {"@type": "ImageObject", "url": "https://www.techrecycling-berlin.com/assets/images/Logo.png"}}, "publisher": {"@type": "Organization", "name": "Tech Recycling Berlin", "url": "https://www.techrecycling-berlin.com/", "logo": {"@type": "ImageObject", "url": "https://www.techrecycling-berlin.com/assets/images/Logo.png"}}, "mainEntityOfPage": "https://www.techrecycling-berlin.com/ratgeber/it-entsorgung-unternehmen", "image": "https://www.techrecycling-berlin.com/assets/images/og-image.png"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "IT-Geräte als Unternehmen entsorgen: Pflichten nach ElektroG und DSGVO", "description": "Was Unternehmen bei Laptops, PCs und Servern beachten müssen: getrennte Erfassung, Batterien, Datenlöschung und Nachweise nach ElektroG und DSGVO.", "inLanguage": "de-DE", "datePublished": "2026-10-13", "dateModified": "2026-10-13", "author": {"@type": "Organization", "name": "Tech Recycling Berlin", "url": "https://www.techrecycling-berlin.com/", "logo": {"@type": "ImageObject", "url": "https://www.techrecycling-berlin.com/assets/images/Logo.png"}}, "publisher": {"@type": "Organization", "name": "Tech Recycling Berlin", "url": "https://www.techrecycling-berlin.com/", "logo": {"@type": "ImageObject", "url": "https://www.techrecycling-berlin.com/assets/images/Logo.png"}}, "mainEntityOfPage": "https://www.techrecycling-berlin.com/ratgeber/it-entsorgung-unternehmen", "image": "https://www.techrecycling-berlin.com/assets/images/og-image.png", "citation": ["https://www.gesetze-im-internet.de/elektrog_2015/__10.html", "https://www.gesetze-im-internet.de/elektrog_2015/__19.html", "https://eur-lex.europa.eu/eli/reg/2016/679/oj/deu", "https://eur-lex.europa.eu/eli/reg/2016/679/art_32/oj/deu", "https://www.gesetze-im-internet.de/krwg/"]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Wer ist für die Datenlöschung verantwortlich?", "acceptedAnswer": {"@type": "Answer", "text": "Nach dem ElektroG die Endnutzer selbst, also Ihr Unternehmen. Wir übernehmen die Löschung und liefern Ihnen zu jeder Löschung ein Löschzertifikat als Nachweis."}}, {"@type": "Question", "name": "Was passiert mit Batterien und Akkus?", "acceptedAnswer": {"@type": "Answer", "text": "Lose Batterien und Akkus müssen vor der Abgabe entnommen werden; wir nehmen sie nicht an, auch keine Ersatzakkus aus USV-Anlagen. Akkus, die im Gerät verbaut sind, sind kein Problem."}}, {"@type": "Question", "name": "Ist die Abholung kostenlos?", "acceptedAnswer": {"@type": "Answer", "text": "Ja, in Berlin und Brandenburg holen wir kostenlos ab, bundesweit auf Anfrage."}}]}</script>
 </head>
 <body>
 <header class="site-header">
   <div class="container site-header__inner">
     <a class="brand" href="/" aria-label="Tech Recycling Berlin Startseite">
-      <img src="/assets/images/Logo.png" alt="Tech Recycling Berlin" width="84" height="84">
+      <img src="/assets/images/logo-400.webp" alt="Tech Recycling Berlin" width="400" height="194">
     </a>
     <nav class="nav" aria-label="Hauptnavigation">
       <a href="/">Startseite</a>
@@ -132,6 +147,7 @@
   <a href="/en/it-recycling" style="color:var(--muted);font-size:1rem;">→ English</a>
   <a href="/kontakt" class="btn btn--primary mobile-cta">Angebot anfragen</a>
 </div>
+<main id="main">
 <section class="page-hero">
   <div class="container page-hero__inner hero-in">
     <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -149,7 +165,7 @@
 <p class="guide-meta">Zuletzt aktualisiert: 13.10.2026</p>
 <h2>Was das ElektroG verlangt</h2>
 <ul>
-<li><strong>Getrennte Erfassung:</strong> Besitzer von Altgeräten müssen diese getrennt vom unsortierten Siedlungsabfall erfassen (§ 10 Abs. 1 ElektroG).</li>
+<li><strong>Getrennte Erfassung:</strong> Endnutzer von Altgeräten müssen diese getrennt vom unsortierten Siedlungsabfall erfassen (§ 10 Abs. 1 ElektroG).</li>
 <li><strong>Batterien entnehmen:</strong> Altbatterien und Altakkus, die nicht vom Gerät umschlossen sind, müssen vor der Abgabe getrennt werden (§ 10 Abs. 1 ElektroG).</li>
 <li><strong>Datenlöschung:</strong> Für das Löschen personenbezogener Daten auf Altgeräten sind die Endnutzer selbst verantwortlich.</li>
 <li><strong>Rückgabe:</strong> Hersteller müssen für Geräte aus gewerblicher Nutzung eine zumutbare Möglichkeit zur Rückgabe schaffen (§ 19 ElektroG). Viele Unternehmen beauftragen stattdessen einen Dienstleister, der Abholung, Datenlöschung und Verwertung aus einer Hand übernimmt.</li>
@@ -180,6 +196,15 @@
 <h2>Was wir übernehmen</h2>
 <p>Wir holen in Berlin und Brandenburg kostenlos ab – von einzelnen Laptops bis zu kompletten Serverräumen –, löschen oder vernichten die Datenträger, kaufen werthaltige Geräte an und führen den Rest der fachgerechten Verwertung zu. Wir arbeiten ausschließlich für Unternehmen, Behörden und Institutionen.</p>
 <p>Mehr zu den Leistungen: <a href="/it-recycling">IT-Recycling</a> · <a href="/server-entsorgung">Server-Entsorgung</a> · <a href="/it-ankauf">IT-Ankauf</a></p>
+<h2>Quellen</h2>
+<p>Die genannten Vorschriften im amtlichen Wortlaut:</p>
+<ul>
+<li><a href="https://www.gesetze-im-internet.de/elektrog_2015/__10.html">§ 10 ElektroG – Getrennte Erfassung</a></li>
+<li><a href="https://www.gesetze-im-internet.de/elektrog_2015/__19.html">§ 19 ElektroG – Rücknahme durch die Hersteller</a></li>
+<li><a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj/deu">Datenschutz-Grundverordnung (DSGVO), EUR-Lex</a></li>
+<li><a href="https://eur-lex.europa.eu/eli/reg/2016/679/art_32/oj/deu">Art. 32 DSGVO – Sicherheit der Verarbeitung</a></li>
+<li><a href="https://www.gesetze-im-internet.de/krwg/">Kreislaufwirtschaftsgesetz (KrWG)</a></li>
+</ul>
 <h2>Häufige Fragen</h2>
 <div class="faq-list" style="margin:1rem 0 0">
 <details class="faq-item"><summary>Wer ist für die Datenlöschung verantwortlich?</summary><div class="faq-item__body"><p>Nach dem ElektroG die Endnutzer selbst, also Ihr Unternehmen. Wir übernehmen die Löschung und liefern Ihnen zu jeder Löschung ein Löschzertifikat als Nachweis.</p></div></details>
@@ -189,12 +214,13 @@
     </div>
   </div>
 </section>
+</main>
 <footer class="site-footer">
   <div class="container">
     <div class="footer-grid">
       <div>
         <a href="/" class="brand">
-          <img src="/assets/images/Logo.png" alt="Tech Recycling Berlin" width="40" height="40">
+          <img src="/assets/images/logo-400.webp" alt="Tech Recycling Berlin" width="400" height="194" loading="lazy" decoding="async">
         </a>
         <p>Fachgerechte IT-Entsorgung, DSGVO-konforme Datenlöschung und nachhaltiges IT Recycling — seit Jahren Ihr verlässlicher Partner in Berlin und ganz Deutschland.</p>
         <div class="footer-social" aria-label="Social Media">
@@ -202,7 +228,7 @@
         </div>
       </div>
       <div class="footer-col">
-        <h4>Leistungen</h4>
+        <p class="footer-title">Leistungen</p>
         <ul>
           <li><a href="/sichere-datenloeschung">Sichere Datenlöschung</a></li>
           <li><a href="/it-ankauf">IT-Ankauf</a></li>
@@ -213,7 +239,7 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Unternehmen</h4>
+        <p class="footer-title">Unternehmen</p>
         <ul>
           <li><a href="/ueber-uns">Über uns</a></li>
           <li><a href="/faq">FAQ</a></li>
@@ -223,7 +249,7 @@
         </ul>
       </div>
       <div class="footer-col footer-contact">
-        <h4>Kontakt</h4>
+        <p class="footer-title">Kontakt</p>
         <p style="color:#9aa896;margin-bottom:1rem">Keithstraße 15<br>10787 Berlin<br>Deutschland</p>
         <a href="tel:+4915566044719">+49 155 66044719</a>
         <a href="mailto:info@techrecycling-berlin.com">info@techrecycling-berlin.com</a>
@@ -243,7 +269,7 @@
 </footer>
 
 <div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Cookie Hinweis">
-  <p><strong>Wir respektieren Ihre Privatsphäre.</strong> Mit Ihrer Zustimmung nutzen wir Google Analytics, um die Seite zu verbessern, und Google Ads, um den Erfolg unserer Anzeigen zu messen und Werbung zu personalisieren. Dabei setzt Google Cookies und kann Daten in die USA übermitteln. Ihre Wahl können Sie jederzeit unter „Cookie-Einstellungen“ ändern. Details in unserer <a href="/datenschutz" style="color:var(--green);">Datenschutzerklärung</a>.</p>
+  <p><strong>Wir respektieren Ihre Privatsphäre.</strong> Mit Ihrer Zustimmung nutzen wir Google Analytics, um die Seite zu verbessern, und Google Ads, um den Erfolg unserer Anzeigen zu messen und Werbung zu personalisieren. Dabei setzt Google Cookies und kann Daten in die USA übermitteln. Ihre Wahl können Sie jederzeit unter „Cookie-Einstellungen“ ändern. Details in unserer <a href="/datenschutz" style="color:var(--green-dark);text-decoration:underline">Datenschutzerklärung</a>.</p>
   <div class="actions">
     <button class="btn btn--primary" data-consent="all">Alle akzeptieren</button>
     <button class="btn btn--ghost" data-consent="essential">Nur notwendige</button>
