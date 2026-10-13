@@ -41,7 +41,6 @@ Built as static HTML + CSS + JS (no build step required), with PHP for contact f
 │   ├── js/main.js                    # Mobile nav, scroll reveals, cookie banner
 │   └── images/
 │       ├── logo.png                  # Full-colour logo
-│       ├── logo-white.png            # White logo for dark backgrounds
 │       └── favicon.ico
 │
 ├── sendemail.php                     # Contact-form handler (requires PHPMailer)
