@@ -47,6 +47,14 @@ Mid-size and enterprise companies, data centres, hosting providers, managed serv
 - [Löschzertifikat: Was drinstehen muss](https://www.techrecycling-berlin.com/ratgeber/loeschzertifikat): device, data carrier, serial number, erasure method and time; DIN 66399 applies only to physical destruction.
 - [Firmen-Laptops verkaufen statt entsorgen](https://www.techrecycling-berlin.com/ratgeber/firmen-laptops-verkaufen): Apple up to 5 years, Windows up to 3 years from purchase date; price binding after inspection.
 
+## Guides (English)
+- [Guides – overview](https://www.techrecycling-berlin.com/en/guides)
+- [GDPR-compliant hard drive erasure: software or destruction?](https://www.techrecycling-berlin.com/en/guides/erase-hard-drives-gdpr): certified erasure software for working drives and SSDs; physical destruction per DIN 66399 only for drives that cannot be erased.
+- [Disposing of IT as a business: duties under ElektroG and GDPR](https://www.techrecycling-berlin.com/en/guides/it-disposal-for-businesses): separate collection, removing loose batteries, end-user responsibility for data deletion, proof documents.
+- [Data erasure certificate: what it must contain](https://www.techrecycling-berlin.com/en/guides/data-erasure-certificate): device, drive, serial number, erasure method and time; DIN 66399 applies only to physical destruction.
+- [Selling company laptops instead of scrapping them](https://www.techrecycling-berlin.com/en/guides/sell-company-laptops): Apple up to 5 years, Windows up to 3 years from purchase date; price binding after inspection.
+- [IT disposal in Potsdam and Brandenburg](https://www.techrecycling-berlin.com/en/it-disposal-potsdam-brandenburg): free pickup for businesses across Brandenburg.
+
 ## How it works (4-step process)
 1. **Request** — tell us device count and type by phone, email or the website form. Non-binding estimate within 24 h; the price becomes binding once we have inspected the devices.
 2. **Pickup** — free sealed pickup in Berlin / Brandenburg, nationwide on request, with a pickup receipt at handover.

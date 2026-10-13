@@ -20,8 +20,8 @@ Built as static HTML + CSS + JS (no build step required), with PHP for contact f
 ├── impressum.html                    # Legal: Imprint
 ├── datenschutz.html                  # Legal: Privacy
 ├── agb.html                          # Legal: Terms
-├── it-entsorgung-potsdam-brandenburg.html  # Local page (DE only)
-├── ratgeber/                         # Guides (DE only): index + 4 articles
+├── it-entsorgung-potsdam-brandenburg.html  # Local page Potsdam & Brandenburg
+├── ratgeber/                         # Guides (DE): index + 4 articles
 │
 ├── en/                               # English mirror
 │   ├── index.html
@@ -36,7 +36,9 @@ Built as static HTML + CSS + JS (no build step required), with PHP for contact f
 │   ├── data-recovery.html
 │   ├── imprint.html
 │   ├── privacy.html
-│   └── terms.html
+│   ├── terms.html
+│   ├── it-disposal-potsdam-brandenburg.html
+│   └── guides/                       # Guides (EN), twins of ratgeber/
 │
 ├── assets/
 │   ├── css/style.css                 # All styles

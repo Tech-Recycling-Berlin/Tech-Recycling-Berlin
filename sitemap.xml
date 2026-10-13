@@ -157,36 +157,84 @@
     <loc>https://www.techrecycling-berlin.com/ratgeber</loc>
     <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/ratgeber"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/guides"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.techrecycling-berlin.com/ratgeber"/>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/ratgeber/festplatten-dsgvo-konform-loeschen</loc>
     <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/ratgeber/festplatten-dsgvo-konform-loeschen"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/guides/erase-hard-drives-gdpr"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.techrecycling-berlin.com/ratgeber/festplatten-dsgvo-konform-loeschen"/>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/ratgeber/it-entsorgung-unternehmen</loc>
     <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/ratgeber/it-entsorgung-unternehmen"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/guides/it-disposal-for-businesses"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.techrecycling-berlin.com/ratgeber/it-entsorgung-unternehmen"/>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/ratgeber/loeschzertifikat</loc>
     <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/ratgeber/loeschzertifikat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/guides/data-erasure-certificate"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.techrecycling-berlin.com/ratgeber/loeschzertifikat"/>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/ratgeber/firmen-laptops-verkaufen</loc>
     <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/ratgeber/firmen-laptops-verkaufen"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/guides/sell-company-laptops"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.techrecycling-berlin.com/ratgeber/firmen-laptops-verkaufen"/>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/it-entsorgung-potsdam-brandenburg</loc>
     <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/it-entsorgung-potsdam-brandenburg"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/it-disposal-potsdam-brandenburg"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.techrecycling-berlin.com/it-entsorgung-potsdam-brandenburg"/>
+  </url>
+  <url>
+    <loc>https://www.techrecycling-berlin.com/en/guides/erase-hard-drives-gdpr</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/ratgeber/festplatten-dsgvo-konform-loeschen"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/guides/erase-hard-drives-gdpr"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.techrecycling-berlin.com/ratgeber/festplatten-dsgvo-konform-loeschen"/>
+  </url>
+  <url>
+    <loc>https://www.techrecycling-berlin.com/en/guides/it-disposal-for-businesses</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/ratgeber/it-entsorgung-unternehmen"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/guides/it-disposal-for-businesses"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.techrecycling-berlin.com/ratgeber/it-entsorgung-unternehmen"/>
+  </url>
+  <url>
+    <loc>https://www.techrecycling-berlin.com/en/guides/data-erasure-certificate</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/ratgeber/loeschzertifikat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/guides/data-erasure-certificate"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.techrecycling-berlin.com/ratgeber/loeschzertifikat"/>
+  </url>
+  <url>
+    <loc>https://www.techrecycling-berlin.com/en/guides/sell-company-laptops</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/ratgeber/firmen-laptops-verkaufen"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/guides/sell-company-laptops"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.techrecycling-berlin.com/ratgeber/firmen-laptops-verkaufen"/>
+  </url>
+  <url>
+    <loc>https://www.techrecycling-berlin.com/en/it-disposal-potsdam-brandenburg</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/it-entsorgung-potsdam-brandenburg"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/it-disposal-potsdam-brandenburg"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.techrecycling-berlin.com/it-entsorgung-potsdam-brandenburg"/>
+  </url>
+  <url>
+    <loc>https://www.techrecycling-berlin.com/en/guides</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/ratgeber"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/guides"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.techrecycling-berlin.com/ratgeber"/>
   </url>
 </urlset>
