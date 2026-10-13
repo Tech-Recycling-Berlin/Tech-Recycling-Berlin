@@ -975,6 +975,9 @@ p{margin:0 0 1em;color:var(--ink-3)}
 .cookie-banner .btn{padding:.6rem 1rem;font-size:.85rem}
 
 /* ---------- Reveal ---------- */
+/* Hero: visible at first paint (LCP), only slides into place */
+.hero-in{animation:heroIn .7s var(--ease) both}
+@keyframes heroIn{from{transform:translateY(14px)}to{transform:none}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .75s var(--ease), transform .75s var(--ease)}
 .reveal.is-in{opacity:1;transform:none}
 
@@ -1151,7 +1154,7 @@ p{margin:0 0 1em;color:var(--ink-3)}
 <!-- HERO -->
 <section class="hero">
   <div class="container hero__grid">
-    <div class="hero__content reveal">
+    <div class="hero__content hero-in">
       <span class="hero__tag"><span class="dot"></span>Based in Berlin · Nationwide service</span>
       <h1>IT disposal that lets you sleep <em>soundly</em>.</h1>
       <p class="hero__lead">From a single laptop to a full data-centre decommission: we erase your data to BSI standards, recycle professionally under ElektroG/WEEE, and pay fair prices for high-value hardware — with certified data erasure and our disposal certificate.</p>

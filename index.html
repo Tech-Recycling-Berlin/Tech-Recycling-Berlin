@@ -351,7 +351,8 @@ p{margin:0 0 1em;color:var(--ink-3)}
 .brand img{width:108px;height:108px;object-fit:contain;transition:width .3s var(--ease),height .3s var(--ease)}
 .hdr.is-scrolled .brand img{width:96px;height:96px}
 .nav{display:flex;gap:1.4rem;align-items:center}
-.nav a{font-size:.95rem;font-weight:500;color:var(--ink-3);position:relative;padding:.4rem 0}
+.nav a{font-size:.95rem;font-weight:500;color:var(--ink-3);position:relative;padding:.4rem 0;white-space:nowrap}
+@media(max-width:1100px){.nav{gap:1.25rem}.nav>a[href="/"]{display:none}}
 .nav a.is-active{color:var(--ink)}
 .nav a::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .25s var(--ease)}
 .nav a:hover::after,.nav a.is-active::after{transform:scaleX(1)}
@@ -716,6 +717,10 @@ p{margin:0 0 1em;color:var(--ink-3)}
 .svc:hover .svc__link svg{transform:translateX(4px)}
 @media(max-width:900px){.services{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.services{grid-template-columns:1fr}}
+.services--2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:560px){.services--2{grid-template-columns:1fr}}
+.guides-more{text-align:center;margin-top:1.8rem;color:var(--ink-3)}
+.guides-more a{color:var(--green-dark);font-weight:600;text-decoration:underline;text-underline-offset:3px}
 
 /* ---------- CERT / WHY ---------- */
 .feature{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:center}
@@ -985,6 +990,9 @@ p{margin:0 0 1em;color:var(--ink-3)}
 .cookie-banner .btn{padding:.6rem 1rem;font-size:.85rem}
 
 /* ---------- Reveal ---------- */
+/* Hero: visible at first paint (LCP), only slides into place */
+.hero-in{animation:heroIn .7s var(--ease) both}
+@keyframes heroIn{from{transform:translateY(14px)}to{transform:none}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .75s var(--ease), transform .75s var(--ease)}
 .reveal.is-in{opacity:1;transform:none}
 
@@ -1131,6 +1139,7 @@ p{margin:0 0 1em;color:var(--ink-3)}
       </div>
       <a href="/ueber-uns">Über uns</a>
       <a href="/faq">FAQ</a>
+      <a href="/ratgeber">Ratgeber</a>
       <a href="/kontakt">Kontakt</a>
     </nav>
     <div class="hdr-actions">
@@ -1157,6 +1166,7 @@ p{margin:0 0 1em;color:var(--ink-3)}
   </div>
   <a href="/ueber-uns">Über uns</a>
   <a href="/faq">FAQ</a>
+  <a href="/ratgeber">Ratgeber</a>
   <a href="/kontakt">Kontakt</a>
   <a href="/en" style="color:var(--muted)">→ English</a>
   <a href="/kontakt" class="btn btn--primary" style="margin-top:.6rem">Angebot anfragen</a>
@@ -1165,7 +1175,7 @@ p{margin:0 0 1em;color:var(--ink-3)}
 <!-- HERO -->
 <section class="hero">
   <div class="container hero__grid">
-    <div class="hero__content reveal">
+    <div class="hero__content hero-in">
       <span class="hero__tag"><span class="dot"></span>Standort Berlin · Bundesweiter Service</span>
       <h1>IT-Entsorgung, die Sie <em>rechtssicher</em> schlafen lässt.</h1>
       <p class="hero__lead">Vom einzelnen Laptop bis zum kompletten Rechenzentrum: Wir löschen Ihre Daten nach BSI-Standard, recyceln fachgerecht nach ElektroG und zahlen faire Preise für werthaltige Hardware — mit zertifizierter Datenlöschung und Entsorgungszertifikat.</p>
@@ -1583,6 +1593,47 @@ p{margin:0 0 1em;color:var(--ink-3)}
         <div class="faq__body">Ja. Auf Wunsch führen wir die <strong>Datenlöschung und Festplattenvernichtung direkt vor Ort</strong> in Ihren Räumen durch — Ihre Daten verlassen nie Ihr Gebäude.</div>
       </details>
     </div>
+  </div>
+</section>
+
+<!-- RATGEBER -->
+<section class="section" id="ratgeber">
+  <div class="container">
+    <div class="s-head reveal">
+      <span class="eyebrow">Ratgeber</span>
+      <h2>Wissen rund um IT-Entsorgung</h2>
+      <p class="lead" style="margin:0 auto">Verständliche Antworten auf die Fragen, die Unternehmen uns am häufigsten stellen.</p>
+    </div>
+    <div class="services services--2">
+      <a href="/ratgeber/festplatten-dsgvo-konform-loeschen" class="svc reveal">
+        <span class="svc__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg></span>
+        <h3>Festplatten DSGVO-konform löschen</h3>
+        <p>Wann zertifizierte Löschsoftware reicht, wann physisch vernichtet wird – und welcher Nachweis zählt.</p>
+        <span class="svc__link">Weiterlesen <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4 4 4-4 4"/></svg></span>
+      </a>
+
+      <a href="/ratgeber/it-entsorgung-unternehmen" class="svc reveal">
+        <span class="svc__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg></span>
+        <h3>IT-Geräte als Unternehmen entsorgen</h3>
+        <p>Pflichten nach ElektroG und DSGVO: getrennte Erfassung, Datenlöschung und Nachweise.</p>
+        <span class="svc__link">Weiterlesen <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4 4 4-4 4"/></svg></span>
+      </a>
+
+      <a href="/ratgeber/loeschzertifikat" class="svc reveal">
+        <span class="svc__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg></span>
+        <h3>Löschzertifikat: Was drinstehen muss</h3>
+        <p>Woran Sie einen belastbaren Löschnachweis erkennen – und welche Fehler häufig vorkommen.</p>
+        <span class="svc__link">Weiterlesen <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4 4 4-4 4"/></svg></span>
+      </a>
+
+      <a href="/ratgeber/firmen-laptops-verkaufen" class="svc reveal">
+        <span class="svc__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg></span>
+        <h3>Firmen-Laptops verkaufen statt entsorgen</h3>
+        <p>Altersgrenzen, Preisfindung und Vorbereitung – wann Business-Geräte noch Geld bringen.</p>
+        <span class="svc__link">Weiterlesen <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4 4 4-4 4"/></svg></span>
+      </a>
+    </div>
+    <p class="guides-more reveal"><a href="/ratgeber">Alle Ratgeber ansehen</a> · <a href="/it-entsorgung-potsdam-brandenburg">IT-Entsorgung in Potsdam &amp; Brandenburg</a></p>
   </div>
 </section>
 
