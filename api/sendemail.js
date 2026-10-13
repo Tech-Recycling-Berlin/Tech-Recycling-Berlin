@@ -454,8 +454,8 @@ function renderPage({ lang, kind, title, message, backUrl, backLabel }) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${escapeHtml(title)}</title>
-<link rel="stylesheet" href="/assets/css/style.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Inter&display=swap">
+<link rel="stylesheet" href="/assets/css/style.css?v=20261013">
+<link rel="stylesheet" href="/assets/fonts/fonts.css?v=20261013">
 </head>
 <body>
 <section class="section" style="min-height:70vh;display:flex;align-items:center">

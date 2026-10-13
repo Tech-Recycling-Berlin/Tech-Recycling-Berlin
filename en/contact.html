@@ -26,10 +26,8 @@
 <meta name="twitter:description" content="Contact Tech Recycling Berlin for IT disposal, data erasure, or IT buyback. Quote within 24 hours. Keithstraße 15, 10787 Berlin.">
 <link rel="icon" href="../assets/images/favicon.ico">
 <link rel="apple-touch-icon" href="../assets/images/Logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/fonts/fonts.css?v=20261013">
+<link rel="stylesheet" href="../assets/css/style.css?v=20261013">
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <!-- Google tag (gtag.js) — Tech Recycling, Consent Mode v2 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q6J4WS153D"></script>
@@ -46,7 +44,7 @@
     'wait_for_update': 500
   });
   try {
-    if (localStorage.getItem('trb_cookie_consent_v1') === 'all') {
+    if (localStorage.getItem('trb_cookie_consent_v2') === 'all') {
       gtag('consent', 'update', {
         'ad_storage': 'granted',
         'ad_user_data': 'granted',
@@ -150,7 +148,7 @@
         <input type="hidden" name="lang" value="en">
         <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true">
         <h3 style="margin-top:0">Request a quote</h3>
-        <p style="color:var(--muted);font-size:.92rem;margin-bottom:1.5rem">The more precisely you describe the devices, the faster you get a quote — we reply within 24 hours. Required fields are marked with *.</p>
+        <p style="color:var(--muted);font-size:.92rem;margin-bottom:1.5rem">The more precisely you describe the devices, the faster you get a quote — we reply within 24 hours. Required fields are marked with *. We work exclusively for businesses, public authorities and institutions, not for private individuals.</p>
         <div class="form-status" role="status" aria-live="polite"></div>
 
         <div class="form-row form-row--salutation">
@@ -292,13 +290,14 @@
         <a href="../en/imprint.html">Imprint</a>
         <a href="../en/privacy.html">Privacy Policy</a>
         <a href="../en/terms.html">Terms</a>
+        <a href="../en/privacy.html#cookies" data-cookie-settings>Cookie settings</a>
       </div>
     </div>
   </div>
 </footer>
 
 <div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Cookie notice">
-  <p><strong>We respect your privacy.</strong> This site uses only strictly necessary cookies by default. With your consent, optional analytics cookies help us improve it. See our <a href="../en/privacy.html" style="color:var(--green);">Privacy Policy</a>.</p>
+  <p><strong>We respect your privacy.</strong> With your consent we use Google Analytics to improve this site and Google Ads to measure our ads and personalise advertising. Google sets cookies for this and may transfer data to the USA. You can change your choice at any time under “Cookie settings”. See our <a href="../en/privacy.html" style="color:var(--green);">Privacy Policy</a>.</p>
   <div class="actions">
     <button class="btn btn--primary" data-consent="all">Accept all</button>
     <button class="btn btn--ghost" data-consent="essential">Essential only</button>
@@ -306,6 +305,6 @@
 </div>
 
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/main.js?v=20261013" defer></script>
 </body>
 </html>

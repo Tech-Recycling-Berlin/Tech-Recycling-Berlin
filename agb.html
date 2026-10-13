@@ -26,10 +26,8 @@
 <meta name="twitter:description" content="Allgemeine Geschäftsbedingungen der Tech Recycling Berlin für IT-Entsorgung, Datenlöschung und Recycling.">
 <link rel="icon" href="assets/images/favicon.ico">
 <link rel="apple-touch-icon" href="assets/images/Logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/fonts/fonts.css?v=20261013">
+<link rel="stylesheet" href="assets/css/style.css?v=20261013">
 
 <!-- Google tag (gtag.js) — Tech Recycling, Consent Mode v2 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q6J4WS153D"></script>
@@ -46,7 +44,7 @@
     'wait_for_update': 500
   });
   try {
-    if (localStorage.getItem('trb_cookie_consent_v1') === 'all') {
+    if (localStorage.getItem('trb_cookie_consent_v2') === 'all') {
       gtag('consent', 'update', {
         'ad_storage': 'granted',
         'ad_user_data': 'granted',
@@ -127,30 +125,41 @@
     <div class="prose reveal">
       <h2>§ 1 Geltungsbereich</h2>
       <p>Diese Allgemeinen Geschäftsbedingungen gelten für alle Verträge zwischen der Tech Recycling Berlin (nachfolgend „Anbieter") und ihren Kunden über die Leistungen im Bereich IT-Entsorgung, Datenlöschung, IT-Ankauf, IT-Recycling, Festplattenvernichtung, Server-Entsorgung und Datenrettung. Abweichende Bedingungen des Kunden werden nicht anerkannt, es sei denn, der Anbieter stimmt ihrer Geltung ausdrücklich schriftlich zu.</p>
+      <p>Der Anbieter schließt Verträge ausschließlich mit Unternehmern im Sinne von § 14 BGB, juristischen Personen des öffentlichen Rechts und öffentlich-rechtlichen Sondervermögen. Mit Verbrauchern im Sinne von § 13 BGB kommen keine Verträge zustande; von Privatpersonen wird keine Hardware angenommen.</p>
 
       <h2>§ 2 Vertragsschluss</h2>
       <p>Angebote des Anbieters sind freibleibend. Ein Vertrag kommt erst durch schriftliche Auftragsbestätigung oder Beginn der Leistungserbringung zustande.</p>
 
       <h2>§ 3 Leistungsumfang</h2>
-      <p>Der konkrete Leistungsumfang ergibt sich aus dem individuellen Angebot bzw. der Auftragsbestätigung. Der Anbieter erbringt seine Leistungen nach dem jeweils aktuellen Stand der Technik und den geltenden gesetzlichen Vorschriften, insbesondere DSGVO, BDSG, ElektroG und DIN 66399.</p>
+      <p>Der konkrete Leistungsumfang ergibt sich aus dem individuellen Angebot bzw. der Auftragsbestätigung. Der Anbieter erbringt seine Leistungen nach dem jeweils aktuellen Stand der Technik und den geltenden gesetzlichen Vorschriften, insbesondere DSGVO, BDSG und ElektroG.</p>
+      <p>Lose Batterien und Akkus werden nicht angenommen, auch keine Ersatzakkus aus unterbrechungsfreien Stromversorgungen (USV). Akkus, die im Gerät verbaut sind, sind davon nicht betroffen.</p>
 
       <h2>§ 4 Preise und Zahlungsbedingungen</h2>
-      <p>Die Preise ergeben sich aus dem Angebot zzgl. der gesetzlichen Umsatzsteuer. Rechnungen sind innerhalb von 14 Tagen nach Rechnungsdatum ohne Abzug fällig. Bei IT-Ankauf erfolgt die Zahlung nach Eingang und Prüfung der Hardware.</p>
+      <p>Angebote beruhen auf den Angaben des Kunden zu Art, Menge und Zustand der Hardware und sind eine Einschätzung. Abgerechnet wird, was bei der Abholung tatsächlich übergeben und anschließend geprüft und bearbeitet wurde; maßgeblich ist die Rechnung.</p>
+      <p>Die Preise sind Endpreise. Der Anbieter ist Kleinunternehmer im Sinne von § 19 UStG; Umsatzsteuer wird daher nicht berechnet und nicht ausgewiesen. Rechnungen sind innerhalb von 14 Tagen nach Rechnungsdatum ohne Abzug fällig.</p>
 
-      <h2>§ 5 Pflichten des Kunden</h2>
+      <h2>§ 5 IT-Ankauf</h2>
+      <p>Angekauft werden Apple-Geräte bis zu einem Alter von fünf Jahren und Windows-Geräte bis zu einem Alter von drei Jahren, jeweils gerechnet ab Kaufdatum. Monitore und Netzwerktechnik (Switches, Router, Firewalls, Access Points) werden nicht angekauft, sondern zum Recycling übernommen.</p>
+      <p>Ankaufspreise stehen unter dem Vorbehalt der Prüfung durch den Anbieter. Zustandsangaben des Kunden sind keine Bewertungsgrundlage; maßgeblich ist der bei der Prüfung festgestellte Zustand. Geräte, die in einem Mobile-Device-Management oder im Apple Business Manager registriert und nicht freigegeben sind, können nicht vollständig geprüft werden und werden entsprechend zurückhaltend bewertet.</p>
+      <p>Lehnt der Kunde das Ankaufsangebot nach der Prüfung ab, gibt der Anbieter die Geräte kostenfrei zurück oder entsorgt sie nach Weisung des Kunden. Die Zahlung erfolgt nach Eingang und Prüfung der Hardware.</p>
+
+      <h2>§ 6 Pflichten des Kunden</h2>
       <p>Der Kunde sichert zu, Eigentümer der übergebenen Hardware zu sein oder über die erforderlichen Verfügungsbefugnisse zu verfügen. Er ist verpflichtet, vor Übergabe eigene Datensicherungen anzufertigen, soweit gewünscht.</p>
 
-      <h2>§ 6 Datenschutz und Datenlöschung</h2>
-      <p>Der Anbieter verpflichtet sich, alle im Rahmen der Leistungserbringung bekannt werdenden personenbezogenen Daten vertraulich zu behandeln und nach den gesetzlichen Bestimmungen zu verarbeiten. Die Datenlöschung erfolgt nach den anerkannten Standards BSI und DIN 66399.</p>
+      <h2>§ 7 Datenschutz und Datenlöschung</h2>
+      <p>Der Anbieter verpflichtet sich, alle im Rahmen der Leistungserbringung bekannt werdenden personenbezogenen Daten vertraulich zu behandeln und nach den gesetzlichen Bestimmungen zu verarbeiten.</p>
+      <p>Datenträger werden softwarebasiert mit Blancco nach BSI-GS bzw. BSI-GSK gelöscht; als Nachweis erhält der Kunde das Löschzertifikat von Blancco. Datenträger, die sich nicht softwarebasiert löschen lassen, etwa weil sie defekt oder gesperrt sind, werden physisch nach DIN 66399 vernichtet.</p>
 
-      <h2>§ 7 Haftung</h2>
+      <h2>§ 8 Haftung</h2>
       <p>Der Anbieter haftet unbeschränkt für Vorsatz und grobe Fahrlässigkeit sowie für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit. Bei leichter Fahrlässigkeit haftet der Anbieter nur bei Verletzung wesentlicher Vertragspflichten und begrenzt auf den vertragstypischen, vorhersehbaren Schaden.</p>
 
-      <h2>§ 8 Gerichtsstand und anwendbares Recht</h2>
+      <h2>§ 9 Gerichtsstand und anwendbares Recht</h2>
       <p>Gerichtsstand ist Berlin. Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts.</p>
 
-      <h2>§ 9 Salvatorische Klausel</h2>
+      <h2>§ 10 Salvatorische Klausel</h2>
       <p>Sollten einzelne Bestimmungen dieser AGB unwirksam oder undurchführbar sein, bleibt die Wirksamkeit der übrigen Bestimmungen unberührt.</p>
+
+      <p>Stand: Oktober 2026</p>
     </div>
   </div>
 </section>
@@ -200,13 +209,14 @@
         <a href="impressum.html">Impressum</a>
         <a href="datenschutz.html">Datenschutz</a>
         <a href="agb.html">AGB</a>
+        <a href="datenschutz.html#cookies" data-cookie-settings>Cookie-Einstellungen</a>
       </div>
     </div>
   </div>
 </footer>
 
 <div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Cookie Hinweis">
-  <p><strong>Wir respektieren Ihre Privatsphäre.</strong> Diese Website nutzt nur technisch notwendige Cookies. Mit Ihrer Zustimmung helfen uns optionale Analyse-Cookies, die Seite zu verbessern. Details in unserer <a href="datenschutz.html" style="color:var(--green);">Datenschutzerklärung</a>.</p>
+  <p><strong>Wir respektieren Ihre Privatsphäre.</strong> Mit Ihrer Zustimmung nutzen wir Google Analytics, um die Seite zu verbessern, und Google Ads, um den Erfolg unserer Anzeigen zu messen und Werbung zu personalisieren. Dabei setzt Google Cookies und kann Daten in die USA übermitteln. Ihre Wahl können Sie jederzeit unter „Cookie-Einstellungen“ ändern. Details in unserer <a href="datenschutz.html" style="color:var(--green);">Datenschutzerklärung</a>.</p>
   <div class="actions">
     <button class="btn btn--primary" data-consent="all">Alle akzeptieren</button>
     <button class="btn btn--ghost" data-consent="essential">Nur notwendige</button>
@@ -214,6 +224,6 @@
 </div>
 
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-<script src="assets/js/main.js" defer></script>
+<script src="assets/js/main.js?v=20261013" defer></script>
 </body>
 </html>

@@ -237,21 +237,35 @@
       });
     }
   }
-  try {
-    const KEY = 'trb_cookie_consent_v1';
-    const banner = document.getElementById('cookie-banner');
-    if (banner && !localStorage.getItem(KEY)) {
-      setTimeout(function () { banner.classList.add('is-visible'); }, 1200);
-      banner.querySelectorAll('[data-consent]').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          const choice = btn.getAttribute('data-consent');
-          localStorage.setItem(KEY, choice);
-          updateGtagConsent(choice);
-          banner.classList.remove('is-visible');
-        });
+  // v2: the banner now names Google Ads, so consent given under the old
+  // analytics-only text is asked for again once.
+  const CONSENT_KEY = 'trb_cookie_consent_v2';
+  const banner = document.getElementById('cookie-banner');
+  if (banner) {
+    banner.querySelectorAll('[data-consent]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const choice = btn.getAttribute('data-consent');
+        try { localStorage.setItem(CONSENT_KEY, choice); } catch (err) { /* storage may be blocked */ }
+        updateGtagConsent(choice);
+        banner.classList.remove('is-visible');
       });
-    }
-  } catch (err) { /* storage may be blocked */ }
+    });
+    let stored = null;
+    try { stored = localStorage.getItem(CONSENT_KEY); } catch (err) { /* storage may be blocked */ }
+    if (!stored) setTimeout(function () { banner.classList.add('is-visible'); }, 1200);
+    // Footer "Cookie-Einstellungen": reopen the banner so consent can be
+    // changed or withdrawn. stopPropagation keeps the page-transition
+    // handler from following the link's no-JS fallback.
+    document.querySelectorAll('[data-cookie-settings]').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        banner.classList.add('is-visible');
+        const first = banner.querySelector('[data-consent]');
+        if (first) first.focus({ preventScroll: true });
+      });
+    });
+  }
 
   // ---------- Click tracking: tel: and mailto: ----------
   document.addEventListener('click', function (e) {
@@ -262,8 +276,7 @@
     const isPhone = href.indexOf('tel:') === 0;
     window.gtag('event', isPhone ? 'click_phone' : 'click_email', {
       link_url: href,
-      link_text: (a.textContent || '').trim().slice(0, 80),
-      page_location: window.location.pathname
+      link_text: (a.textContent || '').trim().slice(0, 80)
     });
   });
 
