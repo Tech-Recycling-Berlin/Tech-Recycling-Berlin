@@ -5,151 +5,188 @@
   <!-- German pages -->
   <url>
     <loc>https://www.techrecycling-berlin.com/</loc>
-    <lastmod>2026-05-21</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.techrecycling-berlin.com/"/>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/sichere-datenloeschung</loc>
-    <lastmod>2026-05-21</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/sichere-datenloeschung"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/secure-data-erasure"/>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/it-ankauf</loc>
-    <lastmod>2026-05-21</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/it-ankauf"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/it-buyback"/>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/it-recycling</loc>
-    <lastmod>2026-05-21</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/it-recycling"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/it-recycling"/>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/festplattenvernichtung</loc>
-    <lastmod>2026-05-21</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/festplattenvernichtung"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/hard-drive-destruction"/>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/server-entsorgung</loc>
-    <lastmod>2026-05-21</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/server-entsorgung"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/server-disposal"/>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/datenrettung</loc>
-    <lastmod>2026-05-21</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/datenrettung"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/data-recovery"/>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/ueber-uns</loc>
-    <lastmod>2026-05-21</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/ueber-uns"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/about"/>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/faq</loc>
-    <lastmod>2026-05-21</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/faq"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/faq"/>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/kontakt</loc>
-    <lastmod>2026-05-21</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/kontakt"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/contact"/>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/impressum</loc>
-    <lastmod>2026-05-21</lastmod>
+    <lastmod>2026-10-13</lastmod>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/datenschutz</loc>
-    <lastmod>2026-05-21</lastmod>
+    <lastmod>2026-10-13</lastmod>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/agb</loc>
-    <lastmod>2026-05-21</lastmod>
+    <lastmod>2026-10-13</lastmod>
   </url>
 
   <!-- English pages -->
   <url>
-    <loc>https://www.techrecycling-berlin.com/en/</loc>
-    <lastmod>2026-05-21</lastmod>
+    <loc>https://www.techrecycling-berlin.com/en</loc>
+    <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.techrecycling-berlin.com/"/>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/en/secure-data-erasure</loc>
-    <lastmod>2026-05-21</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/sichere-datenloeschung"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/secure-data-erasure"/>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/en/it-buyback</loc>
-    <lastmod>2026-05-21</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/it-ankauf"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/it-buyback"/>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/en/it-recycling</loc>
-    <lastmod>2026-05-21</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/it-recycling"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/it-recycling"/>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/en/hard-drive-destruction</loc>
-    <lastmod>2026-05-21</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/festplattenvernichtung"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/hard-drive-destruction"/>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/en/server-disposal</loc>
-    <lastmod>2026-05-21</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/server-entsorgung"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/server-disposal"/>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/en/data-recovery</loc>
-    <lastmod>2026-05-21</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/datenrettung"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/data-recovery"/>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/en/about</loc>
-    <lastmod>2026-05-21</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/ueber-uns"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/about"/>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/en/faq</loc>
-    <lastmod>2026-05-21</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/faq"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/faq"/>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/en/contact</loc>
-    <lastmod>2026-05-21</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/kontakt"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.techrecycling-berlin.com/en/contact"/>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/en/imprint</loc>
-    <lastmod>2026-05-21</lastmod>
+    <lastmod>2026-10-13</lastmod>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/en/privacy</loc>
-    <lastmod>2026-05-21</lastmod>
+    <lastmod>2026-10-13</lastmod>
   </url>
   <url>
     <loc>https://www.techrecycling-berlin.com/en/terms</loc>
-    <lastmod>2026-05-21</lastmod>
+    <lastmod>2026-10-13</lastmod>
   </url>
 
+  <!-- Ratgeber & Einsatzgebiet (nur Deutsch) -->
+  <url>
+    <loc>https://www.techrecycling-berlin.com/ratgeber</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/ratgeber"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.techrecycling-berlin.com/ratgeber"/>
+  </url>
+  <url>
+    <loc>https://www.techrecycling-berlin.com/ratgeber/festplatten-dsgvo-konform-loeschen</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/ratgeber/festplatten-dsgvo-konform-loeschen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.techrecycling-berlin.com/ratgeber/festplatten-dsgvo-konform-loeschen"/>
+  </url>
+  <url>
+    <loc>https://www.techrecycling-berlin.com/ratgeber/it-entsorgung-unternehmen</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/ratgeber/it-entsorgung-unternehmen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.techrecycling-berlin.com/ratgeber/it-entsorgung-unternehmen"/>
+  </url>
+  <url>
+    <loc>https://www.techrecycling-berlin.com/ratgeber/loeschzertifikat</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/ratgeber/loeschzertifikat"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.techrecycling-berlin.com/ratgeber/loeschzertifikat"/>
+  </url>
+  <url>
+    <loc>https://www.techrecycling-berlin.com/ratgeber/firmen-laptops-verkaufen</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/ratgeber/firmen-laptops-verkaufen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.techrecycling-berlin.com/ratgeber/firmen-laptops-verkaufen"/>
+  </url>
+  <url>
+    <loc>https://www.techrecycling-berlin.com/it-entsorgung-potsdam-brandenburg</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.techrecycling-berlin.com/it-entsorgung-potsdam-brandenburg"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.techrecycling-berlin.com/it-entsorgung-potsdam-brandenburg"/>
+  </url>
 </urlset>

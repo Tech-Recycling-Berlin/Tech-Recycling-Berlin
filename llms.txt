@@ -33,11 +33,19 @@ Mid-size and enterprise companies, data centres, hosting providers, managed serv
 
 ## Key pages
 - [Home (DE)](https://www.techrecycling-berlin.com/)
-- [Home (EN)](https://www.techrecycling-berlin.com/en/)
+- [Home (EN)](https://www.techrecycling-berlin.com/en)
 - [About / Über uns](https://www.techrecycling-berlin.com/ueber-uns)
 - [FAQ (DE)](https://www.techrecycling-berlin.com/faq)
 - [FAQ (EN)](https://www.techrecycling-berlin.com/en/faq)
 - [Contact / Kontakt](https://www.techrecycling-berlin.com/kontakt)
+- [IT-Entsorgung Potsdam & Brandenburg](https://www.techrecycling-berlin.com/it-entsorgung-potsdam-brandenburg): free pickup for businesses across Brandenburg.
+
+## Guides (Ratgeber, German)
+- [Ratgeber – Übersicht](https://www.techrecycling-berlin.com/ratgeber)
+- [Festplatten DSGVO-konform löschen: Software oder Vernichtung?](https://www.techrecycling-berlin.com/ratgeber/festplatten-dsgvo-konform-loeschen): certified erasure software for working drives and SSDs; physical destruction per DIN 66399 only for drives that cannot be erased.
+- [IT-Geräte als Unternehmen entsorgen: Pflichten nach ElektroG und DSGVO](https://www.techrecycling-berlin.com/ratgeber/it-entsorgung-unternehmen): separate collection, removing loose batteries, end-user responsibility for data deletion, proof documents.
+- [Löschzertifikat: Was drinstehen muss](https://www.techrecycling-berlin.com/ratgeber/loeschzertifikat): device, data carrier, serial number, erasure method and time; DIN 66399 applies only to physical destruction.
+- [Firmen-Laptops verkaufen statt entsorgen](https://www.techrecycling-berlin.com/ratgeber/firmen-laptops-verkaufen): Apple up to 5 years, Windows up to 3 years from purchase date; price binding after inspection.
 
 ## How it works (4-step process)
 1. **Request** — tell us device count and type by phone, email or the website form. Non-binding estimate within 24 h; the price becomes binding once we have inspected the devices.
