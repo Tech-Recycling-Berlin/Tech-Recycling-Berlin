@@ -41,7 +41,8 @@ Built as static HTML + CSS + JS (no build step required), with PHP for contact f
 │   └── guides/                       # Guides (EN), twins of ratgeber/
 │
 ├── assets/
-│   ├── css/style.css                 # All styles
+│   ├── css/style.css                 # Styles of all subpages
+│   ├── css/home.css                  # Styles of the two homepages
 │   ├── js/main.js                    # Mobile nav, scroll reveals, cookie banner
 │   ├── fonts/                        # Manrope + Inter (self-hosted, OFL)
 │   └── images/
@@ -139,9 +140,14 @@ Edit CSS variables at the top of `assets/css/style.css`:
 4. Add the URL to `sitemap.xml`
 5. A page without an English twin: point the `EN` switch to the closest English page
 
-Old addresses of the previous website (e.g. `/service-details-3`) are 301-redirected
-in `vercel.json`. Files under `/assets/` are cached for a year: when `style.css` or
-`main.js` changes, bump the `?v=` query string on every page.
+Routing lives in `vercel.json` and answers with **301** everywhere (SEO tools flag
+Vercel's built-in 308): `cleanUrls` is off, `/page` is served from `page.html` by a
+rewrite, `/page.html`, `/page/` and `index` addresses redirect to the clean address, and
+old addresses of the previous website (e.g. `/service-details-3`) redirect to their new
+page. A new folder with an `index.html` (like `ratgeber/`) needs its own rewrite there.
+
+Files under `/assets/` are cached for a year: when `style.css`, `home.css` or `main.js`
+changes, bump the `?v=` query string on every page that loads it.
 
 ## Browser support
 
